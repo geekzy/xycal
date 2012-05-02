@@ -1,0 +1,172 @@
+@import "compass";
+@import "compass/css3";
+
+$w-320: 320px;
+$h-320: $w-320 / 7;
+
+.ui-xycal {
+	background: transparent;
+	margin: 0 auto;
+	border-collapse: collapse;
+	width: $w-320;
+
+	th {		
+		font-family: Verdana, Serif;
+		font-weight: bold;
+		font-size: 70%;
+		width: 14%;		
+		color: #aaa;		
+
+		&.ui-xycal-title {
+			font-size: 100%;
+			color: #666;
+		}
+		&.ui-xycal-shift {			
+			font-size: 70%;
+			font-weight: bolder;
+			color: #333;
+			span {
+				display: inline-block;
+				width: 18px;
+				height: 18px;
+				cursor: pointer;
+			}
+			span.left {
+				background: url(../images/icons-18-black-pack.png) -144px 0 transparent;
+			}
+			span.right {
+				background: url(../images/icons-18-black-pack.png) -108px 0 transparent;
+			}
+		}
+	}
+
+	td {
+		@extend th;
+		height: $h-320;
+		background: #D3D2D7;
+		color: #3F4E5E;
+		text-align: center;
+		border: 1px solid #A3A7AF;
+
+		span {
+			display: inline-block;
+			float: left;
+			width: 100%;
+			padding-top: 0.15 * $h-320;
+			margin-bottom: -1 * 0.35 * $h-320;
+			font-size: 50%;
+		}
+
+		&.ui-xycal-today {
+			background: #1980E5;
+			vertical-align: middle;
+			color: #fff;
+			@include box-shadow(
+				rgba(#244065, 0.5) 2px 2px 3px 2px inset
+			);
+		}
+
+		&.ui-xycal-selected {
+			@extend .ui-xycal-today;
+			background: #7188A8;
+		}
+
+		&.ui-xycal-others {
+			color: #aaa;
+		}
+	}
+}
+
+$w-480: 480px;
+$h-480: $w-480 / 7;
+@media only screen and (min-width: 480px) {
+	.ui-xycal {
+		width: $w-480;
+		th {
+			font-size: 70%;
+			&.ui-xycal-title {
+				font-size: 150%;
+			}
+			&.ui-xycal-shift {
+				font-size: 100%;
+				font-weight: bolder;
+				color: #333;
+			}
+		}
+		td {
+			font-size: 120%;
+			height: $h-480;
+			span {
+				padding-top: 0.15 * $h-480;
+				margin-bottom: -1 * 0.35 * $h-480;
+				font-size: 30%;
+			}
+		}
+	}
+}
+
+$w-768: 768px;
+$h-768: $w-768 / 7;
+@media only screen and (min-width: 768px) {
+	.ui-xycal {
+		width: $w-768;
+		th {
+			font-size: 70%;
+			&.ui-xycal-title {
+				font-size: 150%;
+			}
+			&.ui-xycal-shift {
+				font-size: 100%;
+				font-weight: bolder;
+				color: #333;
+				span {					
+					width: 36px;
+					height: 36px;					
+				}
+				span.left {
+					background: url(../images/icons-36-black-pack.png) -288px -0 transparent;
+				}
+				span.right {
+					background: url(../images/icons-36-black-pack.png) -216px -0 transparent;
+				}
+			}
+		}
+		td {
+			font-size: 150%;
+			height: $h-768;
+			span {
+				padding-top: 0.2 * $h-768;
+				margin-bottom: -1 * 0.37 * $h-768;
+				font-size: 35%;
+			}
+		}
+	}
+}
+
+$w-1024: 1024px;
+$h-1024: $w-1024 * 0.14;
+@media only screen and (min-width: 1024px) {
+	.ui-xycal {
+		width: $w-1024;
+		th {
+			font-size: 100%;
+			&.ui-xycal-title {
+				font-size: 170%;
+			}
+			&.ui-xycal-shift {
+				font-size: 150%;
+				font-weight: bolder;
+				color: #333;				
+			}
+		}
+		td {
+			font-size: 200%;
+			height: $h-1024;
+			span {
+				padding-top: 0.2 * $h-1024;
+				margin-bottom: -1 * 0.37 * $h-1024;
+				font-size: 25%;
+			}
+		}
+	}
+}

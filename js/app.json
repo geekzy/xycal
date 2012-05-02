@@ -1,0 +1,20 @@
+{
+	/** DEV for development mode or PROD for production mode **/
+	"mode": "DEV",	
+
+	/** JAVASCRIPTS **/
+	"js": [
+		/** jQuery core + patch */
+		{"path": "/js/jquery/jquery-1.7.1.min.js"},		
+
+		/** Plugins / Utility */
+
+		/** Modules - Remove or Comment these on PROD mode */		
+	],
+
+	/** STYLESHEETS **/
+	"css": [		
+		/** spesific style */
+		{"path": "css/xycal.css"}
+	]
+}

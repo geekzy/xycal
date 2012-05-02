@@ -5,11 +5,13 @@
 	/** JAVASCRIPTS **/
 	"js": [
 		/** jQuery core + patch */
-		{"path": "/js/jquery/jquery-1.7.1.min.js"},		
+		{"path": "js/jquery/jquery-1.7.1.min.js"},		
 
 		/** Plugins / Utility */
+		{"path": "js/jquery/jquery.xycommon.js"},
 
-		/** Modules - Remove or Comment these on PROD mode */		
+		/** Modules - Remove or Comment these on PROD mode */
+		{"path": "js/app/Main.js"}
 	],
 
 	/** STYLESHEETS **/

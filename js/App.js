@@ -1,11 +1,13 @@
 // new namespace
-jQuery.namespace('XY.uConnect');
-XY.uConnect.App = function() {
+XY = {};
+XY.Base = {};
+XY.Base.App = function() {
 	/** Private Zone **/
 	var // Function names
-		appInit, loadScript, pageInit;
+		appInit, loadScript, pageInit,
 		// Variables
 		// Templates
+		moduleJSTpl = 'js/app/#{name}.js';
 
 	/** Implementations **/
 
@@ -25,7 +27,7 @@ XY.uConnect.App = function() {
 	 * @param content The content of the meta tag
 	 */
     meta = function(name, content) {
-        write($.tmpl(metaTpl, {name: name, content: content}));
+        write('<meta name="'+ name +'" content="'+ content +'">');
     };
 
 	/**
@@ -33,28 +35,28 @@ XY.uConnect.App = function() {
 	 * @scope private
 	 */
 	loadScript = function() {
-		var options = {}, xhr = new XMLHttpRequest();
+		var i, path, options = {}, xhr = new XMLHttpRequest();
 		xhr.open('GET', 'js/app.json', false);
 		xhr.send();
 
 		meta('viewport', 'width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no');
-		//meta('apple-mobile-web-app-capable', 'yes');
+		meta('apple-mobile-web-app-capable', 'yes');
 		meta('apple-touch-fullscreen', 'yes');
 
 		options = eval("(" + xhr.responseText + ")");
 
-		$.each(options.css || [], function() {
-			write($.tmpl(cssTpl, this));
-		});
+		for (i = 0; i < options.css.length; i++) {
+			path = options.css[i].path;
+			write('<link rel="stylesheet" href="'+ path +'">')
+		}
 
-		$.each(options.js || [], function() {
-			write($.tmpl(scriptTpl, this));
-		});
+		for (i = 0; i < options.js.length; i++) {
+			path = options.js[i].path;
+			write('<script type="text/javascript" charset="utf-8" src="'+ path +'"></script>')
+		}
 
-		XY.uConnect.MODE = options.mode;
-		XY.uConnect.menus = options.menus;
-		XY.uConnect.hostapi = options.hostapi;
-	};	
+		XY.Base.MODE = options.mode;
+	};
 
 	/**
 	 * Global application initialization this only executed once
@@ -64,7 +66,7 @@ XY.uConnect.App = function() {
 
 		// Load stylesheets and scripts
 		loadScript();
-		
+
 	};
 
 	/**
@@ -72,17 +74,22 @@ XY.uConnect.App = function() {
 	 * in data-role="page" element, must be full path of the public function of the module.
 	 * @scope public
 	 */
-	pageInit = function(mode) {
-		var execute, page = $(this),
-			script = page.attr('data-initjs'),
-			module = script.count('.') > 2 ?
-				$.tmpl(moduleJSTpl, {name: script.split('.')[2]}) : false;
+	pageInit = function() {
+		var mode = XY.Base.MODE || 'DEV', execute,
+			pages = $('div[data-role=page]'), page, module, script;
 
 		execute = function() {
 			// Execute current page initialization
 			console.log('function to initialize : ' + script);
 			$.execute(script, window);
 		}
+
+		pages.hide();
+		$(pages.get(0)).show().addClass('active');
+		page = pages.filter('[data-initjs].active');
+		script = page.attr('data-initjs');
+		module = script.count('.') > 2 ?
+			$.tmpl(moduleJSTpl, {name: script.split('.')[2]}) : false;
 
 		// production mode
 		if (mode === 'PROD') {
@@ -94,13 +101,12 @@ XY.uConnect.App = function() {
 		}
 		// development mode
 		else { execute(); }
-	};	
+	};
 
 	return {
 		/** Public Zone **/
 		appInit: appInit,
-		pageInit: pageInit		
+		pageInit: pageInit
 	};
 }();
-XY.uConnect.App.appInit();
-
+XY.Base.App.appInit();

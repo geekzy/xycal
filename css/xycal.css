@@ -33,11 +33,11 @@
 }
 /* line 34, sass/xycal.scss */
 .ui-xycal th.ui-xycal-shift span.left, .ui-xycal td.ui-xycal-shift span.left {
-  background: url(../images/icons-18-black-pack.png) -144px 0 transparent;
+  background: url(../js/jquery/images/icons-18-black-pack.png) -144px 0 transparent;
 }
 /* line 37, sass/xycal.scss */
 .ui-xycal th.ui-xycal-shift span.right, .ui-xycal td.ui-xycal-shift span.right {
-  background: url(../images/icons-18-black-pack.png) -108px 0 transparent;
+  background: url(../js/jquery/images/icons-18-black-pack.png) -108px 0 transparent;
 }
 /* line 43, sass/xycal.scss */
 .ui-xycal td {
@@ -131,11 +131,11 @@
   }
   /* line 126, sass/xycal.scss */
   .ui-xycal th.ui-xycal-shift span.left, .ui-xycal td.ui-xycal-shift span.left {
-    background: url(../images/icons-36-black-pack.png) -288px 0 transparent;
+    background: url(../js/jquery/images/icons-36-black-pack.png) -288px 0 transparent;
   }
   /* line 129, sass/xycal.scss */
   .ui-xycal th.ui-xycal-shift span.right, .ui-xycal td.ui-xycal-shift span.right {
-    background: url(../images/icons-36-black-pack.png) -216px 0 transparent;
+    background: url(../js/jquery/images/icons-36-black-pack.png) -216px 0 transparent;
   }
   /* line 134, sass/xycal.scss */
   .ui-xycal td {

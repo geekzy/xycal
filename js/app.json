@@ -9,6 +9,7 @@
 
 		/** Plugins / Utility */
 		{"path": "js/jquery/jquery.xycommon.js"},		
+		{"path": "js/jquery/jquery.xycal.js"},		
 
 		/** Modules - Remove or Comment these on PROD mode */
 		{"path": "js/app/Main.js"}

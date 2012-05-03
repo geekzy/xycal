@@ -11,13 +11,12 @@
 		if (this.length === 0) {return this;}
 		// has been created before
         var cal = $.data(this[0], 'xycal');
-        if (this.length == 1 && cal) {return grid;}
+        if (this.length == 1 && cal) {return cal;}
 		// new instance
 		else {
             return this.each(function() {
-                var el = $(this), 
-                    opts = $.extend({id: el.attr('id')}, options),
-                    xycal = new $.xycal(opts);
+                var el = $(this),                     
+                    xycal = new $.xycal(el, options || {});
                 
                 $.data(this, 'xycal', xycal);
                 return xycal;
@@ -26,21 +25,26 @@
 	};
 	
 	// xycal constructor | public interface: $.xycal
-    $.xytable = function(options) {
-        var id = options.id, el = $('#' + id);
-        this.settings = $.extend(true, {el: el}, $.xycal.defaults, options);
+    $.xycal = function(el, opts) {        
+		this.el = el;
+        this.settings = $.extend(true, $.xycal.defaults, opts);
         if (el.find('thead').length === 0) {el.append('<thead/>');}
         if (el.find('tbody').length === 0) {el.append('<tbody/>');}
         this.Init();
     };
     
     // xytable class definition
-    $.extend(true, $.xytable, {
+    $.extend(true, $.xycal, {
         defaults: {
-            id: 'xycal',
+			date: new Date(),
+			weekstart: 1,
             events: []
         },
-        messages: {},
+        messages: {
+			days: ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'],
+			months: ['January','February','March','April','May','June','July','August','September','October','November','December'],
+			noEvents: 'No Events'
+		},
         prototype: {
             /**
              * Initialize xycal object
@@ -57,4 +61,4 @@
             }
         }
     });
-});
+})(jQuery);

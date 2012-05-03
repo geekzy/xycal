@@ -20,7 +20,10 @@ XY.Base.Main = function() {
 	 * @scope public
 	 */
 	calInit = function() {
-	    
+		var events = [
+			{date: '01/05/2012', title: 'ABC', desc: 'Aaa Bbb Ccc'}
+		];
+	    $('.edu-cal').xycal();
 		console.log('Initialized - Calendar');
 	}
 

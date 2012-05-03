@@ -13,7 +13,7 @@ $h-320: $w-320 / 7;
 	th {		
 		font-family: Verdana, Serif;
 		font-weight: bold;
-		font-size: 70%;
+		font-size: 60%;
 		width: 14%;		
 		color: #aaa;		
 
@@ -45,8 +45,9 @@ $h-320: $w-320 / 7;
 		height: $h-320;
 		background: #D3D2D7;
 		color: #3F4E5E;
-		text-align: center;
+		text-align: center;		
 		border: 1px solid #A3A7AF;
+		font-size: 90%;
 
 		span {
 			display: inline-block;
@@ -151,7 +152,7 @@ $h-1024: $w-1024 * 0.14;
 		th {
 			font-size: 100%;
 			&.ui-xycal-title {
-				font-size: 170%;
+				font-size: 180%;
 			}
 			&.ui-xycal-shift {
 				font-size: 150%;

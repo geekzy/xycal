@@ -8,15 +8,18 @@
 		{"path": "js/jquery/jquery-1.7.1.min.js"},		
 
 		/** Plugins / Utility */
-		{"path": "js/jquery/jquery.xycommon.js"},
+		{"path": "js/jquery/jquery.xycommon.js"},		
 
 		/** Modules - Remove or Comment these on PROD mode */
 		{"path": "js/app/Main.js"}
 	],
 
 	/** STYLESHEETS **/
-	"css": [		
-		/** spesific style */
+	"css": [
+		/** Plugins / Utility */
+		{"path": "js/jquery/jquery.mobile-1.1.0.min.css"},
+		
+		/** spesific style - put this last to enable overriding */
 		{"path": "css/xycal.css"}
 	]
 }

@@ -4,7 +4,7 @@ XY.Base = {};
 XY.Base.App = function() {
 	/** Private Zone **/
 	var // Function names
-		appInit, loadScript, pageInit,
+		appInit, loadScript, pageInit, mobileInit,
 		// Variables
 		// Templates
 		moduleJSTpl = 'js/app/#{name}.js';
@@ -66,7 +66,20 @@ XY.Base.App = function() {
 
 		// Load stylesheets and scripts
 		loadScript();
+		
+	};
+	
+	/**
+	 * jQuery Mobile Initialization such as redefine defaults
+	 * @scope public
+	 */
+	mobileInit = function() {
+		// Rhodes custom option!
+		// how long to wait transition end before "loading.." message will be shown
+		$.mobile.loadingMessageDelay = 300; // in ms
 
+		// Use slide transition by default
+		$.mobile.defaultPageTransition = "slide";	
 	};
 
 	/**
@@ -74,19 +87,16 @@ XY.Base.App = function() {
 	 * in data-role="page" element, must be full path of the public function of the module.
 	 * @scope public
 	 */
-	pageInit = function() {
+	pageInit = function(e, data) {
 		var mode = XY.Base.MODE || 'DEV', execute,
-			pages = $('div[data-role=page]'), page, module, script;
+			page = data.toPage, module, script;
 
 		execute = function() {
 			// Execute current page initialization
 			console.log('function to initialize : ' + script);
 			$.execute(script, window);
 		}
-
-		pages.hide();
-		$(pages.get(0)).show().addClass('active');
-		page = pages.filter('[data-initjs].active');
+		
 		script = page.attr('data-initjs');
 		module = script.count('.') > 2 ?
 			$.tmpl(moduleJSTpl, {name: script.split('.')[2]}) : false;

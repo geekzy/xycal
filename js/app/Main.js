@@ -1,7 +1,7 @@
 XY.Base.Main = function() {
 	/** Private Zone **/
 	var // Function names
-		pageInit;
+		pageInit, calInit;
 		// Variables
 		// Templates
 
@@ -14,10 +14,20 @@ XY.Base.Main = function() {
 	pageInit = function() {
 		console.log('Initialized - Main');
 	};
+	
+	/**
+	 * Function to initialize calendar demo page
+	 * @scope public
+	 */
+	calInit = function() {
+	    
+		console.log('Initialized - Calendar');
+	}
 
 	return {
 		/** Public Zone **/
 		id: 'main',
-		pageInit: pageInit
+		pageInit: pageInit,
+		calInit: calInit
 	};
 }();

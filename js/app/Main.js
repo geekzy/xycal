@@ -23,7 +23,7 @@ XY.Base.Main = function() {
 		var events = [
 			{date: '01/05/2012', title: 'ABC', desc: 'Aaa Bbb Ccc'}
 		];
-	    $('.edu-cal').xycal();
+	    $('.edu-cal').xycal({events: events});
 		console.log('Initialized - Calendar');
 	}
 

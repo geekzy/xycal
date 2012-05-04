@@ -75,7 +75,7 @@
             return window.open(opts.url, opts.name, openoptions);
         },
 		// public interface: $.execute
-		execute: function executeFunctionByName(functionName, context /*, args */) {
+		execute: function(functionName, context /*, args */) {
 			var i, args = Array.prototype.slice.call(arguments).splice(2),
 				namespaces = functionName.split("."),
 				func = namespaces.pop();
@@ -97,7 +97,42 @@
 				success: fn
 			}, options || {}));
 		},
-        //public interface $.empty of string value as str
+		// public interface $.cachedScript
+		cachedScript: function(url, options, succFn) {
+			// allow user to set any option except for dataType, cache, and url
+			options = $.extend(options || {}, {
+				dataType: "script",
+				cache: true,
+				url: url,
+				success: succFn || $.noop
+			});
+
+			// Use $.ajax() since it is more flexible than $.getScript
+			// Return the jqXHR object so we can chain callbacks
+			return jQuery.ajax(options);
+		},
+		// public interface $.randomString
+		randomString: function(len, special) {
+		    len = len || 8;
+		    special = special || false;
+		    
+		    var i = 0, str = '', rndNum;
+            
+            while (i < len){
+                rndNum = (Math.floor((Math.random() * 100)) % 94) + 33;
+                if (!special){
+                    if ((rndNum >= 33) && (rndNum <= 47)) { continue; }
+                    if ((rndNum >= 58) && (rndNum <= 64)) { continue; }
+                    if ((rndNum >= 91) && (rndNum <= 96)) { continue; }
+                    if ((rndNum >= 123) && (rndNum <= 126)) { continue; }
+                }
+                i++;
+                str += String.fromCharCode(rndNum);
+            }
+            
+            return str;
+		},	
+        // public interface $.empty of string value as str
         empty: function(str) {
             return str === '';
         },
@@ -272,22 +307,16 @@
                 });
             });
         },
-		/**
-		 * Load and cache script
-		 */
-		cachedScript: function(url, options, succFn) {
-			// allow user to set any option except for dataType, cache, and url
-			options = $.extend(options || {}, {
-				dataType: "script",
-				cache: true,
-				url: url,
-				success: succFn || $.noop
-			});
-
-			// Use $.ajax() since it is more flexible than $.getScript
-			// Return the jqXHR object so we can chain callbacks
-			return jQuery.ajax(options);
-		}
+        /**
+         * Generate random id for the selected elements
+         * @params len the length of the generated randorm string
+         */
+        randomId: function(len) {
+            return this.each(function() {
+                var el = $(this);
+                el.attr('id', $.randomString(len || 8));
+            });
+        }
     };
     // initialize plugins
     $.each(plugins, function(i) {

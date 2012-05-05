@@ -115,9 +115,9 @@
 		randomString: function(len, special) {
 		    len = len || 8;
 		    special = special || false;
-		    
+
 		    var i = 0, str = '', rndNum;
-            
+
             while (i < len){
                 rndNum = (Math.floor((Math.random() * 100)) % 94) + 33;
                 if (!special){
@@ -129,9 +129,9 @@
                 i++;
                 str += String.fromCharCode(rndNum);
             }
-            
+
             return str;
-		},	
+		},
         // public interface $.empty of string value as str
         empty: function(str) {
             return str === '';
@@ -346,14 +346,14 @@ String.prototype.trim = function() {
     return (this.replace(/^[\s\xA0]+/, '').replace(/[\s\xA0]+$/, ''));
 };
 // extending String to convert the first letter to upper case
-String.prototype.toUpperFirst = function(){
+String.prototype.toUpperFirst = function() {
 	return this.toLowerCase().replace(/(^[a-z])/g, function($1) { return $1.toUpperCase(); });
 };
 // extending String to convert dashed string into camel case
-String.prototype.toCamel = function(){
+String.prototype.toCamel = function() {
 	return this.replace(/(\-[a-z])/g, function($1){return $1.toUpperCase().replace('-','');});
 };
 // extending String to count occurance in a string
-String.prototype.count = function(ch){
+String.prototype.count = function(ch) {
 	return this.split(ch || '').length;
 };

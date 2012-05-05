@@ -101,9 +101,9 @@
   }
   /* line 100, sass/xycal.scss */
   .ui-xycal td span {
-    padding-top: 9.429px;
+    padding-top: 1.257px;
     margin-bottom: -22.0px;
-    font-size: 30%;
+    font-size: 70%;
   }
 }
 @media only screen and (min-width: 768px) {
@@ -145,9 +145,9 @@
   }
   /* line 138, sass/xycal.scss */
   .ui-xycal td span {
-    padding-top: 20.8px;
+    padding-top: 5.2px;
     margin-bottom: -38.48px;
-    font-size: 35%;
+    font-size: 70%;
   }
 }
 @media only screen and (min-width: 1024px) {
@@ -176,8 +176,8 @@
   }
   /* line 166, sass/xycal.scss */
   .ui-xycal td span {
-    padding-top: 27.552px;
+    padding-top: 6.888px;
     margin-bottom: -50.971px;
-    font-size: 25%;
+    font-size: 70%;
   }
 }

@@ -29,6 +29,12 @@
         this.el = el;
         this.settings = $.extend(true, $.xycal.defaults, opts);
         this.messages = $.xycal.messages;
+
+        if (!el.is('table')) {
+            el.append('<table/>');
+            el = el.find('table');
+            el.css({width: '100%', 'border-collapse': 'collapse'});
+        }
         if (el.find('thead').length === 0) {el.append('<thead/>');}
         if (el.find('tbody').length === 0) {el.append('<tbody/>');}
         this.Init();
@@ -40,7 +46,10 @@
             date: new Date(),
             weekstart: 1,
             totalDays: [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31],
-            events: []
+            events: [],
+            eventMark: '.',
+            dateFormat: 'dd/MM/yyyy hh:mm',
+            eventList: false
         },
         messages: {
             days: ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'],
@@ -50,7 +59,7 @@
         },
         prototype: {
             /** Public Methods **/
-            
+
             /**
              * Initialize xycal object
              */
@@ -62,7 +71,9 @@
 
                 var // Init Local Vars
                     year = this.today.getFullYear(),
-                    month = this.today.getMonth();
+                    month = this.today.getMonth(),
+                    _evtList = this.settings.eventList,
+                    evtList = _evtList === false ? this.el.find('ul') : _evtList;
 
                 // set current year and month
                 this.m = month;
@@ -70,10 +81,17 @@
                 // Set widget class
                 this.el.addClass('ui-xycal');
 
+                // Initialize Events
+                this.settings.eventList = typeof(evtList) === 'string'
+                    || evtList.length > 0 ? evtList : false;
+                this._initDayEvents();
+
                 // Initialize Header
                 this._populateHead(year, month);
+
                 // Initialize Date
                 this._populateDays(year, month);
+
                 // Initialize Events
                 this._initDOMEvents();
             },
@@ -122,13 +140,14 @@
              * Populate the days of the month and year
              */
             _populateDays: function(y, m) {
-                var dCount = 0, d, ld, rd, today, evented,
+                var dCount = 0, d, ld, rd, today, evented, eventMark,
                     year = y != undefined ? y : this.today.getFullYear(),
                     month = m != undefined ? m : this.today.getMonth(),
                     lMonth = this._getLastMonth(month),
                     days = this._getDaysOfMonth(month, year),
                     daysRow = '', weekRow = '', clazz = [],
                     start = this.settings.weekstart,
+                    mark = this.settings.eventMark,
 
                     // total left padding days (last month)
                     fDay = this._getFirstDayOfMonth(month, year),
@@ -139,7 +158,8 @@
 
                     // Local Templates
                     _weekRow = '<tr>#{days}</tr>',
-                    _dayCell = '<td class="#{clazz}">#{d}</td>';
+                    _dayCell = '<td class="#{clazz}">#{d}</td>',
+                    _eventMark = '<span>#{mark}</span>';
 
                 // populate last months padding
                 for (d = 0; d < fDay;) {
@@ -198,6 +218,8 @@
                 // clear days on screen first
                 this.tbody.empty();
                 this.tbody.append(weekRow);
+                this.tbody.find('.ui-xycal-evented')
+                    .append($.tmpl(_eventMark, {mark: mark}));
             },
             /**
              * Initialize DOM Events
@@ -229,8 +251,11 @@
                     populate(y, m);
                 };
 
-                selectDay = function() { 
-                    var dCell = $(this), today = dCell.is('.ui-xycal-today');
+                selectDay = function() {
+                    var dCell = $(this),
+                        today = dCell.is('.ui-xycal-today'),
+                        evented = dCell.is('.ui-xycal-evented');
+
                     $('.ui-xycal-selected').removeClass('ui-xycal-selected');
                     if (!today) { dCell.addClass('ui-xycal-selected'); }
                     // if evented populate the related events
@@ -241,6 +266,57 @@
                 lnav.live('click', prevMonth);
                 day.live('click', selectDay);
             },
+            /**
+             * Initialize Day Events
+             */
+             _initDayEvents: function() {
+                var parse, prepare, xycal = this,
+                    settings = xycal.settings
+                    event = settings.events,
+                    eventList = settings.eventList,
+                    df = settings.dateFormat;
+
+                xycal.events = [];
+                parse = function(ds) {
+                    var milis = Date.parse(ds, df);
+                    if (milis) { return new Date(milis); }
+                    else { throw "Incorrect event date format - default date format is dd/MM/yyyy"; }
+                };
+
+                prepare = function() {
+                    $.each(event, function(i, evt) {
+                        if (!evt.date) { throw "Please specify date in event configuration"; }
+                        var d = parse(evt.date);
+                        xycal.events.push($.extend({_date: d}, evt));
+                    });
+                };
+
+                // events is in the event list, grab it and put into this.events
+                if (eventList) {
+                    // if it's selector or HTML Element then make it jQuery object
+                    if (!eventList instanceof jQuery) { eventList = $(eventList); }
+                    eventList.find('li[data-date]').each(function() {
+                        var li = $(this),
+                            strDt = li.attr('data-date') || '',
+                            strTm = li.attr('data-time') || '',
+                            title = li.attr('data-title') || '',
+                            desc = li.text(),
+                            dt = parse(strDt);
+                        // build te object
+                        xycal.events.push({
+                            date: strDt, _date: dt,
+                            title: title.trim(), desc: desc.trim()
+                        });
+                    });
+
+                    // merge with events in settings
+                    prepare();
+                    // remove the element
+                    eventList.remove();
+                }
+                // events already in settings
+                else { prepare(); }
+             },
             /**
              * Get total days of the month
              *
@@ -313,8 +389,18 @@
              * @return true - the date has event(s); false - no event(s)
              */
             _dayEvented: function(y, m, d) {
-            // TODO implement this function to check if the date has any events.
-                return false;
+                // TODO implement this function to check if the date has any events.
+                var isEvented = false;
+                $.each(this.events, function(i, evt) {
+                    var dt = evt._date,
+                        year = dt.getFullYear(),
+                        month = dt.getMonth(),
+                        day = dt.getDate();
+                        
+                    isEvented = y === year && m === month && d === day;
+                    return !isEvented;
+                });
+                return isEvented;
             },
             /**
              * Convert Array of classes into String representation

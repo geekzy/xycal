@@ -2,56 +2,42 @@
 
 <html>
 <head>
-	<title>Base App</title>
-	<script src="js/App.js" type="text/javascript" charset="utf-8"></script>	
-	<script type="text/javascript">
-	
-		jQuery(document).bind("mobileinit", XY.Base.App.mobileInit);		
-		jQuery(document).bind("pagechange", XY.Base.App.pageInit);
-		
-	</script>
-	<script src="js/jquery/jquery.mobile-1.1.0.min.js" type="text/javascript" charset="utf-8"></script>
+    <title>Base App</title>
+    <script src="js/App.js" type="text/javascript" charset="utf-8"></script>
+    <script type="text/javascript">
+
+        jQuery(document).bind("mobileinit", XY.Base.App.mobileInit);
+        jQuery(document).bind("pagechange", XY.Base.App.pageInit);
+
+    </script>
+    <script src="js/jquery/jquery.mobile-1.1.0.min.js" type="text/javascript" charset="utf-8"></script>
 </head>
 
 <body>
-	<div id="main" data-role="page" data-initjs="XY.Base.Main.pageInit">
-	    <div data-role="header" data-position="inline">
-			<h1>Static XYCal</h1>
-			<a href="#cal" class="ui-btn-right" data-role="button" data-icon="gear" data-theme="b">Dynamic</a>
-		</div>
-		<div data-role="content">
-			<table class="ui-xycal">
-			    <thead>
-				    <tr>
-					    <th class="ui-xycal-shift"><span class="left"></span></th>
-					    <th colspan="5" class="ui-xycal-title">May 2012</th>
-					    <th class="ui-xycal-shift"><span class="right"></span></th>
-				    </tr>
-				    <tr>
-					    <th>Sun</th>
-					    <th>Mon</th>
-					    <th>Tue</th>
-					    <th>Wed</th>
-					    <th>Thu</th>
-					    <th>Fri</th>
-					    <th>Sat</th>
-				    <tr>
-			    </thead>
-			    <tbody>
-				    <tr><td class="ui-xycal-others">28</td><td class="ui-xycal-others">29</td><td class="">1</td><td class="">2</td><td class="">3</td><td class="">4</td><td class="">5</td></tr><tr><td class="">6</td><td class="">7</td><td class="">8</td><td class="">9</td><td class="">10</td><td class="">11</td><td class="">12</td></tr><tr><td class="">13</td><td class="">14</td><td class="">15</td><td class="">16</td><td class="">17</td><td class="">18</td><td class="">19</td></tr><tr><td class="">20</td><td class="">21</td><td class="">22</td><td class="">23</td><td class="">24</td><td class="">25</td><td class="">26</td></tr><tr><td class="">27</td><td class="">28</td><td class="">29</td><td class="">30</td><td class="">31</td><td class="">28</td><td class="">29</td></tr>
-			    </tbody>
-		    </table>
-		</div>		    
-	</div>
-	
-	<div id="cal" data-role="page" data-initjs="XY.Base.Main.calInit">
-		<div data-role="header" data-position="inline">
-		    <a href="#main" class="ui-btn-left" data-role="button" data-icon="back" data-theme="e">Back</a>
-			<h1>Dynamic XYCal using $.fn.xycal</h1>
-		</div>
-		<div data-role="content">
-			<table class="edu-cal"></table>
-		</div>
-	</div>
+    <div id="main" data-role="page" data-initjs="XY.Base.Main.pageInit">
+        <div data-role="header" data-position="inline">
+            <h1>Static XYCal</h1>
+            <a href="#src" class="ui-btn-right" data-role="button" data-icon="gear" data-theme="b">Source</a>
+        </div>
+        <div data-role="content">
+            <div class="edu-cal">
+                <ul class="event-list">
+                    <li data-date="05/05/2012" date-time="10:15" data-title="App Demo">
+                        Present the latest Application
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div id="src" data-role="page" data-initjs="XY.Base.Main.srcInit">
+        <div data-role="header" data-position="inline">
+            <a href="#main" class="ui-btn-left" data-role="button" data-icon="back" data-theme="e">Back</a>
+            <h1>XYCal Usage</h1>
+        </div>
+        <div data-role="content">
+
+        </div>
+    </div>
 </body>
 </html>

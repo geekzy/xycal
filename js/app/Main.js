@@ -1,7 +1,7 @@
 XY.Base.Main = function() {
 	/** Private Zone **/
 	var // Function names
-		pageInit, calInit;
+		pageInit, srcInit;
 		// Variables
 		// Templates
 
@@ -12,25 +12,25 @@ XY.Base.Main = function() {
 	 * @scope public
 	 */
 	pageInit = function() {
-		console.log('Initialized - Main');
-	};
-	
-	/**
-	 * Function to initialize calendar demo page
-	 * @scope public
-	 */
-	calInit = function() {
-		var events = [
-			{date: '01/05/2012', title: 'ABC', desc: 'Aaa Bbb Ccc'}
+        var events = [
+			{date: '01/05/2012 08:30', title: 'ABC', desc: 'Aaa Bbb Ccc'}
 		];
 	    $('.edu-cal').xycal({events: events});
-		console.log('Initialized - Calendar');
+		console.log('Initialized - Main');
+	};
+
+	/**
+	 * Function to initialize xycal usage page
+	 * @scope public
+	 */
+	srcInit = function() {
+		console.log('Initialized - XYCal Usage');
 	}
 
 	return {
 		/** Public Zone **/
 		id: 'main',
 		pageInit: pageInit,
-		calInit: calInit
+		srcInit: srcInit
 	};
 }();

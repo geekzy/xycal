@@ -4,24 +4,24 @@
 $w-320: 280px;
 $h-320: $w-320 / 7;
 
-.ui-xycal {	
+.ui-xycal {
 	background: transparent;
 	margin: 0 auto 30px auto;
 	border-collapse: collapse;
-	width: $w-320;	
-	
+	width: $w-320;
+
 	th {
 		font-family: Verdana, Serif;
 		font-weight: bold;
 		font-size: 70%;
-		width: 14%;		
-		color: #aaa;		
+		width: 14%;
+		color: #aaa;
 
 		&.ui-xycal-title {
 			font-size: 100%;
 			color: #666;
 		}
-		&.ui-xycal-shift {			
+		&.ui-xycal-shift {
 			font-size: 70%;
 			font-weight: bolder;
 			color: #333;
@@ -98,9 +98,9 @@ $h-480: $w-480 / 7;
 			font-size: 120%;
 			height: $h-480;
 			span {
-				padding-top: 0.15 * $h-480;
+				padding-top: 0.02 * $h-480;
 				margin-bottom: -1 * 0.35 * $h-480;
-				font-size: 30%;
+				font-size: 70%;
 			}
 		}
 	}
@@ -120,9 +120,9 @@ $h-768: $w-768 / 7;
 				font-size: 100%;
 				font-weight: bolder;
 				color: #333;
-				span {					
+				span {
 					width: 36px;
-					height: 36px;					
+					height: 36px;
 				}
 				span.left {
 					background: url(../js/jquery/images/icons-36-black-pack.png) -288px -0 transparent;
@@ -136,9 +136,9 @@ $h-768: $w-768 / 7;
 			font-size: 150%;
 			height: $h-768;
 			span {
-				padding-top: 0.2 * $h-768;
+				padding-top: 0.05 * $h-768;
 				margin-bottom: -1 * 0.37 * $h-768;
-				font-size: 35%;
+				font-size: 70%;
 			}
 		}
 	}
@@ -157,16 +157,16 @@ $h-1024: $w-1024 * 0.14;
 			&.ui-xycal-shift {
 				font-size: 150%;
 				font-weight: bolder;
-				color: #333;				
+				color: #333;
 			}
 		}
 		td {
 			font-size: 200%;
 			height: $h-1024;
 			span {
-				padding-top: 0.2 * $h-1024;
+				padding-top: 0.05 * $h-1024;
 				margin-bottom: -1 * 0.37 * $h-1024;
-				font-size: 25%;
+				font-size: 70%;
 			}
 		}
 	}

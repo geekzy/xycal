@@ -1,15 +1,15 @@
 /* line 7, sass/xycal.scss */
 .ui-xycal {
   background: transparent;
-  margin: 0 auto;
+  margin: 0 auto 30px auto;
   border-collapse: collapse;
-  width: 320px;
+  width: 280px;
 }
 /* line 13, sass/xycal.scss */
 .ui-xycal th, .ui-xycal td {
   font-family: Verdana, Serif;
   font-weight: bold;
-  font-size: 60%;
+  font-size: 70%;
   width: 14%;
   color: #aaa;
 }
@@ -41,33 +41,33 @@
 }
 /* line 43, sass/xycal.scss */
 .ui-xycal td {
-  height: 45.714px;
+  height: 40px;
   background: #D3D2D7;
   color: #3F4E5E;
   text-align: center;
   border: 1px solid #A3A7AF;
-  font-size: 90%;
+  cursor: pointer;
 }
 /* line 52, sass/xycal.scss */
 .ui-xycal td span {
   display: inline-block;
   float: left;
   width: 100%;
-  padding-top: 6.857px;
-  margin-bottom: -16px;
+  padding-top: 6px;
+  margin-bottom: -14px;
   font-size: 50%;
 }
 /* line 61, sass/xycal.scss */
-.ui-xycal td.ui-xycal-today, .ui-xycal td.ui-xycal-selected {
+.ui-xycal td.ui-xycal-today, .ui-xycal td:active, .ui-xycal td.ui-xycal-selected {
   background: #1980E5;
   vertical-align: middle;
   color: #fff;
-  -webkit-box-shadow: rgba(36, 64, 101, 0.5) 2px 2px 3px 2px inset;
-  -moz-box-shadow: rgba(36, 64, 101, 0.5) 2px 2px 3px 2px inset;
-  box-shadow: rgba(36, 64, 101, 0.5) 2px 2px 3px 2px inset;
+  -webkit-box-shadow: rgba(36, 64, 101, 0.5) 0 0 3px 3px inset;
+  -moz-box-shadow: rgba(36, 64, 101, 0.5) 0 0 3px 3px inset;
+  box-shadow: rgba(36, 64, 101, 0.5) 0 0 3px 3px inset;
 }
 /* line 70, sass/xycal.scss */
-.ui-xycal td.ui-xycal-selected {
+.ui-xycal td:active, .ui-xycal td.ui-xycal-selected {
   background: #7188A8;
 }
 /* line 75, sass/xycal.scss */
@@ -78,7 +78,7 @@
 @media only screen and (min-width: 480px) {
   /* line 84, sass/xycal.scss */
   .ui-xycal {
-    width: 480px;
+    width: 440px;
   }
   /* line 86, sass/xycal.scss */
   .ui-xycal th, .ui-xycal td {
@@ -97,19 +97,19 @@
   /* line 97, sass/xycal.scss */
   .ui-xycal td {
     font-size: 120%;
-    height: 68.571px;
+    height: 62.857px;
   }
   /* line 100, sass/xycal.scss */
   .ui-xycal td span {
-    padding-top: 10.286px;
-    margin-bottom: -24.0px;
+    padding-top: 9.429px;
+    margin-bottom: -22.0px;
     font-size: 30%;
   }
 }
 @media only screen and (min-width: 768px) {
   /* line 112, sass/xycal.scss */
   .ui-xycal {
-    width: 768px;
+    width: 728px;
   }
   /* line 114, sass/xycal.scss */
   .ui-xycal th, .ui-xycal td {
@@ -141,19 +141,19 @@
   /* line 135, sass/xycal.scss */
   .ui-xycal td {
     font-size: 150%;
-    height: 109.714px;
+    height: 104px;
   }
   /* line 138, sass/xycal.scss */
   .ui-xycal td span {
-    padding-top: 21.943px;
-    margin-bottom: -40.594px;
+    padding-top: 20.8px;
+    margin-bottom: -38.48px;
     font-size: 35%;
   }
 }
 @media only screen and (min-width: 1024px) {
   /* line 150, sass/xycal.scss */
   .ui-xycal {
-    width: 1024px;
+    width: 984px;
   }
   /* line 152, sass/xycal.scss */
   .ui-xycal th, .ui-xycal td {
@@ -161,7 +161,7 @@
   }
   /* line 154, sass/xycal.scss */
   .ui-xycal th.ui-xycal-title, .ui-xycal td.ui-xycal-title {
-    font-size: 180%;
+    font-size: 170%;
   }
   /* line 157, sass/xycal.scss */
   .ui-xycal th.ui-xycal-shift, .ui-xycal td.ui-xycal-shift {
@@ -172,12 +172,12 @@
   /* line 163, sass/xycal.scss */
   .ui-xycal td {
     font-size: 200%;
-    height: 143.36px;
+    height: 137.76px;
   }
   /* line 166, sass/xycal.scss */
   .ui-xycal td span {
-    padding-top: 28.672px;
-    margin-bottom: -53.043px;
+    padding-top: 27.552px;
+    margin-bottom: -50.971px;
     font-size: 25%;
   }
 }

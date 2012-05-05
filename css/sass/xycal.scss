@@ -1,19 +1,19 @@
 @import "compass";
 @import "compass/css3";
 
-$w-320: 320px;
+$w-320: 280px;
 $h-320: $w-320 / 7;
 
-.ui-xycal {
+.ui-xycal {	
 	background: transparent;
-	margin: 0 auto;
+	margin: 0 auto 30px auto;
 	border-collapse: collapse;
-	width: $w-320;
-
-	th {		
+	width: $w-320;	
+	
+	th {
 		font-family: Verdana, Serif;
 		font-weight: bold;
-		font-size: 60%;
+		font-size: 70%;
 		width: 14%;		
 		color: #aaa;		
 
@@ -45,9 +45,9 @@ $h-320: $w-320 / 7;
 		height: $h-320;
 		background: #D3D2D7;
 		color: #3F4E5E;
-		text-align: center;		
+		text-align: center;
 		border: 1px solid #A3A7AF;
-		font-size: 90%;
+		cursor: pointer;
 
 		span {
 			display: inline-block;
@@ -63,11 +63,11 @@ $h-320: $w-320 / 7;
 			vertical-align: middle;
 			color: #fff;
 			@include box-shadow(
-				rgba(#244065, 0.5) 2px 2px 3px 2px inset
+				rgba(#244065, 0.5) 0 0 3px 3px inset
 			);
 		}
 
-		&.ui-xycal-selected {
+		&:active, &.ui-xycal-selected {
 			@extend .ui-xycal-today;
 			background: #7188A8;
 		}
@@ -78,7 +78,7 @@ $h-320: $w-320 / 7;
 	}
 }
 
-$w-480: 480px;
+$w-480: 440px;
 $h-480: $w-480 / 7;
 @media only screen and (min-width: 480px) {
 	.ui-xycal {
@@ -106,7 +106,7 @@ $h-480: $w-480 / 7;
 	}
 }
 
-$w-768: 768px;
+$w-768: 728px;
 $h-768: $w-768 / 7;
 @media only screen and (min-width: 768px) {
 	.ui-xycal {
@@ -144,7 +144,7 @@ $h-768: $w-768 / 7;
 	}
 }
 
-$w-1024: 1024px;
+$w-1024: 984px;
 $h-1024: $w-1024 * 0.14;
 @media only screen and (min-width: 1024px) {
 	.ui-xycal {
@@ -152,7 +152,7 @@ $h-1024: $w-1024 * 0.14;
 		th {
 			font-size: 100%;
 			&.ui-xycal-title {
-				font-size: 180%;
+				font-size: 170%;
 			}
 			&.ui-xycal-shift {
 				font-size: 150%;

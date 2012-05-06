@@ -227,8 +227,7 @@
             _initDOMEvents: function() {
                 // TODO implement event handlers and binding for cells and navigation
                 var nextMonth, prevMonth, selectDay, populate,
-                    xycal = this,
-                    lnav = $('.ui-xycal-shift .left'),
+                    xycal = this, lnav = $('.ui-xycal-shift .left'),
                     rnav = $('.ui-xycal-shift .right'),
                     day = $('.ui-xycal tbody td:not(.ui-xycal-others)');
 
@@ -252,13 +251,17 @@
                 };
 
                 selectDay = function() {
-                    var dCell = $(this),
+                    var dCell = $(this), events = [],
+                        y = xycal.y, m = xycal.m, d = /\d+/.exec(dCell.text()).join(''),
                         today = dCell.is('.ui-xycal-today'),
                         evented = dCell.is('.ui-xycal-evented');
 
                     $('.ui-xycal-selected').removeClass('ui-xycal-selected');
                     if (!today) { dCell.addClass('ui-xycal-selected'); }
-                    // if evented populate the related events
+                    if (evented) { 
+                        events = xycal._getDayEvents(y, m, d);
+                        // TODO populate events in listview
+                    }
                 };
 
                 // navigation
@@ -269,7 +272,7 @@
             /**
              * Initialize Day Events
              */
-             _initDayEvents: function() {
+            _initDayEvents: function() {
                 var parse, prepare, xycal = this,
                     settings = xycal.settings
                     event = settings.events,
@@ -316,7 +319,24 @@
                 }
                 // events already in settings
                 else { prepare(); }
-             },
+            },
+            /**
+             * Get event(s) of the day
+             *
+             * @param y the numeric year
+             * @param m the numeric of month
+             * @param d the numeric day of the month
+             * @return the array of events of the day
+             */
+            _getDayEvents: function(y, m, d) {                
+                var xycal = this, dt = new Date(y, m, d),
+                    evts = $.map(this.events, function(evt) {
+                        var dd = evt._date;;
+                        if (dd && dd instanceof Date 
+                            && xycal._compareDate(dd, dt)) { return evt; }
+                    });
+                return evts;
+            },
             /**
              * Get total days of the month
              *
@@ -343,7 +363,7 @@
                     year = y != undefined ? y : this.today.getFullYear(),
                     start = this.settings.weekstart;
 
-                return (new Date(year, month, 0).getDay() + 1) - start;
+                return new Date(year, month, 1).getDay() - start;
             },
             /**
              * Get the previous numeric value of month of the given param
@@ -374,11 +394,9 @@
              * @return true - the date is today; false - not today
              */
             _dayToday: function(y, m, d) {
-                var day = this.today.getDate(),
-                    month = this.today.getMonth(),
-                    year = this.today.getFullYear();
+                var d = new Date(y, m, d);
 
-                return year === y && month === m && day === d;
+                return this._compareDate(d, this.today);
             },
             /**
              * Check if the date has any events
@@ -390,14 +408,11 @@
              */
             _dayEvented: function(y, m, d) {
                 // TODO implement this function to check if the date has any events.
-                var isEvented = false;
+                var xycal = this, isEvented = false;
                 $.each(this.events, function(i, evt) {
-                    var dt = evt._date,
-                        year = dt.getFullYear(),
-                        month = dt.getMonth(),
-                        day = dt.getDate();
+                    var dt = evt._date, dd = new Date(y, m, d);
                         
-                    isEvented = y === year && m === month && d === day;
+                    isEvented = xycal._compareDate(dd, dt);
                     return !isEvented;
                 });
                 return isEvented;
@@ -407,8 +422,21 @@
              * @param clazz the Array of classes
              * @return the string representation of the classes
              */
-            _getClazz: function(clazz) {
+            _getClazz: function(clazz) {            
                 return clazz.length > 0 ? clazz.length > 1 ? clazz.join(' ') : clazz[0] : '';
+            },
+            /**
+             * Compare between 2 Date object
+             *
+             * @param d1 first date object
+             * @param d2 second date object
+             * @return true - Equal; false - Not Equal
+             */
+            _compareDate: function(d1, d2) {
+                var d1_y = d1.getFullYear(), d1_m = d1.getMonth(), d1_d = d1.getDate(),
+                    d2_y = d2.getFullYear(), d2_m = d2.getMonth(), d2_d = d2.getDate();
+                    
+                return d1_y === d2_y && d1_m === d2_m && d1_d === d2_d;
             }
         }
     });

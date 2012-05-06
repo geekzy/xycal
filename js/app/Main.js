@@ -13,7 +13,7 @@ XY.Base.Main = function() {
 	 */
 	pageInit = function() {
         var events = [
-			{date: '01/05/2012 08:30', title: 'ABC', desc: 'Aaa Bbb Ccc'}
+			{date: '01/05/2012', time: '08:30', title: 'ABC', desc: 'Aaa Bbb Ccc'}
 		];
 	    $('.edu-cal').xycal({events: events});
 		console.log('Initialized - Main');

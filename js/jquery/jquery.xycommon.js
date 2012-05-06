@@ -227,6 +227,16 @@
             return ((elemBottom >= docViewTop) && (elemTop <= docViewBottom));
         },
         /**
+         * Scroll to the first element in selector
+         * @param delay [optional] the delay of the scrolling 500ms by default
+         */
+        scrollHere: function(delay) {
+            var elm = $(this[0]);
+            $('html, body').animate({
+                scrollTop: elm.offset().top
+            }, delay || 500);
+        },
+        /**
          * Disbale elements
          * @param clazz (optional) the disabled style class by default will be ui-state-disabled
          */

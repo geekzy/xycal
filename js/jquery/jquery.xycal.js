@@ -48,14 +48,16 @@
             totalDays: [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31],
             events: [],
             eventMark: '.',
-            dateFormat: 'dd/MM/yyyy hh:mm',
+            dateFormat: 'dd/MM/yyyy',
+            timeFormat: 'HH:mm',
+            format: '#{df} #{tf}',
             eventList: false
         },
         messages: {
             days: ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'],
             months: ['January','February','March','April','May','June','July','August','September','October','November','December'],
             noEvents: 'No Events',
-            calTitle: '#{m} #{y}'
+            calTitle: '#{m} #{y}',
         },
         prototype: {
             /** Public Methods **/
@@ -258,9 +260,9 @@
 
                     $('.ui-xycal-selected').removeClass('ui-xycal-selected');
                     if (!today) { dCell.addClass('ui-xycal-selected'); }
-                    if (evented) { 
+                    if (evented) {
                         events = xycal._getDayEvents(y, m, d);
-                        // TODO populate events in listview
+                        xycal._loadEventListView(events);
                     }
                 };
 
@@ -276,20 +278,25 @@
                 var parse, prepare, xycal = this,
                     settings = xycal.settings
                     event = settings.events,
-                    eventList = settings.eventList,
-                    df = settings.dateFormat;
+                    eventList = settings.eventList;
 
                 xycal.events = [];
                 parse = function(ds) {
-                    var milis = Date.parse(ds, df);
-                    if (milis) { return new Date(milis); }
-                    else { throw "Incorrect event date format - default date format is dd/MM/yyyy"; }
+                    var df = settings.dateFormat,
+                        tf = settings.timeFormat,
+                        dtf = $.tmpl(settings.format, {df: df, tf: tf}),
+                        milis = Date.parseDateFormat(ds, dtf);
+
+                    if (milis > 0) { return new Date(milis); }
+                    else { throw "Incorrect event date format - default date format is dd/MM/yyyy and time format is hh:mm"; }
                 };
 
                 prepare = function() {
                     $.each(event, function(i, evt) {
-                        if (!evt.date) { throw "Please specify date in event configuration"; }
-                        var d = parse(evt.date);
+                        var d, dt = evt.date || false, tm = evt.time || '00:00';
+                        if (!dt) { throw "Please specify date in event configuration"; }
+
+                        d = parse($.tmpl(settings.format, {df: dt, tf: tm}));
                         xycal.events.push($.extend({_date: d}, evt));
                     });
                 };
@@ -301,10 +308,11 @@
                     eventList.find('li[data-date]').each(function() {
                         var li = $(this),
                             strDt = li.attr('data-date') || '',
-                            strTm = li.attr('data-time') || '',
+                            strTm = li.attr('data-time') || '00:00',
                             title = li.attr('data-title') || '',
+                            strDtTm = $.tmpl(settings.format, {df: strDt, tf: strTm});
                             desc = li.text(),
-                            dt = parse(strDt);
+                            dt = parse(strDtTm);
                         // build te object
                         xycal.events.push({
                             date: strDt, _date: dt,
@@ -321,6 +329,14 @@
                 else { prepare(); }
             },
             /**
+             * Load events of selected day on a listview below the calendar
+             * @param evts the events of the selected day
+             */
+            _loadEventListView: function(evts) {
+                // TODO load events into listview
+                console.log(evts);
+            },
+            /**
              * Get event(s) of the day
              *
              * @param y the numeric year
@@ -328,11 +344,11 @@
              * @param d the numeric day of the month
              * @return the array of events of the day
              */
-            _getDayEvents: function(y, m, d) {                
+            _getDayEvents: function(y, m, d) {
                 var xycal = this, dt = new Date(y, m, d),
                     evts = $.map(this.events, function(evt) {
                         var dd = evt._date;;
-                        if (dd && dd instanceof Date 
+                        if (dd && dd instanceof Date
                             && xycal._compareDate(dd, dt)) { return evt; }
                     });
                 return evts;
@@ -411,7 +427,7 @@
                 var xycal = this, isEvented = false;
                 $.each(this.events, function(i, evt) {
                     var dt = evt._date, dd = new Date(y, m, d);
-                        
+
                     isEvented = xycal._compareDate(dd, dt);
                     return !isEvented;
                 });
@@ -422,7 +438,7 @@
              * @param clazz the Array of classes
              * @return the string representation of the classes
              */
-            _getClazz: function(clazz) {            
+            _getClazz: function(clazz) {
                 return clazz.length > 0 ? clazz.length > 1 ? clazz.join(' ') : clazz[0] : '';
             },
             /**
@@ -435,7 +451,7 @@
             _compareDate: function(d1, d2) {
                 var d1_y = d1.getFullYear(), d1_m = d1.getMonth(), d1_d = d1.getDate(),
                     d2_y = d2.getFullYear(), d2_m = d2.getMonth(), d2_d = d2.getDate();
-                    
+
                 return d1_y === d2_y && d1_m === d2_m && d1_d === d2_d;
             }
         }

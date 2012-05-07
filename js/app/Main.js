@@ -12,10 +12,10 @@ XY.Base.Main = function() {
 	 * @scope public
 	 */
 	pageInit = function() {
-        var events = [
-			{date: '01/05/2012', time: '08:30', title: 'ABC', desc: 'Aaa Bbb Ccc'}
-		];
-	    $('.edu-cal').xycal({events: events});
+        $('#xycal-demo').xycal({
+            ul: '<ul data-role="listview" data-inset="true" data-dividertheme="a"></ul>',
+            li: '<li>#{date} - #{desc}</li>'
+        });
 		console.log('Initialized - Main');
 	};
 

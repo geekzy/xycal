@@ -1,7 +1,7 @@
 /*
  * jQuery Commonly Usage Plugins Collection
  *
- * jquery.xycommon.js v1.7
+ * jquery.xycommon.js v1.8
  *
  * Copyright (c) 2009 XYBASE, <imam@xybase.com><geekzy@gmail.com>
  *
@@ -132,6 +132,16 @@
 
             return str;
 		},
+        // public interface $.loading
+        loading: function() {
+            var waitPage = $('[data-role=page].wait');
+            waitPage.bind('pageshow', function(e, ui) {
+                $.mobile.showPageLoadingMsg();
+            });
+            waitPage.bind('pagehide', function(e, ui) {
+                $.mobile.hidePageLoadingMsg();
+            });
+        },
         // public interface $.empty of string value as str
         empty: function(str) {
             return str === '';

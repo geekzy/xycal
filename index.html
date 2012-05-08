@@ -16,8 +16,7 @@
 <body>
     <div id="main" data-role="page" data-initjs="XY.Base.Main.pageInit">
         <div data-role="header" data-position="inline">
-            <h1>Static XYCal</h1>
-            <a href="#static" class="ui-btn-right" data-role="button" data-icon="gear" data-theme="b">Static</a>
+            <h1>Static XYCal</h1>            
         </div>
         <div data-role="content">
             <div id="xycal-demo">
@@ -26,61 +25,6 @@
                     <li data='{"date":"08/05/2012", "time":"15:40", "loc":"Univ. Gym", "cat":"stu", "title":"Workout", "desc": "Workout till drop"}' />
                     <li data='{"date":"21/05/2012", "time":"08:00", "loc":"Univ. Hall", "cat":"univ", "title":"Management Gathering", "desc": "Annual Management Gathering"}' />
                     <li data='{"date":"21/05/2012", "time":"12:00", "loc":"Food Court", "cat":"univ", "title":"Management Lunch", "desc": "Free Lunch for everybody at Food Court"}'/>
-                </ul>
-            </div>
-        </div>
-    </div>
-
-    <div id="src" data-role="page" data-initjs="XY.Base.Main.srcInit">
-        <div data-role="header" data-position="inline">
-            <a href="#main" class="ui-btn-left" data-role="button" data-icon="back" data-theme="e">Back</a>
-            <h1>XYCal Usage</h1>
-        </div>
-        <div data-role="content">
-
-        </div>
-    </div>
-
-    <div id="static" data-role="page">
-        <div data-role="header" data-position="inline">
-            <a href="#main" class="ui-btn-left" data-role="button" data-icon="back" data-theme="e">Back</a>
-            <h1>XYCal Static</h1>
-        </div>
-        <div data-role="content">
-            <div id="xycal-static" class="ui-xycal">
-                <table style="width: 100%; border-collapse: collapse; ">
-                    <thead>
-                        <tr>
-                            <th class="ui-xycal-shift"><span class="left"></span></th>
-                            <th colspan="5" class="ui-xycal-title">May 2012</th>
-                            <th class="ui-xycal-shift"><span class="right"></span></th>
-                        </tr>
-                        <tr>
-                            <th>Mon</th>
-                            <th>Tue</th>
-                            <th>Wed</th>
-                            <th>Thu</th>
-                            <th>Fri</th>
-                            <th>Sat</th>
-                            <th>Sun</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr><td class="ui-xycal-others">30</td><td class="">1</td><td class="">2</td><td class="">3</td><td class="">4</td><td class="ui-xycal-evented">5<span>.</span></td><td class="">6</td></tr>
-                        <tr><td class="ui-xycal-today">7</td><td class="ui-xycal-evented">8<span>.</span></td><td class="">9</td><td class="">10</td><td class="">11</td><td class="">12</td><td class="">13</td></tr>
-                        <tr><td class="">14</td><td class="">15</td><td class="">16</td><td class="">17</td><td class="">18</td><td class="">19</td><td class="">20</td></tr>
-                        <tr><td class="ui-xycal-evented">21<span>.</span></td><td class="">22</td><td class="">23</td><td class="">24</td><td class="">25</td><td class="">26</td><td class="">27</td></tr>
-                        <tr><td class="">28</td><td class="">29</td><td class="">30</td><td class="">31</td><td class="ui-xycal-others">1</td><td class="ui-xycal-others">2</td><td class="ui-xycal-others">3</td></tr>
-                    </tbody>
-                </table>
-
-                <ul data-role="listview" data-inset="true" data-dividertheme="a">
-                    <li data-role="list-divider">07/05/2012 - 08:30</li>
-                    <li><a href="#">Event 1</a></li>
-                    <li data-role="list-divider">07/05/2012 - 10:30</li>
-                    <li>Event 2</li>
-                    <li data-role="list-divider">07/05/2012 - 14:30</li>
-                    <li>Event 3</li>
                 </ul>
             </div>
         </div>

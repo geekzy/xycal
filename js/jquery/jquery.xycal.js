@@ -1,7 +1,7 @@
 /**
  * XYBASE Simple Calendar/Event Layout Component
  *
- * jquery.xycal.js v0.5
+ * jquery.xycal.js v0.7
  *
  * Developer: Imam Kurniawan <geekzy@gmail.com><imam@xybase.com>
  * Copyright (c) 2012 XYBASE <http://www.xybase.com>
@@ -233,9 +233,8 @@
              */
             _initDOMEvents: function() {
                 // TODO implement event handlers and binding for cells and navigation
-                var nextMonth, prevMonth, selectDay, populate,
-                    xycal = this, lnav = $('.ui-xycal-shift .left'),
-                    rnav = $('.ui-xycal-shift .right'),
+                var navMonth, nextMonth, prevMonth, selectDay, populate,
+                    mnav = $('.ui-xycal-shift'), xycal = this,
                     day = $('.ui-xycal tbody td:not(.ui-xycal-others)');
 
                 populate = function(y, m) {
@@ -245,10 +244,19 @@
                     xycal._populateDays(y, m);
                 };
 
+                navMonth = function() {
+                    var el = $(this),
+                        rnav = el.is('th') ? el.find('.right').length > 0 : el.is('.ui-xycal-shift .right').length > 0,
+                        lnav = el.is('th') ? el.find('.left').length > 0 : el.is('.ui-xycal-shift .left').length > 0;
+
+                    if (rnav) { nextMonth(); }
+                    else if (lnav) { prevMonth(); }
+                };
+
                 nextMonth = function() {
                     var m = xycal._getNextMonth(xycal.m),
                         y = m === 0 ? (xycal.y + 1) : xycal.y;
-                    
+
                     xycal.el.find('ul').slideUp(300);
                     populate(y, m);
                 };
@@ -256,7 +264,7 @@
                 prevMonth = function() {
                     var m = xycal._getLastMonth(xycal.m),
                         y = m === 11 ? (xycal.y - 1) : xycal.y;
-                    
+
                     xycal.el.find('ul').slideUp(300);
                     populate(y, m);
                 };
@@ -278,8 +286,7 @@
                 };
 
                 // navigation
-                rnav.live('click', nextMonth);
-                lnav.live('click', prevMonth);
+                mnav.live('click', navMonth);
                 day.live('click', selectDay);
             },
             /**

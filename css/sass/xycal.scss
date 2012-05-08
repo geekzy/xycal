@@ -25,11 +25,11 @@ $h-320: $w-320 / 7;
             font-size: 70%;
             font-weight: bolder;
             color: #333;
+            cursor: pointer;
             span {
                 display: inline-block;
                 width: 18px;
-                height: 18px;
-                cursor: pointer;
+                height: 18px;                
             }
             span.left {
                 background: url(../js/jquery/images/icons-18-black-pack.png) -144px 0 transparent;

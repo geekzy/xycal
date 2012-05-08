@@ -1,0 +1,29 @@
+@import "xycal";
+
+.ui-xycal {
+    th {
+        &.ui-xycal-shift {
+            span.left {
+                background: url(../jqmobile/images/icons-18-black-pack.png) -144px 0 transparent;
+            }
+            span.right {
+                background: url(../jqmobile/images/icons-18-black-pack.png) -108px 0 transparent;
+            }
+        }
+    }
+}
+
+@media only screen and (min-width: 768px) {
+    .ui-xycal {
+        th {
+            &.ui-xycal-shift {
+                span.left {
+                    background: url(../jqmobile/images/icons-36-black-pack.png) -288px -0 transparent;
+                }
+                span.right {
+                    background: url(../jqmobile/images/icons-36-black-pack.png) -216px -0 transparent;
+                }
+            }
+        }
+    }
+}    

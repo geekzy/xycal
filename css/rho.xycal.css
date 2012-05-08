@@ -187,3 +187,22 @@
     font-size: 120%;
   }
 }
+/* line 6, sass/rho.xycal.scss */
+.ui-xycal th.ui-xycal-shift span.left, .ui-xycal td.ui-xycal-shift span.left {
+  background: url(../jqmobile/images/icons-18-black-pack.png) -144px 0 transparent;
+}
+/* line 9, sass/rho.xycal.scss */
+.ui-xycal th.ui-xycal-shift span.right, .ui-xycal td.ui-xycal-shift span.right {
+  background: url(../jqmobile/images/icons-18-black-pack.png) -108px 0 transparent;
+}
+
+@media only screen and (min-width: 768px) {
+  /* line 20, sass/rho.xycal.scss */
+  .ui-xycal th.ui-xycal-shift span.left, .ui-xycal td.ui-xycal-shift span.left {
+    background: url(../jqmobile/images/icons-36-black-pack.png) -288px 0 transparent;
+  }
+  /* line 23, sass/rho.xycal.scss */
+  .ui-xycal th.ui-xycal-shift span.right, .ui-xycal td.ui-xycal-shift span.right {
+    background: url(../jqmobile/images/icons-36-black-pack.png) -216px 0 transparent;
+  }
+}

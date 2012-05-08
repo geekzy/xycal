@@ -99,6 +99,9 @@
 
                 // Initialize Events
                 this._initDOMEvents();
+
+                // Initialize Today's Events
+                this._initTodayEvents();
             },
             /**
              * Populate the title of the calendar of the specified month and year
@@ -245,12 +248,16 @@
                 nextMonth = function() {
                     var m = xycal._getNextMonth(xycal.m),
                         y = m === 0 ? (xycal.y + 1) : xycal.y;
+                    
+                    xycal.el.find('ul').slideUp(300);
                     populate(y, m);
                 };
 
                 prevMonth = function() {
                     var m = xycal._getLastMonth(xycal.m),
                         y = m === 11 ? (xycal.y - 1) : xycal.y;
+                    
+                    xycal.el.find('ul').slideUp(300);
                     populate(y, m);
                 };
 
@@ -322,11 +329,22 @@
 
                     // merge with events in settings
                     prepare();
-                    // remove the element
-                    eventList.remove();
+                    // remove all ul
+                    this.el.find('ul').remove();
                 }
                 // events already in settings
                 else { prepare(); }
+            },
+            /**
+             * Initialize Events for today
+             */
+            _initTodayEvents: function() {
+                var xycal = this, y = xycal.today.getFullYear(),
+                    m = xycal.today.getMonth(),
+                    d = xycal.today.getDate(),
+                    events = xycal._getDayEvents(y, m, d);
+
+                if (events.length > 0) { xycal._loadEventListView(events); }
             },
             /**
              * Load events of selected day on a listview below the calendar

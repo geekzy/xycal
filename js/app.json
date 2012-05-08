@@ -1,27 +1,27 @@
 {
-	/** DEV for development mode or PROD for production mode **/
-	"mode": "DEV",	
+    /** DEV for development mode or PROD for production mode **/
+    "mode": "DEV",    
 
-	/** JAVASCRIPTS **/
-	"js": [
-		/** jQuery core + patch */
-		{"path": "js/jquery/jquery-1.7.1.min.js"},		
+    /** JAVASCRIPTS **/
+    "js": [
+        /** jQuery core + patch */
+        {"path": "js/jquery/jquery-1.7.1.min.js"},        
 
-		/** Plugins / Utility */
-		{"path": "js/util/xydate.min.js"},		
-		{"path": "js/jquery/jquery.xycommon.min.js"},		
-		{"path": "js/jquery/jquery.xycal.min.js"},		
+        /** Plugins / Utility */
+        {"path": "js/util/xydate.min.js"},        
+        {"path": "js/jquery/jquery.xycommon.min.js"},        
+        {"path": "js/jquery/jquery.xycal.min.js"},        
 
-		/** Modules - Remove or Comment these on PROD mode */
-		{"path": "js/app/Main.js"}
-	],
+        /** Modules - Remove or Comment these on PROD mode */
+        {"path": "js/app/Main.js"}
+    ],
 
-	/** STYLESHEETS **/
-	"css": [
-		/** Plugins / Utility */
-		{"path": "js/jquery/jquery.mobile-1.1.0.min.css"},
-		
-		/** spesific style - put this last to enable overriding */
-		{"path": "css/xycal.css"}
-	]
+    /** STYLESHEETS **/
+    "css": [
+        /** Plugins / Utility */
+        {"path": "js/jquery/jquery.mobile-1.1.0.min.css"},
+        
+        /** spesific style - put this last to enable overriding */
+        {"path": "css/xycal.css"}
+    ]
 }

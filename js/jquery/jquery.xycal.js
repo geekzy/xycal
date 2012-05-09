@@ -1,7 +1,7 @@
 /**
  * XYBASE Simple Calendar/Event Layout Component
  *
- * jquery.xycal.js v0.7
+ * jquery.xycal.js v1.0
  *
  * Developer: Imam Kurniawan <geekzy@gmail.com><imam@xybase.com>
  * Copyright (c) 2012 XYBASE <http://www.xybase.com>

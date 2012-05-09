@@ -16,6 +16,22 @@ XY.Base.Main = function() {
             ul: '<ul data-role="listview" data-inset="true" data-dividertheme="a"></ul>',
             li: '<li>#{date} - #{desc}</li>'
         });
+        
+        $('.nottyme').click(function() {
+            $.notty({                
+                content: $('<p>This is a notification</p>')
+                    .css({
+                        'font-size': '120%', 
+                        'margin': '3px', 
+                        'text-align': 'center',
+                        'font-weight': 'bold'
+                    })
+                    .outerHTML().join(''),
+                timeout: 3000,
+                showTime: false,                
+                nohide: true
+            });
+        });
 		console.log('Initialized - Main');
 	};
 

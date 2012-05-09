@@ -336,6 +336,16 @@
                 var el = $(this);
                 el.attr('id', $.randomString(len || 8));
             });
+        },
+        /**
+         * Get the outter html of the selected element(s)
+         * this function is unchainable
+         * @return array of the outer HTML
+         */
+        outerHTML: function() {
+            return $.map(this, function(el) {
+                return el.outerHTML;
+            });
         }
     };
     // initialize plugins

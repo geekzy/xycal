@@ -9,7 +9,8 @@
 
         /** Plugins / Utility */
         {"path": "js/util/xydate.min.js"},
-        {"path": "js/jquery/jquery.xycommon.min.js"},
+        {"path": "js/jquery/jquery.xycommon.js"},
+        {"path": "js/jquery/jquery.notty.min.js"},
         {"path": "js/jquery/jquery.xycal.min.js"},
 
         /** Modules - Remove or Comment these on PROD mode */
@@ -20,6 +21,7 @@
     "css": [
         /** Plugins / Utility */
         {"path": "js/jquery/jquery.mobile-1.1.0.min.css"},
+        {"path": "js/jquery/jquery.notty.css"},
 
         /** spesific style - put this last to enable overriding */
         {"path": "css/xycal.css"}

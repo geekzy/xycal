@@ -26,10 +26,12 @@ $h-320: $w-320 / 7;
             font-weight: bolder;
             color: #333;
             cursor: pointer;
+            height: $w-320 * 0.1;
             span {
                 display: inline-block;
                 width: 18px;
-                height: 18px;                
+                height: 18px;         
+                margin-top: 0.2 * $w-320 * 0.1;
             }
             span.left {
                 background: url(../js/jquery/images/icons-18-black-pack.png) -144px 0 transparent;
@@ -92,6 +94,7 @@ $h-480: $w-480 / 7;
                 font-size: 150%;
             }
             &.ui-xycal-shift {
+                height: $w-480 * 0.1;
                 font-size: 100%;
                 font-weight: bolder;
                 color: #333;
@@ -116,11 +119,12 @@ $h-768: $w-768 / 7;
     .ui-xycal {
         width: $w-768;
         th {
-            font-size: 70%;
+            font-size: 80%;
             &.ui-xycal-title {
                 font-size: 150%;
             }
             &.ui-xycal-shift {
+                height: $w-768 * 0.1;
                 font-size: 100%;
                 font-weight: bolder;
                 color: #333;
@@ -160,6 +164,7 @@ $h-1024: $w-1024 * 0.14;
                 font-size: 170%;
             }
             &.ui-xycal-shift {
+                height: $w-1024 * 0.1;
                 font-size: 150%;
                 font-weight: bolder;
                 color: #333;

@@ -1,0 +1,67 @@
+@import "compass";
+@import "compass/css3";
+
+#nottys {
+    p {
+        margin: 3px;
+        text-align: center;
+        font-size: 110%;
+        font-weight: bold;
+    }
+
+    .notty {
+        padding: 2px;
+    }
+
+    .notty.alert {
+        background: black;
+        background: rgba(0,0,0,0.9);
+        color: white;
+        text-shadow: black 0px 1px 2px;
+        border: 1px solid black;
+        border: 1px solid rgba(0,0,0,0.9);
+    }
+
+    .notty.error {
+        background: #F66;
+        background: rgba(255,102,102,0.9);
+        color: #293134;
+        text-shadow: #333 0px 1px 1px;
+        border: 1px solid #F66;
+        border: 1px solid rgba(255,102,102,.9);
+    }
+
+    .notty.info {
+        background: #FFEC9A;
+        background: rgba(255,236,154,0.9);
+        color: #293134;
+        text-shadow: #333 0px 1px 1px;
+        border: 1px solid #FFEC9A;
+        border: 1px solid rgba(255,236,154,.9);
+    }
+}
+
+@media only screen {
+
+    @media (min-width: 480px) {
+        #nottys {
+            .notty { padding: 4px; }
+            p { font-size: 120%; }
+        }
+    }
+
+    @media (min-width: 768px) {
+        #nottys {
+            .notty { padding: 6px; }
+            p { font-size: 130%; }
+        }
+    }
+
+    @media (min-width: 1024px) {
+        #nottys {
+            .notty { padding: 10px; }
+            p { font-size: 150%; }
+        }
+    }
+
+}

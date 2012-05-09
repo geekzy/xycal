@@ -13,6 +13,7 @@
         settings = $.extend({
             title: undefined,
             content: undefined,
+            style: undefined,
             timeout: 0,
             img: undefined,
             showTime: true,
@@ -33,6 +34,9 @@
         };
         notty = $("<div>");
         notty.addClass("notty pop");
+        if (settings.style) {
+            notty.addClass(settings.style);
+        }
         hide = $("<div>", {
             click: function() {
                 $(this).parent().removeClass("pop").addClass("remove").delay(300).queue(function() {

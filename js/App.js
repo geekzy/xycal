@@ -100,7 +100,11 @@ XY.Base.App = function() {
         script = page.attr('data-initjs');
         module = script && script.count('.') > 2 ?
             $.tmpl(moduleJSTpl, {name: script.split('.')[2]}) : false;
-
+        
+        page.find('[data-role=header]').toggleClass('ui-bar-a', false).addClass('ui-bar-b').attr('data-theme', 'b');
+        page.find('[data-role=header]').find('a').toggleClass('ui-btn-up-a', false).addClass('ui-btn-up-e').attr('data-theme', 'e');
+        
+        
         // production mode
         if (script && mode === 'PROD') {
             // loadScript

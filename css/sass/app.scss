@@ -2,6 +2,8 @@
 @import "compass/css3";
 
 #nottys {
+    top: 10%;
+
     p {
         margin: 3px;
         text-align: center;
@@ -10,34 +12,34 @@
     }
 
     .notty {
-        padding: 2px;
+        padding: 10px;
     }
 
     .notty.alert {
         background: black;
-        background: rgba(0,0,0,0.9);
+        background: rgba(0,0,0,.7);
         color: white;
-        text-shadow: black 0px 1px 2px;
+        text-shadow: black 0px 0px 2px;
         border: 1px solid black;
-        border: 1px solid rgba(0,0,0,0.9);
+        border: 1px solid rgba(0,0,0,.7);
     }
 
     .notty.error {
         background: #F66;
-        background: rgba(255,102,102,0.9);
+        background: rgba(255,102,102,.7);
         color: #293134;
-        text-shadow: #333 0px 1px 1px;
-        border: 1px solid #F66;
-        border: 1px solid rgba(255,102,102,.9);
+        text-shadow: #333 0px 0px 1px;
+        border: 1px solid #FF1A1A;
+        border: 1px solid rgba(255,26,26,.7);
     }
 
     .notty.info {
         background: #FFEC9A;
-        background: rgba(255,236,154,0.9);
+        background: rgba(255,236,154,.7);
         color: #293134;
-        text-shadow: #333 0px 1px 1px;
-        border: 1px solid #FFEC9A;
-        border: 1px solid rgba(255,236,154,.9);
+        text-shadow: #333 0px 0px 1px;
+        border: 1px solid #FFCF00;
+        border: 1px solid rgba(255,207,0,.7);
     }
 }
 
@@ -45,21 +47,18 @@
 
     @media (min-width: 480px) {
         #nottys {
-            .notty { padding: 4px; }
             p { font-size: 120%; }
         }
     }
 
     @media (min-width: 768px) {
         #nottys {
-            .notty { padding: 6px; }
             p { font-size: 130%; }
         }
     }
 
     @media (min-width: 1024px) {
         #nottys {
-            .notty { padding: 10px; }
             p { font-size: 150%; }
         }
     }

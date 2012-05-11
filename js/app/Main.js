@@ -1,47 +1,68 @@
 XY.Base.Main = function() {
-	/** Private Zone **/
-	var // Function names
-		pageInit, srcInit;
-		// Variables
-		// Templates
+    /** Private Zone **/
+    var // Function names
+        pageInit, srcInit;
+        // Variables
+        // Templates
 
-	/** Implementations **/
+    /** Implementations **/
 
-	/**
-	 * Function to initialize Main.index page
-	 * @scope public
-	 */
-	pageInit = function() {
-        $('#xycal-demo').xycal({
-            ul: '<ul data-role="listview" data-inset="true" data-dividertheme="a"></ul>',
-            li: '<li>#{date} - #{desc}</li>'
-        });
+    /**
+     * Function to initialize Main.index page
+     * @scope public
+     */
+    pageInit = function() {
+        var notty;
 
-        $('.nottyme').click(function() {
+        notty = function(msg, style) {
             $.notty({
-                style: 'info',
-                content: $('<p>This is a notification</p>')
+                style: style || 'info',
+                content: $($.tmpl('<p>#{msg}</p>', {msg: msg}))
                     .outerHTML().join(''),
                 timeout: 3000,
                 showTime: false,
                 nohide: true
             });
+        };
+
+        $('#xycal-demo').xycal({
+            ul: '<ul data-role="listview" data-inset="true" data-dividertheme="a"></ul>',
+            li: '<li>#{date} - #{desc}</li>',
+            callback: {
+                onLoaded: function() { notty('The XYCal is Loaded.'); },
+                onChangeDay: function(selected, evented) {
+                    var day = selected.formatDate('dd/MM/yyyy');
+                    notty((evented ? 'An evented' : 'A') + ' day is selected : ' + day);
+                },
+                onChangeMonth: function(selected) {
+                    var month = selected.formatDate('MMM');
+                    notty('Month is changed : ' + month);
+                },
+                onChangeYear: function(selected) {
+                    var year = selected.formatDate('yyyy');
+                    notty('Year is changed : ' + year);
+                }
+            }
         });
-		console.log('Initialized - Main');
-	};
 
-	/**
-	 * Function to initialize xycal usage page
-	 * @scope public
-	 */
-	srcInit = function() {
-		console.log('Initialized - XYCal Usage');
-	}
+        $('.nottyme').click(function() {
+            notty('This is a notification');
+        });
+        console.log('Initialized - Main');
+    };
 
-	return {
-		/** Public Zone **/
-		id: 'main',
-		pageInit: pageInit,
-		srcInit: srcInit
-	};
+    /**
+     * Function to initialize xycal usage page
+     * @scope public
+     */
+    srcInit = function() {
+        console.log('Initialized - XYCal Usage');
+    }
+
+    return {
+        /** Public Zone **/
+        id: 'main',
+        pageInit: pageInit,
+        srcInit: srcInit
+    };
 }();

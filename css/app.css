@@ -1,57 +1,53 @@
-/* line 5, sass/app.scss */
+/* line 4, sass/app.scss */
+#nottys {
+  top: 10%;
+}
+/* line 7, sass/app.scss */
 #nottys p {
   margin: 3px;
   text-align: center;
   font-size: 110%;
   font-weight: bold;
 }
-/* line 12, sass/app.scss */
+/* line 14, sass/app.scss */
 #nottys .notty {
-  padding: 2px;
+  padding: 10px;
 }
-/* line 16, sass/app.scss */
+/* line 18, sass/app.scss */
 #nottys .notty.alert {
   background: black;
-  background: rgba(0, 0, 0, 0.9);
+  background: rgba(0, 0, 0, 0.7);
   color: white;
-  text-shadow: black 0px 1px 2px;
+  text-shadow: black 0px 0px 2px;
   border: 1px solid black;
-  border: 1px solid rgba(0, 0, 0, 0.9);
+  border: 1px solid rgba(0, 0, 0, 0.7);
 }
-/* line 25, sass/app.scss */
+/* line 27, sass/app.scss */
 #nottys .notty.error {
   background: #F66;
-  background: rgba(255, 102, 102, 0.9);
+  background: rgba(255, 102, 102, 0.7);
   color: #293134;
-  text-shadow: #333 0px 1px 1px;
-  border: 1px solid #F66;
-  border: 1px solid rgba(255, 102, 102, 0.9);
+  text-shadow: #333 0px 0px 1px;
+  border: 1px solid #FF1A1A;
+  border: 1px solid rgba(255, 26, 26, 0.7);
 }
-/* line 34, sass/app.scss */
+/* line 36, sass/app.scss */
 #nottys .notty.info {
   background: #FFEC9A;
-  background: rgba(255, 236, 154, 0.9);
+  background: rgba(255, 236, 154, 0.7);
   color: #293134;
-  text-shadow: #333 0px 1px 1px;
-  border: 1px solid #FFEC9A;
-  border: 1px solid rgba(255, 236, 154, 0.9);
+  text-shadow: #333 0px 0px 1px;
+  border: 1px solid #FFCF00;
+  border: 1px solid rgba(255, 207, 0, 0.7);
 }
 
 @media only screen and (min-width: 480px) {
-  /* line 48, sass/app.scss */
-  #nottys .notty {
-    padding: 4px;
-  }
-  /* line 49, sass/app.scss */
+  /* line 50, sass/app.scss */
   #nottys p {
     font-size: 120%;
   }
 }
 @media only screen and (min-width: 768px) {
-  /* line 55, sass/app.scss */
-  #nottys .notty {
-    padding: 6px;
-  }
   /* line 56, sass/app.scss */
   #nottys p {
     font-size: 130%;
@@ -59,10 +55,6 @@
 }
 @media only screen and (min-width: 1024px) {
   /* line 62, sass/app.scss */
-  #nottys .notty {
-    padding: 10px;
-  }
-  /* line 63, sass/app.scss */
   #nottys p {
     font-size: 150%;
   }

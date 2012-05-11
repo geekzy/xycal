@@ -1,10 +1,29 @@
 /**
  * XYBASE Simple Calendar/Event Layout Component
  *
- * jquery.xycal.js v1.0
+ * jquery.xycal.js v1.0.3
  *
  * Developer: Imam Kurniawan <geekzy@gmail.com><imam@xybase.com>
  * Copyright (c) 2012 XYBASE <http://www.xybase.com>
+ *
+ * Methods:
+ * - getSelected :
+ *   Get curently selected day
+ *   @return day object of selected day
+ *
+ * - setSelected(date) :
+ *   Set the selected date, all related callbacks will also be invoked
+ *   @param date the Date object of the selected date
+ *   @return the selected date as Date Object
+ *
+ * - today :
+ *   Navigate to Today's date
+ *
+ *
+ * Changes:
+ * - [10/05/12] Fix event list referencing issue when using configuration, get it straight from selector
+ * - [11/05/12] Add options for callback such as when xycal is loaded, date selected, month change & year change
+ *              Add public methods to get/set the selected date and navigate to today's date.
  */
 (function ($) {
     $.fn.xycal = function(options) {
@@ -37,7 +56,7 @@
         }
         if (el.find('thead').length === 0) {el.append('<thead/>');}
         if (el.find('tbody').length === 0) {el.append('<tbody/>');}
-        this.Init();
+        this._init();
     };
 
     // xytable class definition
@@ -51,10 +70,31 @@
             dateFormat: 'dd/MM/yyyy',
             timeFormat: 'HH:mm',
             format: '#{df} #{tf}',
-            eventList: false,
             ul: '<ul data-role="listview" data-inset="true" data-dividertheme="b"></ul>',
             li: '<li>#{desc}</li>',
-            div: '<li data-role="list-divider">#{time} - #{title}</li>'
+            div: '<li data-role="list-divider">#{time} - #{title}</li>',
+            callback: {
+                /**
+                 * Callback when the xycal component is loaded, scope of this is the xycal instance
+                 */
+                onLoaded: $.noop,
+                /**
+                 * Callback when the day is changed/selected, scope of this is the xycal instance
+                 * @param selected the latest selected date as Date Object
+                 * @param evented boolean value of the selected date has any event(s). true - has event(s); false - no event(s)
+                 */
+                onChangeDay: $.noop,
+                /**
+                 * Callback when the month is changed, scope of this is the xycal instance
+                 * @param selected the latest selected date as Date Object
+                 */
+                onChangeMonth: $.noop,
+                /**
+                 * Callback when the year is changed, scope of this is the xycal instance
+                 * @param selected the latest selected date as Date Object
+                 */
+                onChangeYear: $.noop
+            }
         },
         messages: {
             days: ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'],
@@ -66,9 +106,77 @@
             /** Public Methods **/
 
             /**
+             * Public interface to get curently selected day
+             *
+             * @return day object of selected day
+             */
+            getSelected: function() {
+                var xycal = this;
+                    selected = xycal.el.find('table td.ui-xycal-selected');
+
+                return new Date(xycal.y, xycal.m, selected.length > 0 ? xycal.d : 1);
+            },
+            /**
+             * Public interface to set the selected date
+             *
+             * @param date the Date object of the selected date
+             * @return the selected date as Date Object
+             */
+            setSelected: function(date) {
+                if (!date instanceof Date) {
+                    throw "Parameter of the selected date must be a Date Object";
+                }
+
+                var evented, cy = this.y, cm = this.m,
+                    y = date.getFullYear(),
+                    m = date.getMonth(),
+                    d = date.getDate();
+
+                // hide events
+                this.el.find('ul').slideUp(200);
+                // update instance state
+                this.y = y;
+                this.m = m;
+                this.d = d;
+                // update display
+                this._populateHead(y, m);
+                this._populateDays(y, m, d);
+                // scroll to selected
+                this.el.find('.ui-xycal-selected').scrollHere(300);
+                evented = this.el.find('.ui-xycal-evented').length > 0;
+                // Initialize Events for the selected date
+                this._initTodayEvents(this.getSelected());
+
+                // invoke callbacks
+                this.settings.callback.onChangeDay.call(this, this.getSelected(), evented);
+                if (cm !== this.m) { this.settings.callback.onChangeMonth.call(this, this.getSelected()); }
+                if (cy !== this.y) { this.settings.callback.onChangeYear.call(this, this.getSelected()); }
+
+                return this.getSelected();
+
+            },
+            /**
+             * Navigate to Today's date
+             */
+            today: function() {
+                var year = this.today.getFullYear(),
+                    month = this.today.getMonth();
+
+                // Initialize Header
+                this._populateHead(year, month);
+
+                // Initialize Date
+                this._populateDays(year, month);
+
+                // Initialize Today's Events
+                this._initTodayEvents();
+            },
+            /** Private Methods (at least they should be) **/
+
+            /**
              * Initialize xycal object
              */
-            Init: function() {
+            _init: function() {
                 // Init Instance Vars
                 this.today = this.settings.date;
                 this.thead = this.el.find('thead');
@@ -76,19 +184,16 @@
 
                 var // Init Local Vars
                     year = this.today.getFullYear(),
-                    month = this.today.getMonth(),
-                    _evtList = this.settings.eventList,
-                    evtList = _evtList === false ? this.el.find('ul') : _evtList;
+                    month = this.today.getMonth();
 
                 // set current year and month
                 this.m = month;
                 this.y = year;
+
                 // Set widget class
                 this.el.addClass('ui-xycal');
 
                 // Initialize Events
-                this.settings.eventList = typeof(evtList) === 'string'
-                    || evtList.length > 0 ? evtList : false;
                 this._initDayEvents();
 
                 // Initialize Header
@@ -102,6 +207,9 @@
 
                 // Initialize Today's Events
                 this._initTodayEvents();
+
+                // Invoke onLoaded callback
+                this.settings.callback.onLoaded.call(this);
             },
             /**
              * Populate the title of the calendar of the specified month and year
@@ -147,8 +255,8 @@
             /**
              * Populate the days of the month and year
              */
-            _populateDays: function(y, m) {
-                var dCount = 0, d, ld, today, evented,
+            _populateDays: function(y, m, d) {
+                var dCount = 0, i, ld, today, evented,
                     year = y !== undefined ? y : this.today.getFullYear(),
                     month = m !== undefined ? m : this.today.getMonth(),
                     lMonth = this._getLastMonth(month),
@@ -169,10 +277,10 @@
                     _eventMark = '<span>#{mark}</span>';
 
                 // populate last months padding
-                for (d = 1; d <= fDay; d++) {
+                for (i = 1; i <= fDay; i++) {
                     // break if fDay is sunday
                     if (fDay > 6) { break; }
-                    clazz = []; ld = lastDays - (fDay - d);
+                    clazz = []; ld = lastDays - (fDay - i);
                     evented = this._dayEvented(year, lMonth, (ld - 1));
 
                     clazz.push('ui-xycal-others');
@@ -183,10 +291,10 @@
                 }
 
                 // populate this month
-                for (d = 1; d <= days; d++) {
+                for (i = 1; i <= days; i++) {
                     clazz = [];
-                    today = this._dayToday(year, month, d);
-                    evented = this._dayEvented(year, month, d);
+                    today = this._dayToday(year, month, i);
+                    evented = this._dayEvented(year, month, i);
 
                     // wrap days up into a week, reset days and day counter
                     if (dCount === 7) {
@@ -197,26 +305,27 @@
 
                     if (today) { clazz.push('ui-xycal-today'); }
                     if (evented) { clazz.push('ui-xycal-evented'); }
+                    if (d && d === i) { clazz.push('ui-xycal-selected'); }
 
-                    daysRow += $.tmpl(_dayCell, {d: d, clazz: this._getClazz(clazz)});
+                    daysRow += $.tmpl(_dayCell, {d: i, clazz: this._getClazz(clazz)});
                     dCount++;
                 }
 
                 // populate next months padding
-                for (d = 1; d <= lDay; d++) {
+                for (i = 1; i <= lDay; i++) {
                     clazz = [];
                     if (dCount < 7) {
-                        evented = this._dayEvented(year, lMonth, d);
+                        evented = this._dayEvented(year, lMonth, i);
                         clazz.push('ui-xycal-others');
                         if (evented) { clazz.push('ui-xycal-evented'); }
-                        daysRow += $.tmpl(_dayCell, {d: d, clazz: this._getClazz(clazz)});
+                        daysRow += $.tmpl(_dayCell, {d: i, clazz: this._getClazz(clazz)});
                         dCount++;
                     } else { break; }
                 }
 
                 if (dCount != 7) {
-                    for (d = 1; d <= 7 - dCount; d++) {
-                        daysRow += $.tmpl(_dayCell, {d: (lDay + d), clazz: this._getClazz(clazz)});
+                    for (i = 1; i <= 7 - dCount; i++) {
+                        daysRow += $.tmpl(_dayCell, {d: (lDay + i), clazz: this._getClazz(clazz)});
                     }
                 }
 
@@ -237,20 +346,27 @@
                     mnav = $('.ui-xycal-shift'), xycal = this,
                     day = $('.ui-xycal tbody td:not(.ui-xycal-others)');
 
-                populate = function(y, m) {
+                populate = function(y, m, d) {
                     xycal.m = m;
                     xycal.y = y;
+                    xycal.d = d;
                     xycal._populateHead(y, m);
-                    xycal._populateDays(y, m);
+                    xycal._populateDays(y, m, d);
                 };
 
                 navMonth = function() {
-                    var el = $(this),
+                    var el = $(this), y = xycal.y,
                         rnav = el.is('th') ? el.find('.right').length > 0 : el.is('.ui-xycal-shift .right').length > 0,
                         lnav = el.is('th') ? el.find('.left').length > 0 : el.is('.ui-xycal-shift .left').length > 0;
 
                     if (rnav) { nextMonth(); }
                     else if (lnav) { prevMonth(); }
+                    // invoke onChangeMonth callback
+                    xycal.settings.callback.onChangeMonth.call(xycal, xycal.getSelected());
+                    // invoke onChangeYear callback
+                    if (xycal.y !== y) {
+                        xycal.settings.callback.onChangeYear.call(xycal, xycal.getSelected());
+                    }
                 };
 
                 nextMonth = function() {
@@ -273,8 +389,12 @@
                     var dCell = $(this), events = [],
                         y = xycal.y, m = xycal.m, d = /\d+/.exec(dCell.text()).join(''),
                         today = dCell.is('.ui-xycal-today'),
-                        evented = dCell.is('.ui-xycal-evented');
+                        evented = dCell.is('.ui-xycal-evented'),
+                        selected = dCell.is('.ui-xycal-selected');
 
+                    if (selected) { return; }
+
+                    xycal.d = d;
                     $('.ui-xycal-selected').removeClass('ui-xycal-selected');
                     if (!today) { dCell.addClass('ui-xycal-selected'); }
                     if (evented) {
@@ -283,6 +403,8 @@
                     }
                     // remove event list
                     else { xycal.el.find('ul').slideUp(200); }
+                    // Invoke onChangeDay callback
+                    xycal.settings.callback.onChangeDay.call(xycal, xycal.getSelected(), evented);
                 };
 
                 // navigation
@@ -296,7 +418,7 @@
                 var parse, prepare, xycal = this,
                     settings = xycal.settings,
                     events = settings.events,
-                    eventList = settings.eventList;
+                    eventList = xycal.el.find('ul');
 
                 xycal.events = [];
                 parse = function(ds) {
@@ -320,7 +442,7 @@
                 };
 
                 // events is in the event list, grab it and put into this.events
-                if (eventList) {
+                if (eventList && eventList.length > 0) {
                     // if it's selector or HTML Element then make it jQuery object
                     if (!eventList instanceof jQuery) { eventList = $(eventList); }
                     eventList.find('li[data]').each(function() {
@@ -345,10 +467,15 @@
             /**
              * Initialize Events for today
              */
-            _initTodayEvents: function() {
-                var xycal = this, y = xycal.today.getFullYear(),
-                    m = xycal.today.getMonth(),
-                    d = xycal.today.getDate(),
+            _initTodayEvents: function(date) {
+                if (date && !date instanceof Date) {
+                    throw "Parameter of the selected date must be a Date Object";
+                }
+
+                var xycal = this,
+                    y = date ? date.getFullYear() : xycal.today.getFullYear(),
+                    m = date ? date.getMonth() : xycal.today.getMonth(),
+                    d = date ? date.getDate() : xycal.today.getDate(),
                     events = xycal._getDayEvents(y, m, d);
 
                 if (events.length > 0) { xycal._loadEventListView(events); }
@@ -486,6 +613,7 @@
             },
             /**
              * Convert Array of classes into String representation
+             *
              * @param clazz the Array of classes
              * @return the string representation of the classes
              */

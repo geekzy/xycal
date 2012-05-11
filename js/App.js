@@ -80,6 +80,7 @@ XY.Base.App = function() {
 
         // Use slide transition by default
         $.mobile.defaultPageTransition = "slide";
+        $.mobile.defaultDialogTransition = "pop";
     };
 
     /**
@@ -120,7 +121,8 @@ XY.Base.App = function() {
     return {
         /** Public Zone **/
         appInit: appInit,
-        pageInit: pageInit
+        pageInit: pageInit,
+        mobileInit: mobileInit
     };
 }();
 XY.Base.App.appInit();

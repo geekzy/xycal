@@ -12,41 +12,28 @@ XY.Base.Main = function() {
      * @scope public
      */
     pageInit = function() {
-        var notty;
-
-        notty = function(msg, style) {
-            $.notty({
-                style: style || 'info',
-                content: $($.tmpl('<p>#{msg}</p>', {msg: msg}))
-                    .outerHTML().join(''),
-                timeout: 3000,
-                showTime: false,
-                nohide: true
-            });
-        };
-
         $('#xycal-demo').xycal({
             ul: '<ul data-role="listview" data-inset="true" data-dividertheme="a"></ul>',
-            li: '<li>#{date} - #{desc}</li>',
+            li: '<li><%=date%> - <%=desc%></li>',
             callback: {
-                onLoaded: function() { notty('The XYCal is Loaded.'); },
+                onLoaded: function() { XY.Base.App.notty('The XYCal is Loaded.'); },
                 onChangeDay: function(selected, evented) {
                     var day = selected.formatDate('dd/MM/yyyy');
-                    notty((evented ? 'An evented' : 'A') + ' day is selected : ' + day);
+                    XY.Base.App.notty((evented ? 'An evented' : 'A') + ' day is selected : ' + day);
                 },
                 onChangeMonth: function(selected) {
                     var month = selected.formatDate('MMM');
-                    notty('Month is changed : ' + month);
+                    XY.Base.App.notty('Month is changed : ' + month);
                 },
                 onChangeYear: function(selected) {
                     var year = selected.formatDate('yyyy');
-                    notty('Year is changed : ' + year);
+                    XY.Base.App.notty('Year is changed : ' + year);
                 }
             }
         });
 
         $('.nottyme').click(function() {
-            notty('This is a notification');
+            XY.Base.App.notty('This is a notification');
         });
         console.log('Initialized - Main');
     };

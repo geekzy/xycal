@@ -20,9 +20,9 @@
  *   Navigate to Today's date
  *
  * Callbacks:
- * - onLoaded : 
+ * - onLoaded :
  *   Callback when the xycal component is loaded, scope of this is the xycal instance
- * 
+ *
  * - onChangeDay(selected, evented)
  *   Callback when the day is changed/selected, scope of this is the xycal instance
  *   param selected the latest selected date as Date Object
@@ -41,20 +41,26 @@
  * - [11/05/12] Add options for callback such as when xycal is loaded, date selected, month change & year change
  *              Add public methods to get/set the selected date and navigate to today's date.
  * - [14/05/12] Fix DOM Event bug when switching to other screen, replace .live with .click and reinitialize after change month
+ *              Add reload functionality, Use new templating engine, rewrite all templates into new format
  */
 (function ($) {
-    $.fn.xycal = function(options) {
+    $.fn.xycal = function(options, params) {
         if (this.length === 0) {return this;}
         // has been created before
         var cal = $.data(this[0], 'xycal');
-        if (this.length === 1 && cal) {return cal;}
+        if (this.length === 1 && cal) {
+            if (typeof(options) === 'string' && cal[options]) {
+                cal[options].call(cal, params);
+            }
+            return cal;
+        }
         // new instance
         else {
-        return this.each(function() {
-            var el = $(this),
-                xycal = new $.xycal(el, options || {});
+            return this.each(function() {
+                var el = $(this),
+                    xycal = new $.xycal(el, options || {});
 
-            $.data(this, 'xycal', xycal);
+                $.data(this, 'xycal', xycal);
                 return xycal;
             });
         }
@@ -62,9 +68,10 @@
 
     // xycal constructor | public interface: $.xycal
     $.xycal = function(el, opts) {
-        this.el = el;
-        this.settings = $.extend(true, $.xycal.defaults, opts);
-        this.messages = $.xycal.messages;
+        var xycal = this;
+        xycal.el = el;
+        xycal.settings = $.extend(true, $.xycal.defaults, opts);
+        xycal.messages = $.xycal.messages;
 
         if (!el.is('table')) {
             el.append('<table/>');
@@ -73,7 +80,7 @@
         }
         if (el.find('thead').length === 0) {el.append('<thead/>');}
         if (el.find('tbody').length === 0) {el.append('<tbody/>');}
-        this._init();
+        xycal._init();
     };
 
     // xytable class definition
@@ -86,10 +93,10 @@
             eventMark: '.',
             dateFormat: 'dd/MM/yyyy',
             timeFormat: 'HH:mm',
-            format: '#{df} #{tf}',
+            format: '<%=df%> <%=tf%>',
             ul: '<ul data-role="listview" data-inset="true" data-dividertheme="b"></ul>',
-            li: '<li>#{desc}</li>',
-            div: '<li data-role="list-divider">#{time} - #{title}</li>',
+            li: '<li><%=desc%></li>',
+            div: '<li data-role="list-divider"><%=time%> - <%=title%></li>',
             callback: {
                 /**
                  * Callback when the xycal component is loaded, scope of this is the xycal instance
@@ -117,7 +124,7 @@
             days: ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'],
             months: ['January','February','March','April','May','June','July','August','September','October','November','December'],
             noEvents: 'No Events',
-            calTitle: '#{m} #{y}'
+            calTitle: '<%=m%> <%=y%>'
         },
         prototype: {
             /** Public Methods **/
@@ -144,49 +151,68 @@
                     throw "Parameter of the selected date must be a Date Object";
                 }
 
-                var evented, cy = this.y, cm = this.m,
+                var xycal = this, evented, cy = xycal.y, cm = xycal.m,
                     y = date.getFullYear(),
                     m = date.getMonth(),
                     d = date.getDate();
 
                 // hide events
-                this.el.find('ul').slideUp(200);
+                xycal.el.find('ul').slideUp(200);
                 // update instance state
-                this.y = y;
-                this.m = m;
-                this.d = d;
+                xycal.y = y;
+                xycal.m = m;
+                xycal.d = d;
                 // update display
-                this._populateHead(y, m);
-                this._populateDays(y, m, d);
+                xycal._populateHead(y, m);
+                xycal._populateDays(y, m, d);
                 // scroll to selected
-                this.el.find('.ui-xycal-selected').scrollHere(300);
-                evented = this.el.find('.ui-xycal-evented').length > 0;
+                xycal.el.find('.ui-xycal-selected').scrollHere(300);
+                evented = xycal.el.find('.ui-xycal-evented').length > 0;
                 // Initialize Events for the selected date
-                this._initTodayEvents(this.getSelected());
+                xycal._initTodayEvents(xycal.getSelected());
 
                 // invoke callbacks
-                this.settings.callback.onChangeDay.call(this, this.getSelected(), evented);
-                if (cm !== this.m) { this.settings.callback.onChangeMonth.call(this, this.getSelected()); }
-                if (cy !== this.y) { this.settings.callback.onChangeYear.call(this, this.getSelected()); }
+                xycal.settings.callback.onChangeDay.call(xycal, xycal.getSelected(), evented);
+                if (cm !== xycal.m) { xycal.settings.callback.onChangeMonth.call(xycal, xycal.getSelected()); }
+                if (cy !== xycal.y) { xycal.settings.callback.onChangeYear.call(xycal, xycal.getSelected()); }
 
-                return this.getSelected();
+                return xycal.getSelected();
 
             },
             /**
              * Navigate to Today's date
              */
             today: function() {
-                var year = this.today.getFullYear(),
-                    month = this.today.getMonth();
+                var xycal = this, year = xycal.today.getFullYear(),
+                    month = xycal.today.getMonth();
 
                 // Initialize Header
-                this._populateHead(year, month);
+                xycal._populateHead(year, month);
 
                 // Initialize Date
-                this._populateDays(year, month);
+                xycal._populateDays(year, month);
 
                 // Initialize Today's Events
-                this._initTodayEvents();
+                xycal._initTodayEvents();
+            },
+            /**
+             * Reload data
+             */
+            reload: function() {
+                var xycal = this,
+                    y = xycal.y, m = xycal.m, d = xycal.d;
+
+                // Initialize Events
+                xycal._initDayEvents();
+
+                // Initialize Header
+                xycal._populateHead(y, m);
+
+                // Initialize Date
+                xycal._populateDays(y, m, d);
+
+                // Initialize Events
+                xycal._initDOMEvents();
             },
             /** Private Methods (at least they should be) **/
 
@@ -200,33 +226,34 @@
                 this.tbody = this.el.find('tbody');
 
                 var // Init Local Vars
-                    year = this.today.getFullYear(),
-                    month = this.today.getMonth();
+                    xycal = this,
+                    year = xycal.today.getFullYear(),
+                    month = xycal.today.getMonth();
 
                 // set current year and month
-                this.m = month;
-                this.y = year;
+                xycal.m = month;
+                xycal.y = year;
 
                 // Set widget class
-                this.el.addClass('ui-xycal');
+                xycal.el.addClass('ui-xycal');
 
                 // Initialize Events
-                this._initDayEvents();
+                xycal._initDayEvents();
 
                 // Initialize Header
-                this._populateHead(year, month);
+                xycal._populateHead(year, month);
 
                 // Initialize Date
-                this._populateDays(year, month);
+                xycal._populateDays(year, month);
 
                 // Initialize Events
-                this._initDOMEvents();
+                xycal._initDOMEvents();
 
                 // Initialize Today's Events
-                this._initTodayEvents();
+                xycal._initTodayEvents();
 
                 // Invoke onLoaded callback
-                this.settings.callback.onLoaded.call(this);
+                xycal.settings.callback.onLoaded.call(xycal);
             },
             /**
              * Populate the title of the calendar of the specified month and year
@@ -235,25 +262,25 @@
              * @param y the numeric value of year
              */
             _populateHead: function(y, m) {
-                var calTitle, daysHead = '', days = [], i,
-                    monthNames = this.messages.months,
-                    dayNames = this.messages.days,
-                    month = monthNames[m !== undefined ? m : this.today.getMonth()],
-                    year = y !== undefined ? y : this.today.getFullYear(),
-                    start = this.settings.weekstart,
+                var xycal = this, calTitle, daysHead = '', days = [], i,
+                    monthNames = xycal.messages.months,
+                    dayNames = xycal.messages.days,
+                    month = monthNames[m !== undefined ? m : xycal.today.getMonth()],
+                    year = y !== undefined ? y : xycal.today.getFullYear(),
+                    start = xycal.settings.weekstart,
                     // Local Templates
                     _calTitle = [
                         '<tr>',
                             '<th class="ui-xycal-shift"><span class="left"></span></th>',
-                            '<th colspan="5" class="ui-xycal-title">#{title}</th>',
+                            '<th colspan="5" class="ui-xycal-title"><%=title%></th>',
                             '<th class="ui-xycal-shift"><span class="right"></span></th>',
                         '</tr>'
                     ].join(''),
-                    _dayHead = '<th>#{d}</th>',
-                    _daysHead = '<tr>#{days}</tr>';
+                    _dayHead = '<th><%=d%></th>',
+                    _daysHead = '<tr><%=days%></tr>';
 
                 calTitle = $.tmpl(_calTitle, {
-                    title: $.tmpl(this.messages.calTitle, {m: month, y: year})
+                    title: $.tmpl(xycal.messages.calTitle, {m: month, y: year})
                 });
 
                 // shift days
@@ -265,53 +292,53 @@
                 daysHead = $.tmpl(_daysHead, {days: daysHead});
 
                 // clear head on screen first
-                this.thead.empty();
-                this.thead.append(calTitle);
-                this.thead.append(daysHead);
+                xycal.thead.empty();
+                xycal.thead.append(calTitle);
+                xycal.thead.append(daysHead);
             },
             /**
              * Populate the days of the month and year
              */
             _populateDays: function(y, m, d) {
-                var dCount = 0, i, ld, today, evented,
-                    year = y !== undefined ? y : this.today.getFullYear(),
-                    month = m !== undefined ? m : this.today.getMonth(),
-                    lMonth = this._getLastMonth(month),
-                    days = this._getDaysOfMonth(month, year),
+                var xycal = this, dCount = 0, i, ld, today, evented,
+                    year = y !== undefined ? y : xycal.today.getFullYear(),
+                    month = m !== undefined ? m : xycal.today.getMonth(),
+                    lMonth = xycal._getLastMonth(month),
+                    days = xycal._getDaysOfMonth(month, year),
                     daysRow = '', weekRow = '', clazz = [],
-                    mark = this.settings.eventMark,
+                    mark = xycal.settings.eventMark,
 
                     // total left padding days (last month)
-                    fDay = this._getFirstDayOfMonth(month, year),
+                    fDay = xycal._getFirstDayOfMonth(month, year),
                     // total right padding days (next month)
                     lDay = 7 - (days - fDay) % 7,
                     // total days of last month
-                    lastDays = this._getDaysOfMonth(lMonth, year),
+                    lastDays = xycal._getDaysOfMonth(lMonth, year),
 
                     // Local Templates
-                    _weekRow = '<tr>#{days}</tr>',
-                    _dayCell = '<td class="#{clazz}">#{d}</td>',
-                    _eventMark = '<span>#{mark}</span>';
+                    _weekRow = '<tr><%=days%></tr>',
+                    _dayCell = '<td class="<%=clazz%>"><%=d%></td>',
+                    _eventMark = '<span><%=mark%></span>';
 
                 // populate last months padding
                 for (i = 1; i <= fDay; i++) {
                     // break if fDay is sunday
                     if (fDay > 6) { break; }
                     clazz = []; ld = lastDays - (fDay - i);
-                    evented = this._dayEvented(year, lMonth, (ld - 1));
+                    evented = xycal._dayEvented(year, lMonth, (ld - 1));
 
                     clazz.push('ui-xycal-others');
                     if (evented) { clazz.push('ui-xycal-evented'); }
 
-                    daysRow += $.tmpl(_dayCell, {d: ld, clazz: this._getClazz(clazz)});
+                    daysRow += $.tmpl(_dayCell, {d: ld, clazz: xycal._getClazz(clazz)});
                     dCount++;
                 }
 
                 // populate this month
                 for (i = 1; i <= days; i++) {
                     clazz = [];
-                    today = this._dayToday(year, month, i);
-                    evented = this._dayEvented(year, month, i);
+                    today = xycal._dayToday(year, month, i);
+                    evented = xycal._dayEvented(year, month, i);
 
                     // wrap days up into a week, reset days and day counter
                     if (dCount === 7) {
@@ -332,26 +359,26 @@
                 for (i = 1; i <= lDay; i++) {
                     clazz = [];
                     if (dCount < 7) {
-                        evented = this._dayEvented(year, lMonth, i);
+                        evented = xycal._dayEvented(year, lMonth, i);
                         clazz.push('ui-xycal-others');
                         if (evented) { clazz.push('ui-xycal-evented'); }
-                        daysRow += $.tmpl(_dayCell, {d: i, clazz: this._getClazz(clazz)});
+                        daysRow += $.tmpl(_dayCell, {d: i, clazz: xycal._getClazz(clazz)});
                         dCount++;
                     } else { break; }
                 }
 
                 if (dCount != 7) {
                     for (i = 1; i <= 7 - dCount; i++) {
-                        daysRow += $.tmpl(_dayCell, {d: (lDay + i), clazz: this._getClazz(clazz)});
+                        daysRow += $.tmpl(_dayCell, {d: (lDay + i), clazz: xycal._getClazz(clazz)});
                     }
                 }
 
                 weekRow += $.tmpl(_weekRow, {days: daysRow});
 
                 // clear days on screen first
-                this.tbody.empty();
-                this.tbody.append(weekRow);
-                this.tbody.find('.ui-xycal-evented')
+                xycal.tbody.empty();
+                xycal.tbody.append(weekRow);
+                xycal.tbody.find('.ui-xycal-evented')
                     .append($.tmpl(_eventMark, {mark: mark}));
             },
             /**
@@ -437,7 +464,7 @@
                 var parse, prepare, xycal = this,
                     settings = xycal.settings,
                     events = settings.events,
-                    eventList = xycal.el.find('ul');
+                    eventList = xycal.el.find('ul:not(.ui-xycal-evlist)');
 
                 xycal.events = [];
                 parse = function(ds) {
@@ -504,13 +531,15 @@
              * @param evts the events of the selected day
              */
             _loadEventListView: function(evts) {
-                var xycal = this, settings = xycal.settings, eul = xycal.el.find('ul'),
-                    ul = settings.ul, li = settings.li, div = settings.div;
+                var xycal = this, settings = xycal.settings,
+                    eul = xycal.el.find('ul.ui-xycal-evlist'),
+                    ul = $(settings.ul).addClass('ui-xycal-evlist'),
+                    li = settings.li, div = settings.div;
 
                 if (eul.length > 0) { eul.replaceWith(ul); }
                 else { xycal.el.append(ul); }
 
-                ul = xycal.el.find('ul');
+                ul = xycal.el.find('ul.ui-xycal-evlist');
                 ul.hide();
                 $.each(evts, function(i, e) {
                     var content;
@@ -557,9 +586,9 @@
              * @return the total days of the month
              */
             _getDaysOfMonth: function(m, y) {
-                var year = y !== undefined ? y : this.today.getFullYear(),
-                    month = m !== undefined ? m : this.today.getMonth(),
-                    totalDays = this.settings.totalDays,
+                var xycal = this, year = y !== undefined ? y : this.today.getFullYear(),
+                    month = m !== undefined ? m : xycal.today.getMonth(),
+                    totalDays = xycal.settings.totalDays,
                     days = m === 1 && ((year % 4 === 0 && year % 100 !== 0) || year % 400 === 0) ?
                         29 : totalDays[month];
                 return days;
@@ -572,9 +601,9 @@
             * @return the numeric value of the first day
             */
             _getFirstDayOfMonth: function(m, y) {
-                var month = m !== undefined ? m : this.today.getMonth(),
+                var xycal = this, month = m !== undefined ? m : xycal.today.getMonth(),
                     year = y !== undefined ? y : this.today.getFullYear(),
-                    start = this.settings.weekstart;
+                    start = xycal.settings.weekstart;
 
                 return new Date(year, month, 1).getDay() - start;
             },
@@ -585,7 +614,7 @@
              * @return the last numeric value of month
              */
             _getLastMonth: function(m) {
-                var month = m !== undefined ? m : this.today.getMonth();
+                var xycal = this, month = m !== undefined ? m : xycal.today.getMonth();
                 return (month - 1) < 0 ? 11 : (month - 1);
             },
             /**
@@ -595,7 +624,7 @@
              * @return the next numeric value of month
              */
             _getNextMonth: function(m) {
-                var month = m !== undefined ? m : this.today.getMonth();
+                var xycal = this, month = m !== undefined ? m : xycal.today.getMonth();
                 return (month + 1) > 11 ? 0 : (month + 1);
             },
             /**
@@ -607,9 +636,9 @@
              * @return true - the date is today; false - not today
              */
             _dayToday: function(y, m, d) {
-                var d = new Date(y, m, d);
+                var xycal = this, d = new Date(y, m, d);
 
-                return this._compareDate(d, this.today);
+                return xycal._compareDate(d, xycal.today);
             },
             /**
              * Check if the date has any events

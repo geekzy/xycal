@@ -4,10 +4,10 @@ XY.Base = {};
 XY.Base.App = function() {
     /** Private Zone **/
     var // Function names
-        appInit, loadScript, pageInit, mobileInit,
+        appInit, loadScript, pageInit, mobileInit, notty, showLoading, hideLoading,
         // Variables
         // Templates
-        moduleJSTpl = 'js/app/#{name}.js';
+        moduleJSTpl = 'js/app/<%=name%>.js';
 
     /** Implementations **/
 
@@ -59,6 +59,23 @@ XY.Base.App = function() {
     };
 
     /**
+     * Display notification message
+     * @param msg the message of the notification
+     * @param style the style of the notification (alert, info, error)
+     * @scope public
+     */
+    notty = function(msg, style) {
+        $.notty({
+            style: style || 'info',
+            content: $($.tmpl('<p><%=msg%></p>', {msg: msg}))
+                .outerHTML().join(''),
+            timeout: 3000,
+            showTime: false,
+            nohide: true
+        });
+    };
+
+    /**
      * Global application initialization this only executed once
      * @scope public
      */
@@ -67,7 +84,7 @@ XY.Base.App = function() {
         // Load stylesheets and scripts
         loadScript();
 
-    };
+    };    
 
     /**
      * jQuery Mobile Initialization such as redefine defaults
@@ -81,7 +98,7 @@ XY.Base.App = function() {
         // Use slide transition by default
         $.mobile.defaultPageTransition = "slide";
         $.mobile.defaultDialogTransition = "pop";
-    };
+    };       
 
     /**
      * Function to load current page initialization scripts defined in data-initjs attribute
@@ -117,12 +134,23 @@ XY.Base.App = function() {
         // development mode
         else if (script) { execute(); }
     };
-
+    
+    showLoading = function() {
+        $.mobile.showPageLoadingMsg();
+    };
+    
+    hideLoading = function() {
+        $.mobile.hidePageLoadingMsg();
+    };
+    
     return {
         /** Public Zone **/
+        notty: notty,
         appInit: appInit,
         pageInit: pageInit,
-        mobileInit: mobileInit
+        mobileInit: mobileInit,
+        showLoading: showLoading,
+        hideLoading: hideLoading
     };
 }();
 XY.Base.App.appInit();

@@ -66,8 +66,9 @@
   background: #1980E5;
   vertical-align: middle;
   color: #fff;
-  -webkit-box-shadow: rgba(36, 64, 101, 0.5) 0 0 3px 3px inset;
   -moz-box-shadow: rgba(36, 64, 101, 0.5) 0 0 3px 3px inset;
+  -webkit-box-shadow: rgba(36, 64, 101, 0.5) 0 0 3px 3px inset;
+  -o-box-shadow: rgba(36, 64, 101, 0.5) 0 0 3px 3px inset;
   box-shadow: rgba(36, 64, 101, 0.5) 0 0 3px 3px inset;
 }
 /* line 75, sass/jquery.xycal.scss */

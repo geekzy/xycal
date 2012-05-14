@@ -1,0 +1,34 @@
+<!doctype html>
+
+<html>
+<head>
+    <title>Base App</title>
+    <script src="js/App.js" type="text/javascript" charset="utf-8"></script>
+    <script type="text/javascript">
+
+        jQuery(document).bind("mobileinit", XY.Base.App.mobileInit);
+        jQuery(document).bind("pagechange", XY.Base.App.pageInit);
+
+    </script>
+    <script src="js/jquery/jquery.mobile-1.1.0.min.js" type="text/javascript" charset="utf-8"></script>
+</head>
+
+<body>
+    <script type="text/html" id="xycal_tmpl">
+        <ul style="display: none;">
+        <% for (var i = 0; i < events.length; i++) { %>
+            <% var e = events[i]; %>
+            <li data='<%=e%>'></li>
+        <% } %>
+        </ul>
+    </script>
+    <div id="main" data-role="page" data-initjs="XY.Base.Template.pageInit">
+        <div data-role="header" data-position="inline">
+            <h1>Templating</h1>            
+        </div>
+        <div data-role="content">
+            <div id="xycal-demo"></div>
+        </div>
+    </div>
+</body>
+</html>

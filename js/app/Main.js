@@ -14,7 +14,7 @@ XY.Base.Main = function() {
     pageInit = function() {
         $('#xycal-demo').xycal({
             ul: '<ul data-role="listview" data-inset="true" data-dividertheme="a"></ul>',
-            li: '<li><%=date%> - <%=desc%></li>',
+            li: '<li>#{date} - #{desc}</li>',
             callback: {
                 onLoaded: function() { XY.Base.App.notty('The XYCal is Loaded.'); },
                 onChangeDay: function(selected, evented) {

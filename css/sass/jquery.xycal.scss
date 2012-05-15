@@ -1,6 +1,8 @@
 @import "compass";
 @import "compass/css3";
 
+$border: 1px solid #A3A7AF;
+
 $w-320: 280px;
 $h-320: $w-320 / 7;
 
@@ -10,12 +12,19 @@ $h-320: $w-320 / 7;
     border-collapse: collapse;
     width: $w-320;
 
+    table {
+        @include box-shadow(
+            rgba(#244065, 0.5) 5px 15px 20px -5px
+        );
+    }
+
     th {
         font-family: "Trebuchet MS", Serif;
         font-weight: bold;
         font-size: 70%;
         width: 14%;
         color: #aaa;
+        border: $border;
 
         &.ui-xycal-title {
             font-size: 100%;
@@ -30,7 +39,7 @@ $h-320: $w-320 / 7;
             span {
                 display: inline-block;
                 width: 18px;
-                height: 18px;         
+                height: 18px;
                 margin-top: 0.2 * $w-320 * 0.1;
             }
             span.left {
@@ -42,21 +51,20 @@ $h-320: $w-320 / 7;
         }
     }
 
-    td {
+    tbody td {
         @extend th;
         height: $h-320;
         background: #D3D2D7;
         color: #3F4E5E;
         text-align: center;
-        border: 1px solid #A3A7AF;
         cursor: pointer;
         font-size: 85%;
 
         span {
-            
+
             display: inline-block;
             float: left;
-            width: 100%;            
+            width: 100%;
             padding-top: 0.01 * $h-320;
             margin-top: -1 * 0.3 * $h-320;
             margin-bottom: -1 * 0.4 * $h-320;
@@ -81,6 +89,21 @@ $h-320: $w-320 / 7;
             color: #aaa;
         }
     }
+
+    thead tr {
+        th {
+            border: none;
+            &:first-child  {
+                border-left: $border;
+            }
+            &:last-child  {
+                border-right: $border;
+            }
+        }
+        &:first-child th {
+            border-top: $border;
+        }
+    }
 }
 
 $w-480: 440px;
@@ -100,10 +123,10 @@ $h-480: $w-480 / 7;
                 color: #333;
             }
         }
-        td {
+        tbody td {
             font-size: 120%;
             height: $h-480;
-            span {                
+            span {
                 padding-top: 0.01 * $h-480;
                 margin-top: -1 * 0.2 * $h-480;
                 margin-bottom: -1 * 0.4 * $h-480;
@@ -140,7 +163,7 @@ $h-768: $w-768 / 7;
                 }
             }
         }
-        td {
+        tbody td {
             font-size: 150%;
             height: $h-768;
             span {
@@ -170,7 +193,7 @@ $h-1024: $w-1024 * 0.14;
                 color: #333;
             }
         }
-        td {
+        tbody td {
             font-size: 200%;
             height: $h-1024;
             span {

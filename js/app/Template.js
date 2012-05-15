@@ -3,13 +3,15 @@ XY.Base.Template = function() {
     var // Function names
         pageInit, parseEvents, loadEventsCal, refresh,
         // Variables
-        xycalOpt;
+        xycalOpt,
         // Templates
+        data_ul = '<ul style="display:none;">#{li}</ul>',
+        data_li = "<li data='#{data}'></li>";
 
     /** Implementations **/
     xycalOpt = {
         ul: '<ul data-role="listview" data-inset="true" data-dividertheme="a"></ul>',
-        li: '<li><%=date%> - <%=desc%></li>',
+        li: '<li>#{date} - #{desc}</li>',
         callback: {
             onLoaded: function() { XY.Base.App.notty('The XYCal is Loaded.'); },
             onChangeDay: function(selected, evented) {
@@ -26,12 +28,12 @@ XY.Base.Template = function() {
             }
         }
     };
-    
+
     /**
      * Parse jsonp response from server
      * @scope private
      */
-    parseEvents = function(data) {        
+    parseEvents = function(data) {
         var events = [];
         $.each(data.events, function() {
             var evlist = this.evlist;
@@ -53,23 +55,23 @@ XY.Base.Template = function() {
         });
         return events;
     };
-    
+
     /**
      * Get the latest data from server
      * @scope private
      */
     loadEventsCal = function() {
         var el = $('#xycal-demo'), xycal = el.xycal(xycalOpt);
-                
+
         $.jsonp('http://edumobile.geekzy.net/eduConnect/events_p.php', 'proc_events', function(data) {
-            var list, events = [];
+            var li = '', events = [];
             if (data.success) {
                 events = parseEvents(data);
-                list = $.tmpl('xycal_tmpl', {events: events});                
-                el.append(list).xycal('reload');
+                $.each(events, function() { li += $.tmpl(data_li, {data: this.toString()}); });
+                el.append($.tmpl(data_ul, {li: li})).xycal('reload');
             }
         }, {}, {beforeSend: XY.Base.App.showLoading, complete: XY.Base.App.hideLoading});
-    };       
+    };
 
     /**
      * Function to initialize Main.index page
@@ -79,7 +81,7 @@ XY.Base.Template = function() {
         loadEventsCal();
         console.log('Initialized - Template');
     };
-    
+
     /**
      * Function to reload calendar events data
      * @scope public
@@ -87,7 +89,7 @@ XY.Base.Template = function() {
     refresh = function() {
         loadEventsCal();
     };
-    
+
     return {
         /** Public Zone **/
         id: 'template',

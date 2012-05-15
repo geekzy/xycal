@@ -7,7 +7,7 @@ XY.Base.App = function() {
         appInit, loadScript, pageInit, mobileInit, notty, showLoading, hideLoading,
         // Variables
         // Templates
-        moduleJSTpl = 'js/app/<%=name%>.js';
+        moduleJSTpl = 'js/app/#{name}.js';
 
     /** Implementations **/
 
@@ -67,7 +67,7 @@ XY.Base.App = function() {
     notty = function(msg, style) {
         $.notty({
             style: style || 'info',
-            content: $($.tmpl('<p><%=msg%></p>', {msg: msg}))
+            content: $($.tmpl('<p>#{msg}</p>', {msg: msg}))
                 .outerHTML().join(''),
             timeout: 3000,
             showTime: false,
@@ -90,11 +90,9 @@ XY.Base.App = function() {
      * jQuery Mobile Initialization such as redefine defaults
      * @scope public
      */
-    mobileInit = function() {
-        // Rhodes custom option!
-        // how long to wait transition end before "loading.." message will be shown
-        $.mobile.loadingMessageDelay = 300; // in ms
-
+    mobileInit = function() {        
+        $.mobile.fixedtoolbar.prototype.options.initSelector = "[data-role=header]";
+        
         // Use slide transition by default
         $.mobile.defaultPageTransition = "slide";
         $.mobile.defaultDialogTransition = "pop";
@@ -118,10 +116,10 @@ XY.Base.App = function() {
         script = page.attr('data-initjs');
         module = script && script.count('.') > 2 ?
             $.tmpl(moduleJSTpl, {name: script.split('.')[2]}) : false;
-        
-        page.find('[data-role=header]').toggleClass('ui-bar-a', false).addClass('ui-bar-b').attr('data-theme', 'b');
-        page.find('[data-role=header]').find('a').toggleClass('ui-btn-up-a', false).addClass('ui-btn-up-e').attr('data-theme', 'e');
-        
+                
+        page.find('[data-role=header]').switchClass('ui-bar-a', 'ui-bar-b').attr('data-theme', 'b');
+        page.find('[data-role=header]').find('a').switchClass('ui-btn-up-a', 'ui-btn-up-e').attr('data-theme', 'e');
+        page.find('[data-role=header]').fixedtoolbar({tapToggle: false});
         
         // production mode
         if (script && mode === 'PROD') {

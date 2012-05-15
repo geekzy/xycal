@@ -14,17 +14,9 @@
 </head>
 
 <body>
-    <script type="text/html" id="xycal_tmpl">
-        <ul style="display: none;">
-        <% for (var i = 0; i < events.length; i++) { %>
-            <% var e = events[i]; %>
-            <li data='<%=e%>'></li>
-        <% } %>
-        </ul>
-    </script>
     <div id="main" data-role="page" data-initjs="XY.Base.Template.pageInit">
         <div data-role="header" data-position="inline">
-            <h1>Templating</h1>            
+            <h1>Templating</h1>
         </div>
         <div data-role="content">
             <div id="xycal-demo"></div>

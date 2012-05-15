@@ -10,9 +10,9 @@
         /** Plugins / Utility */
         {"path": "js/util/xydate.min.js"},
         {"path": "js/util/tmpl.js"},
-        {"path": "js/jquery/jquery.xycommon.min.js"},
+        {"path": "js/jquery/jquery.xycommon.js"},
         {"path": "js/jquery/jquery.notty.min.js"},
-        {"path": "js/jquery/jquery.xycal.min.js"},
+        {"path": "js/jquery/jquery.xycal.js"},
 
         /** Modules - Remove or Comment these on PROD mode */
         {"path": "js/app/Main.js"},

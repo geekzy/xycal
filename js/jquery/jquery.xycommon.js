@@ -1,7 +1,7 @@
 /*
  * jQuery Commonly Usage Plugins Collection
  *
- * jquery.xycommon.js v2.0
+ * jquery.xycommon.js v2.1
  *
  * Copyright (c) 2009 XYBASE, <imam@xybase.com><geekzy@gmail.com>
  *
@@ -26,8 +26,24 @@
             return o;
         },
         // public interface: $.tmpl
+        tmpl : function(tmpl, vals, rgxp) {
+            // default to doing no harm
+            tmpl = tmpl   || '';
+            vals = vals || {};
+
+            // regular expression for matching our placeholders; e.g., #{my-cLaSs_name77}
+            rgxp = rgxp || /#\{([^{}]*)\}/g;
+
+            // function to making replacements
+            var repr = function (str, match) {
+                return typeof vals[match] === 'string' || typeof vals[match] === 'number' ? vals[match] : '';
+            };
+
+            return tmpl.replace(rgxp, repr);
+        },
+        // public interface: $.template
         // John Resig - http://ejohn.org/ - MIT Licensed
-        tmpl : function tmpl(str, data){
+        template : function(str, data){
             // Figure out if we're getting a template, or if we need to
             // load the template - and be sure to cache the result.
             var fn = !/\W/.test(str) ?

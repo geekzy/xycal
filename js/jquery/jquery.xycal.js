@@ -1,7 +1,7 @@
 /**
  * XYBASE Simple Calendar/Event Layout Component
  *
- * jquery.xycal.js v1.0.4
+ * jquery.xycal.js v1.0.5
  *
  * Developer: Imam Kurniawan <geekzy@gmail.com><imam@xybase.com>
  * Copyright (c) 2012 XYBASE <http://www.xybase.com>
@@ -42,6 +42,7 @@
  *              Add public methods to get/set the selected date and navigate to today's date.
  * - [14/05/12] Fix DOM Event bug when switching to other screen, replace .live with .click and reinitialize after change month
  *              Add reload functionality, Use new templating engine, rewrite all templates into new format
+ * - [15/05/12] Revert templates, to use the old templating engine.
  */
 (function ($) {
     $.fn.xycal = function(options, params) {
@@ -80,6 +81,7 @@
         }
         if (el.find('thead').length === 0) {el.append('<thead/>');}
         if (el.find('tbody').length === 0) {el.append('<tbody/>');}
+        if (el.find('tfoot').length === 0) {el.append('<tfoot/>');}
         xycal._init();
     };
 
@@ -93,10 +95,10 @@
             eventMark: '.',
             dateFormat: 'dd/MM/yyyy',
             timeFormat: 'HH:mm',
-            format: '<%=df%> <%=tf%>',
+            format: '#{df} #{tf}',
             ul: '<ul data-role="listview" data-inset="true" data-dividertheme="b"></ul>',
-            li: '<li><%=desc%></li>',
-            div: '<li data-role="list-divider"><%=time%> - <%=title%></li>',
+            li: '<li>#{desc}</li>',
+            div: '<li data-role="list-divider">#{time} - #{title}</li>',
             callback: {
                 /**
                  * Callback when the xycal component is loaded, scope of this is the xycal instance
@@ -124,7 +126,7 @@
             days: ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'],
             months: ['January','February','March','April','May','June','July','August','September','October','November','December'],
             noEvents: 'No Events',
-            calTitle: '<%=m%> <%=y%>'
+            calTitle: '#{m} #{y}'
         },
         prototype: {
             /** Public Methods **/
@@ -224,6 +226,7 @@
                 this.today = this.settings.date;
                 this.thead = this.el.find('thead');
                 this.tbody = this.el.find('tbody');
+                this.tfoot = this.el.find('tfoot');
 
                 var // Init Local Vars
                     xycal = this,
@@ -272,12 +275,12 @@
                     _calTitle = [
                         '<tr>',
                             '<th class="ui-xycal-shift"><span class="left"></span></th>',
-                            '<th colspan="5" class="ui-xycal-title"><%=title%></th>',
+                            '<th colspan="5" class="ui-xycal-title">#{title}</th>',
                             '<th class="ui-xycal-shift"><span class="right"></span></th>',
                         '</tr>'
                     ].join(''),
-                    _dayHead = '<th><%=d%></th>',
-                    _daysHead = '<tr><%=days%></tr>';
+                    _dayHead = '<th>#{d}</th>',
+                    _daysHead = '<tr>#{days}</tr>';
 
                 calTitle = $.tmpl(_calTitle, {
                     title: $.tmpl(xycal.messages.calTitle, {m: month, y: year})
@@ -316,9 +319,9 @@
                     lastDays = xycal._getDaysOfMonth(lMonth, year),
 
                     // Local Templates
-                    _weekRow = '<tr><%=days%></tr>',
-                    _dayCell = '<td class="<%=clazz%>"><%=d%></td>',
-                    _eventMark = '<span><%=mark%></span>';
+                    _weekRow = '<tr>#{days}</tr>',
+                    _dayCell = '<td class="#{clazz}">#{d}</td>',
+                    _eventMark = '<span>#{mark}</span>';
 
                 // populate last months padding
                 for (i = 1; i <= fDay; i++) {

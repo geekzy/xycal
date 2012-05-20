@@ -176,10 +176,12 @@
             });
         },
         // public interface $.pluck
-        pluck : function(obj, key) {
+        pluck : function(obj, key, nodup) {
             var plucked = [];
+            nodup = nodup || false;
             $.each(obj, function() {
-                plucked.push(this[key]);
+                var val = this[key], exists = $.inArray(val, plucked) != -1;
+                if (!nodup || (nodup && !exists)) { plucked.push(val); }
             });
             return plucked;
         },

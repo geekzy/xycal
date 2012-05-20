@@ -16,13 +16,14 @@
 
         /** Modules - Remove or Comment these on PROD mode */
         {"path": "js/app/Main.js"},
-        {"path": "js/app/Template.js"}
+        {"path": "js/app/Events.js"}
     ],
 
     /** STYLESHEETS **/
     "css": [
         /** Plugins / Utility */
         {"path": "js/jquery/jquery.mobile-1.1.0.min.css"},
+        {"path": "js/jquery/jqm-icon-pack-1.1.1-original.min.css"},
         {"path": "js/jquery/jquery.notty.css"},
         {"path": "css/jquery.xycal.css"},
 

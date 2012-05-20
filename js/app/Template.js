@@ -67,8 +67,8 @@ XY.Base.Template = function() {
             var li = '', events = [];
             if (data.success) {
                 events = parseEvents(data);
-                $.each(events, function() { li += $.tmpl(data_li, {data: this.toString()}); });
-                el.append($.tmpl(data_ul, {li: li})).xycal('reload');
+                //$.each(events, function() { li += $.tmpl(data_li, {data: this.toString()}); });
+                //el.append($.tmpl(data_ul, {li: li})).xycal('reload');
             }
         }, {}, {beforeSend: XY.Base.App.showLoading, complete: XY.Base.App.hideLoading});
     };

@@ -1,19 +1,21 @@
 /* line 4, sass/app.scss */
 #nottys {
-  top: 10%;
+  position: fixed;
+  top: 90%;
+  left: 7.5%;
 }
-/* line 7, sass/app.scss */
+/* line 9, sass/app.scss */
 #nottys p {
   margin: 3px;
   text-align: center;
   font-size: 110%;
   font-weight: bold;
 }
-/* line 14, sass/app.scss */
+/* line 16, sass/app.scss */
 #nottys .notty {
   padding: 10px;
 }
-/* line 18, sass/app.scss */
+/* line 20, sass/app.scss */
 #nottys .notty.alert {
   background: black;
   background: rgba(0, 0, 0, 0.7);
@@ -22,7 +24,7 @@
   border: 1px solid black;
   border: 1px solid rgba(0, 0, 0, 0.7);
 }
-/* line 27, sass/app.scss */
+/* line 29, sass/app.scss */
 #nottys .notty.error {
   background: #F66;
   background: rgba(255, 102, 102, 0.7);
@@ -31,7 +33,7 @@
   border: 1px solid #FF1A1A;
   border: 1px solid rgba(255, 26, 26, 0.7);
 }
-/* line 36, sass/app.scss */
+/* line 38, sass/app.scss */
 #nottys .notty.info {
   background: #FFEC9A;
   background: rgba(255, 236, 154, 0.7);
@@ -42,19 +44,19 @@
 }
 
 @media only screen and (min-width: 480px) {
-  /* line 50, sass/app.scss */
+  /* line 52, sass/app.scss */
   #nottys p {
     font-size: 120%;
   }
 }
 @media only screen and (min-width: 768px) {
-  /* line 56, sass/app.scss */
+  /* line 58, sass/app.scss */
   #nottys p {
     font-size: 130%;
   }
 }
 @media only screen and (min-width: 1024px) {
-  /* line 62, sass/app.scss */
+  /* line 64, sass/app.scss */
   #nottys p {
     font-size: 150%;
   }

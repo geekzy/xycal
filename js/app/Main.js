@@ -35,6 +35,9 @@ XY.Base.Main = function() {
         $('.nottyme').click(function() {
             XY.Base.App.notty('This is a notification');
         });
+        $('.events').click(function() {
+            $.mobile.changePage('events-cat.html');
+        });
         console.log('Initialized - Main');
     };
 

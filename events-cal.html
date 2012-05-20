@@ -1,0 +1,26 @@
+<div id="events-cal" data-role="page" data-initjs="XY.Base.Events.loadEventsCal">
+    <div data-role="header" data-position="inline">
+        <a href="#" data-icon="back" class="ui-btn-left" data-rel="back">Back</a>
+        <h1>Events</h1>
+    </div>
+    
+    <script type="text/html" id="evcatslist">
+        <ul>            
+            <% for(var i = 0; i < evlist.length; i++) { %>
+            <% 
+                var ev = evlist[i], data = JSON.stringify({
+                    date: ev.evdate,
+                    time: ev.evtime,
+                    loc: ev.evlocation,
+                    title: ev.evtitle,
+                    desc: ev.content.replace(/(<([^>]+)>)/ig, "")
+                });                
+            %>
+            <li data="<%=data%>"></li>
+            <% } %>
+        </ul>
+    </script>
+    <div data-role="content">
+        <div id="xycal-events"></div>
+    </div>
+</div>

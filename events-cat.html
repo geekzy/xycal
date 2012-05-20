@@ -1,0 +1,21 @@
+<div id="events-cats" data-role="page" data-initjs="XY.Base.Events.pageInit">
+    <div data-role="header" data-position="inline">
+        <a href="#" data-icon="back" class="ui-btn-left" data-rel="back">Back</a>
+        <h1>Event Categories</h1>
+    </div>
+
+    <script type="text/html" id="evcatslist">
+        <ul data-role="listview" data-inset="true">
+            <li><a href="#" class="evcat" data-cat="all">All</a></li>
+            <% for(var i = 0; i < catlist.length; i++) { %>
+            <% 
+                var cat = catlist[i], 
+                catname = (cat === "univ" ? "University" : 
+                    cat === "stu" ? "Student" : "Faculty"); 
+            %>
+            <li><a href="#" class="evcat" data-cat="<%=cat%>"><%=catname%></a></li>
+            <% } %>
+        </ul>
+    </script>
+    <div data-role="content"></div>
+</div>

@@ -11,7 +11,18 @@ XY.Base.Events = function() {
     /** Implementations **/
     eventcalOpt = {
         ul: '<ul data-role="listview" data-inset="true" data-dividertheme="a"></ul>',
-        li: '<li>#{date} - #{desc}</li>',
+        li: ['<li data-icon="false">',
+                '<a href="#{action}">',
+                    '<div class="ui-grid-a xy-2-column">',
+                        '<div class="ui-block-a xy-align-center xy-evt-icon">',
+                            '<p>',                                    
+                                '#{time}',
+                            '</p>',
+                        '</div>',
+                        '<div class="ui-block-b"><p>#{title}</p><p>#{loc}</p></div>',
+                    '</div>',
+                '</a>',
+            '</li>'].join(''),
         callback: {
             onLoaded: function() {},
             onChangeDay: function(selected, evented) {},

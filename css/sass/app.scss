@@ -1,9 +1,174 @@
 @import "compass";
 @import "compass/css3";
+@import "swatch-f";
 
+@mixin font-normal($size: 12px) {
+    font-size: $size;
+    font-weight: 500;
+}
+
+@mixin font-bold($size: 12px) {
+    font-size: $size;
+    font-weight: 700;
+}
+
+strong,
+.small-heading {
+    @include font-bold;
+}
+
+/*dialog hack*/
+.ui-dialog {
+    /*remove dialog close button*/
+    .ui-header a:first-child { display: none; }    
+}
+
+/*loading hack*/
+.ui-loader {
+    left: 60%;
+    width: 120px;
+    
+    span {
+        float: left;
+        display: inline-block;
+    }
+    h1 {
+        @extend span;
+        margin-left: 5px;
+    }
+}
+
+/*fix bug: hide icon for data-icon="none" (eg. in collapsible content or listview)*/
+.ui-collapsible-heading .ui-btn-icon-none .ui-btn-inner {
+    padding-left: 16px;
+    padding-right: 16px;
+}
+
+.ui-btn-icon-none .ui-icon {
+    display: none;
+}
+
+/*content styles*/
+small {
+    font-size: 10px;
+}
+
+.ui-li-heading {
+    line-height: 1;
+    margin: 0;
+    padding: 0 0 4px;
+}
+
+.ui-li-desc {
+    margin: 0 0 0.5px;
+}
+
+/*xy content alignment*/
+.xy-align-right {
+    text-align: right;
+}
+
+.xy-align-center {
+    text-align: center;
+
+    .ui-btn-inner {
+        text-align: center;
+    }
+}
+
+.xy-align-left {
+    text-align: left;
+}
+
+.ui-grid-a.xy-2-column {
+    p {
+        font-size: 12px;
+        font-weight: normal;
+    }
+
+    .ui-block-a {
+        width: 25%;
+    }
+
+    .ui-block-b {
+        width: 75%;
+    }
+}
+
+.ui-grid-b.xy-3-column {
+    p {
+        font-size: 12px;
+        font-weight: normal;
+    }
+
+    .ui-block-a {
+        width: 25%;
+    }
+
+    .ui-block-b {
+        width: 50%;
+    }
+
+    .ui-block-c {
+        width: 25%;
+    }
+}
+
+.ui-input-text.xy-textfield {
+    width: 15%;
+    display:inline;
+
+    .label {
+        display:inline;
+    }
+}
+
+/*override jqm patch for form elements*/
+.ui-controlgroup-controls, .ui-select, input.ui-input-text, textarea.ui-input-text, .ui-input-search {
+    margin-left: 0;
+}
+
+input.ui-input-text, textarea.ui-input-text {
+    background-image: none;
+    display: block;
+    font-size: 16px;
+    line-height: 1.4;
+    outline: 0 none;
+    padding: 0.4em;
+    width: 97%;
+}
+
+.ui-select {
+    width: 100%;
+
+    .ui-btn select {
+        cursor: pointer;
+        height: 3em;
+        left: 0;
+        max-height: 100%;
+        min-height: 100%;
+        opacity: 0;
+        top: 0;
+        width: 100%;
+        z-index: 2;
+    }
+}
+
+/* style of events menu */
+.xy-evt-icon {
+    p {
+        img {
+            height: 15px;
+            width: 15px;
+        }
+    }
+}
+
+/** notification **/
+.notty { display: none; }
 #nottys {
     position: fixed;
-    top: 90%;
+    top: 5%;
     left: 7.5%;
 
     p {
@@ -45,6 +210,10 @@
     }
 }
 
+.ui-collapsible-set { margin: -0.9em -15px; }
+.ui-collapsible-content { padding: 15px 0 15px 8px; }
+.ui-content .ui-collapsible-content .ui-listview { margin:-15px 0 -16px -8px; }
+
 @media only screen {
 
     @media (min-width: 480px) {
@@ -65,4 +234,7 @@
         }
     }
 
+    @media (-webkit-min-device-pixel-ratio: 1.5),
+           (min--moz-device-pixel-ratio: 1.5),
+           (min-resolution: 240dpi) {}
 }

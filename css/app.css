@@ -1,21 +1,739 @@
-/* line 4, sass/app.scss */
+/* Custom JQMobile Swatch F */
+/* F
+-----------------------------------------------------------------------------------------------------------*/
+/* line 6, sass/_swatch-f.scss */
+[data-role=header].ui-bar-f {
+  -moz-box-shadow: #333333 0px 2px 5px;
+  -webkit-box-shadow: #333333 0px 2px 5px;
+  -o-box-shadow: #333333 0px 2px 5px;
+  box-shadow: #333333 0px 2px 5px;
+  border: 1px solid #023254;
+  background: #006837;
+  color: white;
+  font-weight: bold;
+  text-shadow: 0 1px 1px #444444;
+  /* Saf4+, Chrome */
+  background-image: -webkit-gradient(linear, left top, left bottom, from(#023254), to(#023f69));
+  /* Chrome 10+, Saf5.1+ */
+  background-image: -webkit-linear-gradient(#023254, #023f69);
+  background-image: linear-gradient(#023254, #023f69);
+}
+
+/* line 20, sass/_swatch-f.scss */
+.ui-bar-f .ui-link-inherit {
+  color: black;
+}
+
+/* line 23, sass/_swatch-f.scss */
+.ui-bar-f .ui-link {
+  color: #7cc4e7;
+  font-weight: bold;
+}
+
+/* line 28, sass/_swatch-f.scss */
+.ui-bar-f .ui-link:hover {
+  color: #2489ce;
+}
+
+/* line 32, sass/_swatch-f.scss */
+.ui-bar-f .ui-link:active {
+  color: #2489ce;
+}
+
+/* line 36, sass/_swatch-f.scss */
+.ui-bar-f .ui-link:visited {
+  color: #2489ce;
+}
+
+/* line 44, sass/_swatch-f.scss */
+.ui-bar-f,
+.ui-bar-f input,
+.ui-bar-f select,
+.ui-bar-f textarea,
+.ui-bar-f button {
+  font-family: Helvetica, Arial, sans-serif;
+}
+
+/* line 48, sass/_swatch-f.scss */
+.ui-body-f,
+.ui-overlay-f {
+  border: 1px solid #023254;
+  color: #002233;
+  text-shadow: 0 1px 0 #333333;
+  background: white;
+  /* Saf4+, Chrome */
+  background-image: -webkit-gradient(linear, left top, left bottom, from(#4075aa), to(#409675));
+  /* Chrome 10+, Saf5.1+ */
+  background-image: -webkit-linear-gradient(#4075aa, #409675);
+  background-image: linear-gradient(#4075aa, #409675);
+  text-shadow: 0 1px 1px #111;
+  font-weight: normal;
+}
+
+/* line 61, sass/_swatch-f.scss */
+.ui-overlay-f {
+  background-image: none;
+  border-width: 0;
+}
+
+/* line 69, sass/_swatch-f.scss */
+.ui-body-f,
+.ui-body-f input,
+.ui-body-f select,
+.ui-body-f textarea,
+.ui-body-f button {
+  font-family: Helvetica, Arial, sans-serif;
+}
+
+/* line 73, sass/_swatch-f.scss */
+.ui-body-f .ui-link-inherit {
+  color: black;
+}
+
+/* line 77, sass/_swatch-f.scss */
+.ui-body-f .ui-link {
+  color: #1c5f8b;
+  font-weight: bold;
+}
+
+/* line 82, sass/_swatch-f.scss */
+.ui-body-f .ui-link:hover {
+  color: #206d9f;
+}
+
+/* line 86, sass/_swatch-f.scss */
+.ui-body-f .ui-link:active {
+  color: #1c5f8b;
+}
+
+/* line 90, sass/_swatch-f.scss */
+.ui-body-f .ui-link:visited {
+  color: #123d5a;
+}
+
+/* line 94, sass/_swatch-f.scss */
+.ui-btn-up-f {
+  border: 1px solid #ededed;
+  background: #ededed;
+  font-weight: bold;
+  color: black;
+  text-shadow: 0 1px 0 #eeeeee;
+  /* Saf4+, Chrome */
+  background-image: -webkit-gradient(linear, left top, left bottom, from(white), to(#d5d5d5));
+  /* Chrome 10+, Saf5.1+ */
+  background-image: -webkit-linear-gradient(white, #d5d5d5);
+  background-image: linear-gradient(#ffffff, #d5d5d5);
+}
+
+/* line 106, sass/_swatch-f.scss */
+.ui-btn-up-f a.ui-link-inherit {
+  color: black;
+}
+
+/* line 110, sass/_swatch-f.scss */
+.ui-btn-hover-f {
+  border: 1px solid white;
+  background: white;
+  font-weight: bold;
+  color: black;
+  text-shadow: 0 1px 0 #eeeeee;
+  /* Saf4+, Chrome */
+  background-image: -webkit-gradient(linear, left top, left bottom, from(white), to(#e5e5e5));
+  /* Chrome 10+, Saf5.1+ */
+  background-image: -webkit-linear-gradient(white, #e5e5e5);
+  background-image: linear-gradient(#ffffff, #e5e5e5);
+}
+
+/* line 122, sass/_swatch-f.scss */
+.ui-btn-hover-f a.ui-link-inherit {
+  color: black;
+}
+
+/* line 125, sass/_swatch-f.scss */
+.ui-btn-down-f {
+  border: 1px solid white;
+  background: white;
+  font-weight: bold;
+  color: black;
+  text-shadow: 0 1px 0 #eeeeee;
+  /* Saf4+, Chrome */
+  background-image: -webkit-gradient(linear, left top, left bottom, from(#e5e5e5), to(white));
+  /* Chrome 10+, Saf5.1+ */
+  background-image: -webkit-linear-gradient(#e5e5e5, white);
+  background-image: linear-gradient(#e5e5e5, #ffffff);
+}
+
+/* line 137, sass/_swatch-f.scss */
+.ui-btn-down-f a.ui-link-inherit {
+  color: black;
+}
+
+/* line 142, sass/_swatch-f.scss */
+.ui-btn-up-f,
+.ui-btn-hover-f,
+.ui-btn-down-f {
+  font-family: Helvetica, Arial, sans-serif;
+  text-decoration: none;
+}
+
+/* Structure */
+/* links within "buttons"
+-----------------------------------------------------------------------------------------------------------*/
+/* line 152, sass/_swatch-f.scss */
+a.ui-link-inherit {
+  text-decoration: none !important;
+}
+
+/* Active class used as the "on" state across all themes
+-----------------------------------------------------------------------------------------------------------*/
+/* line 159, sass/_swatch-f.scss */
+.ui-btn-active {
+  -moz-box-shadow: #444444 0px 1px 1px;
+  -webkit-box-shadow: #444444 0px 1px 1px;
+  -o-box-shadow: #444444 0px 1px 1px;
+  box-shadow: #444444 0px 1px 1px;
+  border: 1px solid #45648c;
+  background: #45648c;
+  font-weight: bold;
+  color: white;
+  cursor: pointer;
+  text-decoration: none;
+  /* Saf4+, Chrome */
+  background-image: -webkit-gradient(linear, left top, left bottom, from(#4b6e9a), to(#3e5a7e));
+  /* Chrome 10+, Saf5.1+ */
+  background-image: -webkit-linear-gradient(#4b6e9a, #3e5a7e);
+  background-image: linear-gradient(#4b6e9a, #3e5a7e);
+  font-family: Helvetica, Arial, sans-serif;
+}
+
+/* line 174, sass/_swatch-f.scss */
+.ui-btn-active a.ui-link-inherit {
+  color: white;
+}
+
+/* button inner top highlight
+-----------------------------------------------------------------------------------------------------------*/
+/* line 182, sass/_swatch-f.scss */
+.ui-btn-inner {
+  border-top: 1px solid #fff;
+  border-color: rgba(255, 255, 255, 0.3);
+}
+
+/* corner rounding classes
+-----------------------------------------------------------------------------------------------------------*/
+/* line 191, sass/_swatch-f.scss */
+.ui-corner-tl {
+  -moz-border-radius-topleft: 0.6em;
+  -webkit-border-top-left-radius: 0.6em;
+  border-top-left-radius: 0.6em;
+}
+
+/* line 196, sass/_swatch-f.scss */
+.ui-corner-tr {
+  -moz-border-radius-topright: 0.6em;
+  -webkit-border-top-right-radius: 0.6em;
+  border-top-right-radius: 0.6em;
+}
+
+/* line 201, sass/_swatch-f.scss */
+.ui-corner-bl {
+  -moz-border-radius-bottomleft: 0.6em;
+  -webkit-border-bottom-left-radius: 0.6em;
+  border-bottom-left-radius: 0.6em;
+}
+
+/* line 206, sass/_swatch-f.scss */
+.ui-corner-br {
+  -moz-border-radius-bottomright: 0.6em;
+  -webkit-border-bottom-right-radius: 0.6em;
+  border-bottom-right-radius: 0.6em;
+}
+
+/* line 211, sass/_swatch-f.scss */
+.ui-corner-top {
+  -moz-border-radius-topleft: 0.6em;
+  -webkit-border-top-left-radius: 0.6em;
+  border-top-left-radius: 0.6em;
+  -moz-border-radius-topright: 0.6em;
+  -webkit-border-top-right-radius: 0.6em;
+  border-top-right-radius: 0.6em;
+}
+
+/* line 219, sass/_swatch-f.scss */
+.ui-corner-bottom {
+  -moz-border-radius-bottomleft: 0.6em;
+  -webkit-border-bottom-left-radius: 0.6em;
+  border-bottom-left-radius: 0.6em;
+  -moz-border-radius-bottomright: 0.6em;
+  -webkit-border-bottom-right-radius: 0.6em;
+  border-bottom-right-radius: 0.6em;
+}
+
+/* line 227, sass/_swatch-f.scss */
+.ui-corner-right {
+  -moz-border-radius-topright: 0.6em;
+  -webkit-border-top-right-radius: 0.6em;
+  border-top-right-radius: 0.6em;
+  -moz-border-radius-bottomright: 0.6em;
+  -webkit-border-bottom-right-radius: 0.6em;
+  border-bottom-right-radius: 0.6em;
+}
+
+/* line 235, sass/_swatch-f.scss */
+.ui-corner-left {
+  -moz-border-radius-topleft: 0.6em;
+  -webkit-border-top-left-radius: 0.6em;
+  border-top-left-radius: 0.6em;
+  -moz-border-radius-bottomleft: 0.6em;
+  -webkit-border-bottom-left-radius: 0.6em;
+  border-bottom-left-radius: 0.6em;
+}
+
+/* line 243, sass/_swatch-f.scss */
+.ui-corner-all {
+  -moz-border-radius: 0.6em;
+  -webkit-border-radius: 0.6em;
+  border-radius: 0.6em;
+}
+
+/* line 248, sass/_swatch-f.scss */
+.ui-corner-none {
+  -moz-border-radius: 0;
+  -webkit-border-radius: 0;
+  border-radius: 0;
+}
+
+/* Form field separator
+-----------------------------------------------------------------------------------------------------------*/
+/* line 256, sass/_swatch-f.scss */
+.ui-br {
+  border-bottom: #828282;
+  border-bottom: rgba(130, 130, 130, 0.3);
+  border-bottom-width: 1px;
+  border-bottom-style: solid;
+}
+
+/* Interaction cues
+-----------------------------------------------------------------------------------------------------------*/
+/* line 265, sass/_swatch-f.scss */
+.ui-disabled {
+  opacity: .3;
+}
+
+/* line 269, sass/_swatch-f.scss */
+.ui-disabled,
+.ui-disabled a {
+  cursor: default !important;
+  pointer-events: none;
+}
+
+/* line 273, sass/_swatch-f.scss */
+.ui-disabled .ui-btn-text {
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(opacity=30)";
+  filter: alpha(opacity=30);
+  zoom: 1;
+}
+
+/* checks,radios */
+/* line 280, sass/_swatch-f.scss */
+.ui-checkbox .ui-icon {
+  -moz-border-radius: 3px;
+  -webkit-border-radius: 3px;
+  border-radius: 3px;
+}
+
+/* line 286, sass/_swatch-f.scss */
+.ui-icon-checkbox-off,
+.ui-icon-radio-off {
+  background-color: transparent;
+}
+
+/* line 290, sass/_swatch-f.scss */
+.ui-checkbox-on .ui-icon,
+.ui-radio-on .ui-icon {
+  background-color: #45648c;
+  /* NOTE: this hex should match the active state color. It's repeated here for cascade */
+}
+
+/* Button corner classes
+-----------------------------------------------------------------------------------------------------------*/
+/* line 298, sass/_swatch-f.scss */
+.ui-btn-corner-tl {
+  -moz-border-radius-topleft: 1em;
+  -webkit-border-top-left-radius: 1em;
+  border-top-left-radius: 1em;
+}
+
+/* line 303, sass/_swatch-f.scss */
+.ui-btn-corner-tr {
+  -moz-border-radius-topright: 1em;
+  -webkit-border-top-right-radius: 1em;
+  border-top-right-radius: 1em;
+}
+
+/* line 308, sass/_swatch-f.scss */
+.ui-btn-corner-bl {
+  -moz-border-radius-bottomleft: 1em;
+  -webkit-border-bottom-left-radius: 1em;
+  border-bottom-left-radius: 1em;
+}
+
+/* line 313, sass/_swatch-f.scss */
+.ui-btn-corner-br {
+  -moz-border-radius-bottomright: 1em;
+  -webkit-border-bottom-right-radius: 1em;
+  border-bottom-right-radius: 1em;
+}
+
+/* line 318, sass/_swatch-f.scss */
+.ui-btn-corner-top {
+  -moz-border-radius-topleft: 1em;
+  -webkit-border-top-left-radius: 1em;
+  border-top-left-radius: 1em;
+  -moz-border-radius-topright: 1em;
+  -webkit-border-top-right-radius: 1em;
+  border-top-right-radius: 1em;
+}
+
+/* line 326, sass/_swatch-f.scss */
+.ui-btn-corner-bottom {
+  -moz-border-radius-bottomleft: 1em;
+  -webkit-border-bottom-left-radius: 1em;
+  border-bottom-left-radius: 1em;
+  -moz-border-radius-bottomright: 1em;
+  -webkit-border-bottom-right-radius: 1em;
+  border-bottom-right-radius: 1em;
+}
+
+/* line 334, sass/_swatch-f.scss */
+.ui-btn-corner-right {
+  -moz-border-radius-topright: 1em;
+  -webkit-border-top-right-radius: 1em;
+  border-top-right-radius: 1em;
+  -moz-border-radius-bottomright: 1em;
+  -webkit-border-bottom-right-radius: 1em;
+  border-bottom-right-radius: 1em;
+}
+
+/* line 342, sass/_swatch-f.scss */
+.ui-btn-corner-left {
+  -moz-border-radius-topleft: 1em;
+  -webkit-border-top-left-radius: 1em;
+  border-top-left-radius: 1em;
+  -moz-border-radius-bottomleft: 1em;
+  -webkit-border-bottom-left-radius: 1em;
+  border-bottom-left-radius: 1em;
+}
+
+/* line 350, sass/_swatch-f.scss */
+.ui-btn-corner-all {
+  -moz-border-radius: 1em;
+  -webkit-border-radius: 1em;
+  border-radius: 1em;
+}
+
+/* radius clip workaround for cleaning up corner trapping */
+/* line 374, sass/_swatch-f.scss */
+.ui-corner-tl,
+.ui-corner-tr,
+.ui-corner-bl,
+.ui-corner-br,
+.ui-corner-top,
+.ui-corner-bottom,
+.ui-corner-right,
+.ui-corner-left,
+.ui-corner-all,
+.ui-btn-corner-tl,
+.ui-btn-corner-tr,
+.ui-btn-corner-bl,
+.ui-btn-corner-br,
+.ui-btn-corner-top,
+.ui-btn-corner-bottom,
+.ui-btn-corner-right,
+.ui-btn-corner-left,
+.ui-btn-corner-all {
+  -webkit-background-clip: padding-box;
+  -moz-background-clip: padding;
+  background-clip: padding-box;
+}
+
+/* Overlay / modal
+-----------------------------------------------------------------------------------------------------------*/
+/* line 383, sass/_swatch-f.scss */
+.ui-overlay {
+  background: #666;
+  opacity: .5;
+  filter: Alpha(Opacity=50);
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+
+/* line 391, sass/_swatch-f.scss */
+.ui-overlay-shadow {
+  -moz-box-shadow: rgba(0, 0, 0, 0.6) 0px 0px 12px;
+  -webkit-box-shadow: rgba(0, 0, 0, 0.6) 0px 0px 12px;
+  -o-box-shadow: rgba(0, 0, 0, 0.6) 0px 0px 12px;
+  box-shadow: rgba(0, 0, 0, 0.6) 0px 0px 12px;
+}
+
+/* line 394, sass/_swatch-f.scss */
+.ui-shadow {
+  -moz-box-shadow: rgba(0, 0, 0, 0.3) 0px 1px 4px;
+  -webkit-box-shadow: rgba(0, 0, 0, 0.3) 0px 1px 4px;
+  -o-box-shadow: rgba(0, 0, 0, 0.3) 0px 1px 4px;
+  box-shadow: rgba(0, 0, 0, 0.3) 0px 1px 4px;
+}
+
+/* line 399, sass/_swatch-f.scss */
+.ui-bar-a .ui-shadow,
+.ui-bar-b .ui-shadow,
+.ui-bar-c .ui-shadow {
+  -moz-box-shadow: rgba(255, 255, 255, 0.3) 0px 1px 0px;
+  -webkit-box-shadow: rgba(255, 255, 255, 0.3) 0px 1px 0px;
+  -o-box-shadow: rgba(255, 255, 255, 0.3) 0px 1px 0px;
+  box-shadow: rgba(255, 255, 255, 0.3) 0px 1px 0px;
+}
+
+/* line 402, sass/_swatch-f.scss */
+.ui-shadow-inset {
+  -moz-box-shadow: rgba(0, 0, 0, 0.2) 0px 1px 4px inset;
+  -webkit-box-shadow: rgba(0, 0, 0, 0.2) 0px 1px 4px inset;
+  -o-box-shadow: rgba(0, 0, 0, 0.2) 0px 1px 4px inset;
+  box-shadow: rgba(0, 0, 0, 0.2) 0px 1px 4px inset;
+}
+
+/* line 405, sass/_swatch-f.scss */
+.ui-icon-shadow {
+  -moz-box-shadow: rgba(255, 255, 255, 0.4) 0px 1px 0px;
+  -webkit-box-shadow: rgba(255, 255, 255, 0.4) 0px 1px 0px;
+  -o-box-shadow: rgba(255, 255, 255, 0.4) 0px 1px 0px;
+  box-shadow: rgba(255, 255, 255, 0.4) 0px 1px 0px;
+}
+
+/* Focus state - set here for specificity (note: these classes are added by JavaScript)
+-----------------------------------------------------------------------------------------------------------*/
+/* line 412, sass/_swatch-f.scss */
+.ui-btn:focus {
+  outline: 0;
+}
+
+/* line 417, sass/_swatch-f.scss */
+.ui-focus,
+.ui-btn:focus {
+  -moz-box-shadow: #45648c 0px 0px 12px;
+  -webkit-box-shadow: #45648c 0px 0px 12px;
+  -o-box-shadow: #45648c 0px 0px 12px;
+  box-shadow: #45648c 0px 0px 12px;
+}
+
+/* unset box shadow in browsers that don't do it right
+-----------------------------------------------------------------------------------------------------------*/
+/* line 424, sass/_swatch-f.scss */
+.ui-mobile-nosupport-boxshadow * {
+  -moz-box-shadow: none !important;
+  -webkit-box-shadow: none !important;
+  box-shadow: none !important;
+}
+
+/* ...and bring back focus */
+/* line 432, sass/_swatch-f.scss */
+.ui-mobile-nosupport-boxshadow .ui-focus,
+.ui-mobile-nosupport-boxshadow .ui-btn:focus {
+  outline-width: 1px;
+  outline-style: dotted;
+}
+
+/* line 16, sass/app.scss */
+strong,
+.small-heading {
+  font-size: 12px;
+  font-weight: 700;
+}
+
+/*dialog hack*/
+/* line 21, sass/app.scss */
+.ui-dialog {
+  /*remove dialog close button*/
+}
+/* line 23, sass/app.scss */
+.ui-dialog .ui-header a:first-child {
+  display: none;
+}
+
+/*loading hack*/
+/* line 27, sass/app.scss */
+.ui-loader {
+  left: 60%;
+  width: 120px;
+}
+/* line 31, sass/app.scss */
+.ui-loader span, .ui-loader h1 {
+  float: left;
+  display: inline-block;
+}
+/* line 35, sass/app.scss */
+.ui-loader h1 {
+  margin-left: 5px;
+}
+
+/*fix bug: hide icon for data-icon="none" (eg. in collapsible content or listview)*/
+/* line 42, sass/app.scss */
+.ui-collapsible-heading .ui-btn-icon-none .ui-btn-inner {
+  padding-left: 16px;
+  padding-right: 16px;
+}
+
+/* line 47, sass/app.scss */
+.ui-btn-icon-none .ui-icon {
+  display: none;
+}
+
+/*content styles*/
+/* line 52, sass/app.scss */
+small {
+  font-size: 10px;
+}
+
+/* line 56, sass/app.scss */
+.ui-li-heading {
+  line-height: 1;
+  margin: 0;
+  padding: 0 0 4px;
+}
+
+/* line 62, sass/app.scss */
+.ui-li-desc {
+  margin: 0 0 0.5px;
+}
+
+/*xy content alignment*/
+/* line 67, sass/app.scss */
+.xy-align-right {
+  text-align: right;
+}
+
+/* line 71, sass/app.scss */
+.xy-align-center {
+  text-align: center;
+}
+/* line 74, sass/app.scss */
+.xy-align-center .ui-btn-inner {
+  text-align: center;
+}
+
+/* line 79, sass/app.scss */
+.xy-align-left {
+  text-align: left;
+}
+
+/* line 84, sass/app.scss */
+.ui-grid-a.xy-2-column p {
+  font-size: 12px;
+  font-weight: normal;
+}
+/* line 89, sass/app.scss */
+.ui-grid-a.xy-2-column .ui-block-a {
+  width: 25%;
+}
+/* line 93, sass/app.scss */
+.ui-grid-a.xy-2-column .ui-block-b {
+  width: 75%;
+}
+
+/* line 99, sass/app.scss */
+.ui-grid-b.xy-3-column p {
+  font-size: 12px;
+  font-weight: normal;
+}
+/* line 104, sass/app.scss */
+.ui-grid-b.xy-3-column .ui-block-a {
+  width: 25%;
+}
+/* line 108, sass/app.scss */
+.ui-grid-b.xy-3-column .ui-block-b {
+  width: 50%;
+}
+/* line 112, sass/app.scss */
+.ui-grid-b.xy-3-column .ui-block-c {
+  width: 25%;
+}
+
+/* line 117, sass/app.scss */
+.ui-input-text.xy-textfield {
+  width: 15%;
+  display: inline;
+}
+/* line 121, sass/app.scss */
+.ui-input-text.xy-textfield .label {
+  display: inline;
+}
+
+/*override jqm patch for form elements*/
+/* line 127, sass/app.scss */
+.ui-controlgroup-controls, .ui-select, input.ui-input-text, textarea.ui-input-text, .ui-input-search {
+  margin-left: 0;
+}
+
+/* line 131, sass/app.scss */
+input.ui-input-text, textarea.ui-input-text {
+  background-image: none;
+  display: block;
+  font-size: 16px;
+  line-height: 1.4;
+  outline: 0 none;
+  padding: 0.4em;
+  width: 97%;
+}
+
+/* line 141, sass/app.scss */
+.ui-select {
+  width: 100%;
+}
+/* line 144, sass/app.scss */
+.ui-select .ui-btn select {
+  cursor: pointer;
+  height: 3em;
+  left: 0;
+  max-height: 100%;
+  min-height: 100%;
+  opacity: 0;
+  top: 0;
+  width: 100%;
+  z-index: 2;
+}
+
+/* style of events menu */
+/* line 160, sass/app.scss */
+.xy-evt-icon p img {
+  height: 15px;
+  width: 15px;
+}
+
+/** notification **/
+/* line 168, sass/app.scss */
+.notty {
+  display: none;
+}
+
+/* line 169, sass/app.scss */
 #nottys {
   position: fixed;
-  top: 90%;
+  top: 5%;
   left: 7.5%;
 }
-/* line 9, sass/app.scss */
+/* line 174, sass/app.scss */
 #nottys p {
   margin: 3px;
   text-align: center;
   font-size: 110%;
   font-weight: bold;
 }
-/* line 16, sass/app.scss */
+/* line 181, sass/app.scss */
 #nottys .notty {
   padding: 10px;
 }
-/* line 20, sass/app.scss */
+/* line 185, sass/app.scss */
 #nottys .notty.alert {
   background: black;
   background: rgba(0, 0, 0, 0.7);
@@ -24,7 +742,7 @@
   border: 1px solid black;
   border: 1px solid rgba(0, 0, 0, 0.7);
 }
-/* line 29, sass/app.scss */
+/* line 194, sass/app.scss */
 #nottys .notty.error {
   background: #F66;
   background: rgba(255, 102, 102, 0.7);
@@ -33,7 +751,7 @@
   border: 1px solid #FF1A1A;
   border: 1px solid rgba(255, 26, 26, 0.7);
 }
-/* line 38, sass/app.scss */
+/* line 203, sass/app.scss */
 #nottys .notty.info {
   background: #FFEC9A;
   background: rgba(255, 236, 154, 0.7);
@@ -43,20 +761,35 @@
   border: 1px solid rgba(255, 207, 0, 0.7);
 }
 
+/* line 213, sass/app.scss */
+.ui-collapsible-set {
+  margin: -0.9em -15px;
+}
+
+/* line 214, sass/app.scss */
+.ui-collapsible-content {
+  padding: 15px 0 15px 8px;
+}
+
+/* line 215, sass/app.scss */
+.ui-content .ui-collapsible-content .ui-listview {
+  margin: -15px 0 -16px -8px;
+}
+
 @media only screen and (min-width: 480px) {
-  /* line 52, sass/app.scss */
+  /* line 221, sass/app.scss */
   #nottys p {
     font-size: 120%;
   }
 }
 @media only screen and (min-width: 768px) {
-  /* line 58, sass/app.scss */
+  /* line 227, sass/app.scss */
   #nottys p {
     font-size: 130%;
   }
 }
 @media only screen and (min-width: 1024px) {
-  /* line 64, sass/app.scss */
+  /* line 233, sass/app.scss */
   #nottys p {
     font-size: 150%;
   }

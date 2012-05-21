@@ -22,7 +22,7 @@
     /** STYLESHEETS **/
     "css": [
         /** Plugins / Utility */
-        {"path": "js/jquery/jquery.mobile-1.1.0.min.css"},
+        {"path": "js/jquery/jquery.mobile-1.0.1.min.css"},
         {"path": "js/jquery/jqm-icon-pack-1.1.1-original.min.css"},
         {"path": "js/jquery/jquery.notty.css"},
         {"path": "css/jquery.xycal.css"},

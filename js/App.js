@@ -91,7 +91,9 @@ XY.Base.App = function() {
      * @scope public
      */
     mobileInit = function() {        
-        $.mobile.fixedtoolbar.prototype.options.initSelector = "[data-role=header]";
+        $.mobile.page.prototype.options.theme = "f";
+        $.mobile.page.prototype.options.headerTheme = "f";
+        //$.mobile.fixedtoolbar.prototype.options.initSelector = "[data-role=header]";
         
         // Use slide transition by default
         $.mobile.defaultPageTransition = "slide";
@@ -116,10 +118,12 @@ XY.Base.App = function() {
         script = page.attr('data-initjs');
         module = script && script.count('.') > 2 ?
             $.tmpl(moduleJSTpl, {name: script.split('.')[2]}) : false;
-                
-        page.find('[data-role=header]').switchClass('ui-bar-a', 'ui-bar-b').attr('data-theme', 'b');
-        page.find('[data-role=header]').find('a').switchClass('ui-btn-up-a', 'ui-btn-up-e').attr('data-theme', 'e');
-        page.find('[data-role=header]').fixedtoolbar({tapToggle: false});
+
+        $('.ui-collapsible-content:last ul li:last-child').addClass('ui-corner-bottom');
+        $('.ui-btn.submit').switchClass('ui-btn-up-d', 'ui-btn-up-b').attr('data-theme', 'b');
+        $('[data-role=dialog]').removeClass('ui-overlay-a')
+            .find('[data-role=content]').switchClass('ui-body-f', 'ui-body-b');
+        $('.ui-loader').switchClass('ui-body-a', 'ui-body-e');
         
         // production mode
         if (script && mode === 'PROD') {
@@ -131,6 +135,8 @@ XY.Base.App = function() {
         }
         // development mode
         else if (script) { execute(); }
+        
+        console.log('XXX');
     };
     
     showLoading = function() {

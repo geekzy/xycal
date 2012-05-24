@@ -1,9 +1,28 @@
 @import "compass";
 @import "compass/css3";
 
+/** all borders **/
 $border: 1px solid #A3A7AF;
-$head-color: #023254;
 
+/** header background color [title & days title] **/
+$head-bgcolor: #023254;
+
+/** normal day base background color **/
+$day-bgcolor: #999;
+
+/** today background color **/
+$today-bgcolor: #1980E5;
+
+/** selected day background color **/
+$selected-bgcolor: #7188A8;
+
+/** default shadow color for selected day and today **/
+$shadow-color: #244065;
+
+/** default shadow color for xycal box **/
+$xycal-shadow: #244065;
+
+/** dimension for min-width 320px **/
 $w-320: 280px;
 $h-320: $w-320 / 7;
 
@@ -15,7 +34,7 @@ $h-320: $w-320 / 7;
 
     table {
         @include box-shadow(
-            rgba(#244065, 0.5) 5px 15px 20px -5px
+            rgba($xycal-shadow, 0.5) 5px 15px 20px -5px
         );
     }
 
@@ -50,16 +69,22 @@ $h-320: $w-320 / 7;
     }
 
     tbody td {
-        @extend th;
+        @extend th;        
+        @include contrasted($day-bgcolor);
+        @include background-image(
+            linear-gradient(
+                $day-bgcolor, 
+                darken($day-bgcolor, 5%) 40%, 
+                darken($day-bgcolor, 10%) 60%, 
+                $day-bgcolor
+            )
+        );
         height: $h-320;
-        @include background-image(linear-gradient(#999, #bbb 40%, #aaa 60%, #999));
-        color: #3F4E5E;
         text-align: center;
         cursor: pointer;
         font-size: 85%;
 
         span {
-
             display: inline-block;
             float: left;
             width: 100%;
@@ -69,27 +94,28 @@ $h-320: $w-320 / 7;
             font-size: 120%;
         }
 
-        &.ui-xycal-today {
-            background: #1980E5;
-            vertical-align: middle;
-            color: #fff;
+        &.ui-xycal-today {            
+            @include contrasted($today-bgcolor, #ddd);            
+            background-image: none;
             @include box-shadow(
-                rgba(#244065, 0.5) 0 0 3px 3px inset
+                rgba($shadow-color, 0.5) 0 0 3px 3px inset
             );
+            vertical-align: middle;
         }
 
         &:active, &.ui-xycal-selected {
             @extend .ui-xycal-today;
-            background: #7188A8;
+            @include contrasted($selected-bgcolor, #ddd);
+            background-image: none;
         }
 
         &.ui-xycal-others {
-            color: #aaa;
+            color: darken($day-bgcolor, 30%);
         }
     }
 
-    thead tr {        
-        @include contrasted($head-color);
+    thead tr {
+        @include contrasted($head-bgcolor);
         th {
             border: none;
             &:first-child  {
@@ -105,8 +131,10 @@ $h-320: $w-320 / 7;
     }
 }
 
+/** dimension for min-width 480px **/
 $w-480: 440px;
 $h-480: $w-480 / 7;
+
 @media only screen and (min-width: 480px) {
     .ui-xycal {
         width: $w-480;
@@ -135,8 +163,10 @@ $h-480: $w-480 / 7;
     }
 }
 
+/** dimension for min-width 768px **/
 $w-768: 728px;
 $h-768: $w-768 / 7;
+
 @media only screen and (min-width: 768px) {
     .ui-xycal {
         width: $w-768;
@@ -175,8 +205,10 @@ $h-768: $w-768 / 7;
     }
 }
 
+/** dimension for min-width 1024px **/
 $w-1024: 984px;
 $h-1024: $w-1024 * 0.14;
+
 @media only screen and (min-width: 1024px) {
     .ui-xycal {
         width: $w-1024;

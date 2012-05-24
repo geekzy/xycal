@@ -1,6 +1,6 @@
 XYBASE Simple Calendar/Event Layout Component
 
-jquery.xycal.js v1.0.3
+jquery.xycal.js v1.0.4
 
 Developer: Imam Kurniawan <geekzy@gmail.com><imam@xybase.com>
 Copyright (c) 2012 XYBASE <http://www.xybase.com>
@@ -40,3 +40,4 @@ Changes:
 - [11/05/12] Add options for callback such as when xycal is loaded, date selected, month change & year change
              Add public methods to get/set the selected date and navigate to today's date.
 - [14/05/12] Fix DOM Event bug when switching to other screen, replace .live with .click and reinitialize after change month
+- [24/05/12] Fix Style for EduConnect

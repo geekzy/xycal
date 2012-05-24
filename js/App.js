@@ -135,8 +135,6 @@ XY.Base.App = function() {
         }
         // development mode
         else if (script) { execute(); }
-        
-        console.log('XXX');
     };
     
     showLoading = function() {

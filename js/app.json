@@ -10,7 +10,7 @@
         /** Plugins / Utility */
         {"path": "js/util/xydate.min.js"},
         {"path": "js/util/tmpl.js"},
-        {"path": "js/jquery/jquery.xycommon.js"},
+        {"path": "js/jquery/jquery.xycommon.min.js"},
         {"path": "js/jquery/jquery.notty.min.js"},
         {"path": "js/jquery/jquery.xycal.js"},
 
@@ -24,7 +24,7 @@
         /** Plugins / Utility */
         {"path": "js/jquery/jquery.mobile-1.0.1.min.css"},
         {"path": "js/jquery/jqm-icon-pack-1.1.1-original.min.css"},
-        {"path": "js/jquery/jquery.notty.css"},
+        {"path": "js/jquery/jquery.notty.min.css"},
         {"path": "css/jquery.xycal.css"},
 
         /** spesific style - put this last to enable overriding */

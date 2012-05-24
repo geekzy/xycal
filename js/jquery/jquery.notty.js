@@ -18,10 +18,13 @@
             img: undefined,
             showTime: true,
             click: function() {
-                var el = $(this);
-                el.removeClass("pop").addClass("remove").delay(300).queue(function(){
-                    $(this).clearQueue();
-                    $(this).remove();
+                var $el = $(this);
+                $el.removeClass("pop").addClass("remove").delay(300).queue(function() {
+                    var p = $el.parents('#nottys');
+                    $el.clearQueue();
+                    $el.remove();
+                    // remove container
+                    if (p.find('div').length == 0) { p.remove(); }
                 });
             },
             nohide: false
@@ -39,9 +42,13 @@
         }
         hide = $("<div>", {
             click: function() {
-                $(this).parent().removeClass("pop").addClass("remove").delay(300).queue(function() {
-                    $(this).clearQueue();
-                    $(this).remove()
+                var $el = $(this).parent();
+                $el.removeClass("pop").addClass("remove").delay(300).queue(function() {
+                    var p = $el.parents('#nottys');
+                    $el.clearQueue();
+                    $el.remove();
+                    // remove container
+                    if (p.find('div').length == 0) { p.remove(); }
                 })
             }
         });
@@ -132,8 +139,11 @@
         if (settings.timeout){
             setTimeout(function(){
                 notty.removeClass("pop").addClass("remove").delay(300).queue(function(){
-                    $(this).clearQueue();
-                    $(this).remove();
+                    var p = notty.parents('#nottys');
+                    notty.clearQueue();
+                    notty.remove();
+                    // remove container
+                    if (p.find('div').length == 0) { p.remove(); }
                 })
             },settings.timeout)
         }

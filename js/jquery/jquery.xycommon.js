@@ -48,7 +48,7 @@
             // load the template - and be sure to cache the result.
             var fn = !/\W/.test(str) ?
                     $.cache[str] = $.cache[str] ||
-                    tmpl(document.getElementById(str).innerHTML) :
+                    $.template(document.getElementById(str).innerHTML) :
 
                     // Generate a reusable function that will serve as a template
                     // generator (and which will be cached).
@@ -61,11 +61,11 @@
                         // Convert the template into pure JavaScript
                         str
                             .replace(/[\r\t\n]/g, " ")
-                            .split("<%").join("\t")
-                            .replace(/((^|%>)[^\t]*)'/g, "$1\r")
-                            .replace(/\t=(.*?)%>/g, "',$1,'")
+                            .split("<#").join("\t")
+                            .replace(/((^|#>)[^\t]*)'/g, "$1\r")
+                            .replace(/\t=(.*?)#>/g, "',$1,'")
                             .split("\t").join("');")
-                            .split("%>").join("p.push('")
+                            .split("#>").join("p.push('")
                             .split("\r").join("\\'")
                             + "');}return p.join('').trim();");
 
@@ -288,6 +288,13 @@
             $('html, body').animate({
                 scrollTop: elm.offset().top
             }, delay || 500);
+        },
+        /**
+         * Do jQuery Mobile silentscroll to the first element in selector
+         */
+        silentScroll: function() {
+            var elm = $(this[0]);
+            $.mobile.silentScroll(elm.offset().top)
         },
         /**
          * Disbale elements

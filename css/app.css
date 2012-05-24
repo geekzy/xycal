@@ -3,9 +3,8 @@
 -----------------------------------------------------------------------------------------------------------*/
 /* line 6, sass/_swatch-f.scss */
 [data-role=header].ui-bar-f {
-  -moz-box-shadow: #333333 0px 2px 5px;
   -webkit-box-shadow: #333333 0px 2px 5px;
-  -o-box-shadow: #333333 0px 2px 5px;
+  -moz-box-shadow: #333333 0px 2px 5px;
   box-shadow: #333333 0px 2px 5px;
   border: 1px solid #023254;
   background: #006837;
@@ -188,9 +187,8 @@ a.ui-link-inherit {
 -----------------------------------------------------------------------------------------------------------*/
 /* line 159, sass/_swatch-f.scss */
 .ui-btn-active {
-  -moz-box-shadow: #444444 0px 1px 1px;
   -webkit-box-shadow: #444444 0px 1px 1px;
-  -o-box-shadow: #444444 0px 1px 1px;
+  -moz-box-shadow: #444444 0px 1px 1px;
   box-shadow: #444444 0px 1px 1px;
   border: 1px solid #45648c;
   background: #45648c;
@@ -471,17 +469,15 @@ a.ui-link-inherit {
 
 /* line 391, sass/_swatch-f.scss */
 .ui-overlay-shadow {
-  -moz-box-shadow: rgba(0, 0, 0, 0.6) 0px 0px 12px;
   -webkit-box-shadow: rgba(0, 0, 0, 0.6) 0px 0px 12px;
-  -o-box-shadow: rgba(0, 0, 0, 0.6) 0px 0px 12px;
+  -moz-box-shadow: rgba(0, 0, 0, 0.6) 0px 0px 12px;
   box-shadow: rgba(0, 0, 0, 0.6) 0px 0px 12px;
 }
 
 /* line 394, sass/_swatch-f.scss */
 .ui-shadow {
-  -moz-box-shadow: rgba(0, 0, 0, 0.3) 0px 1px 4px;
   -webkit-box-shadow: rgba(0, 0, 0, 0.3) 0px 1px 4px;
-  -o-box-shadow: rgba(0, 0, 0, 0.3) 0px 1px 4px;
+  -moz-box-shadow: rgba(0, 0, 0, 0.3) 0px 1px 4px;
   box-shadow: rgba(0, 0, 0, 0.3) 0px 1px 4px;
 }
 
@@ -489,25 +485,22 @@ a.ui-link-inherit {
 .ui-bar-a .ui-shadow,
 .ui-bar-b .ui-shadow,
 .ui-bar-c .ui-shadow {
-  -moz-box-shadow: rgba(255, 255, 255, 0.3) 0px 1px 0px;
   -webkit-box-shadow: rgba(255, 255, 255, 0.3) 0px 1px 0px;
-  -o-box-shadow: rgba(255, 255, 255, 0.3) 0px 1px 0px;
+  -moz-box-shadow: rgba(255, 255, 255, 0.3) 0px 1px 0px;
   box-shadow: rgba(255, 255, 255, 0.3) 0px 1px 0px;
 }
 
 /* line 402, sass/_swatch-f.scss */
 .ui-shadow-inset {
-  -moz-box-shadow: rgba(0, 0, 0, 0.2) 0px 1px 4px inset;
   -webkit-box-shadow: rgba(0, 0, 0, 0.2) 0px 1px 4px inset;
-  -o-box-shadow: rgba(0, 0, 0, 0.2) 0px 1px 4px inset;
+  -moz-box-shadow: rgba(0, 0, 0, 0.2) 0px 1px 4px inset;
   box-shadow: rgba(0, 0, 0, 0.2) 0px 1px 4px inset;
 }
 
 /* line 405, sass/_swatch-f.scss */
 .ui-icon-shadow {
-  -moz-box-shadow: rgba(255, 255, 255, 0.4) 0px 1px 0px;
   -webkit-box-shadow: rgba(255, 255, 255, 0.4) 0px 1px 0px;
-  -o-box-shadow: rgba(255, 255, 255, 0.4) 0px 1px 0px;
+  -moz-box-shadow: rgba(255, 255, 255, 0.4) 0px 1px 0px;
   box-shadow: rgba(255, 255, 255, 0.4) 0px 1px 0px;
 }
 
@@ -521,9 +514,8 @@ a.ui-link-inherit {
 /* line 417, sass/_swatch-f.scss */
 .ui-focus,
 .ui-btn:focus {
-  -moz-box-shadow: #45648c 0px 0px 12px;
   -webkit-box-shadow: #45648c 0px 0px 12px;
-  -o-box-shadow: #45648c 0px 0px 12px;
+  -moz-box-shadow: #45648c 0px 0px 12px;
   box-shadow: #45648c 0px 0px 12px;
 }
 
@@ -776,20 +768,41 @@ input.ui-input-text, textarea.ui-input-text {
   margin: -15px 0 -16px -8px;
 }
 
+/* line 217, sass/app.scss */
+#test {
+  cursor: pointer;
+  margin: 10px auto;
+  width: 300px;
+  height: 300px;
+  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #999999), color-stop(10%, #bbbbbb), color-stop(90%, #aaaaaa), color-stop(100%, #999999));
+  background-image: -webkit-linear-gradient(#999999, #bbbbbb 10%, #aaaaaa 90%, #999999);
+  background-image: -moz-linear-gradient(#999999, #bbbbbb 10%, #aaaaaa 90%, #999999);
+  background-image: -o-linear-gradient(#999999, #bbbbbb 10%, #aaaaaa 90%, #999999);
+  background-image: -ms-linear-gradient(#999999, #bbbbbb 10%, #aaaaaa 90%, #999999);
+  background-image: linear-gradient(#999999, #bbbbbb 10%, #aaaaaa 90%, #999999);
+}
+/* line 223, sass/app.scss */
+#test:active {
+  background: #1980E5;
+  -webkit-box-shadow: rgba(36, 64, 101, 0.5) 0 0 3px 3px inset;
+  -moz-box-shadow: rgba(36, 64, 101, 0.5) 0 0 3px 3px inset;
+  box-shadow: rgba(36, 64, 101, 0.5) 0 0 3px 3px inset;
+}
+
 @media only screen and (min-width: 480px) {
-  /* line 221, sass/app.scss */
+  /* line 235, sass/app.scss */
   #nottys p {
     font-size: 120%;
   }
 }
 @media only screen and (min-width: 768px) {
-  /* line 227, sass/app.scss */
+  /* line 241, sass/app.scss */
   #nottys p {
     font-size: 130%;
   }
 }
 @media only screen and (min-width: 1024px) {
-  /* line 233, sass/app.scss */
+  /* line 247, sass/app.scss */
   #nottys p {
     font-size: 150%;
   }

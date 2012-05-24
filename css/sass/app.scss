@@ -214,6 +214,20 @@ input.ui-input-text, textarea.ui-input-text {
 .ui-collapsible-content { padding: 15px 0 15px 8px; }
 .ui-content .ui-collapsible-content .ui-listview { margin:-15px 0 -16px -8px; }
 
+#test {
+    cursor: pointer;
+    margin: 10px auto;
+    width: 300px; height: 300px;
+    @include background-image(linear-gradient(#999, #bbb 10%, #aaa 90%, #999));
+    
+    &:active {
+        background: #1980E5;
+        @include box-shadow(
+            rgba(#244065, 0.5) 0 0 3px 3px inset
+        );
+    }
+}
+
 @media only screen {
 
     @media (min-width: 480px) {

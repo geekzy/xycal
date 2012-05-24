@@ -2,6 +2,7 @@
 @import "compass/css3";
 
 $border: 1px solid #A3A7AF;
+$head-color: #023254;
 
 $w-320: 280px;
 $h-320: $w-320 / 7;
@@ -23,17 +24,14 @@ $h-320: $w-320 / 7;
         font-weight: bold;
         font-size: 70%;
         width: 14%;
-        color: #aaa;
         border: $border;
 
         &.ui-xycal-title {
             font-size: 100%;
-            color: #666;
         }
         &.ui-xycal-shift {
             font-size: 70%;
             font-weight: bolder;
-            color: #333;
             cursor: pointer;
             height: $w-320 * 0.1;
             span {
@@ -43,10 +41,10 @@ $h-320: $w-320 / 7;
                 margin-top: 0.2 * $w-320 * 0.1;
             }
             span.left {
-                background: url(../js/jquery/images/icons-18-black-pack.png) -144px 0 transparent;
+                background: url(../js/jquery/images/icons-18-white-pack.png) -144px 0 transparent;
             }
             span.right {
-                background: url(../js/jquery/images/icons-18-black-pack.png) -108px 0 transparent;
+                background: url(../js/jquery/images/icons-18-white-pack.png) -108px 0 transparent;
             }
         }
     }
@@ -54,7 +52,7 @@ $h-320: $w-320 / 7;
     tbody td {
         @extend th;
         height: $h-320;
-        background: #D3D2D7;
+        @include background-image(linear-gradient(#999, #bbb 40%, #aaa 60%, #999));
         color: #3F4E5E;
         text-align: center;
         cursor: pointer;
@@ -90,7 +88,8 @@ $h-320: $w-320 / 7;
         }
     }
 
-    thead tr {
+    thead tr {        
+        @include contrasted($head-color);
         th {
             border: none;
             &:first-child  {
@@ -156,10 +155,10 @@ $h-768: $w-768 / 7;
                     height: 36px;
                 }
                 span.left {
-                    background: url(../js/jquery/images/icons-36-black-pack.png) -288px -0 transparent;
+                    background: url(../js/jquery/images/icons-36-white-pack.png) -288px -0 transparent;
                 }
                 span.right {
-                    background: url(../js/jquery/images/icons-36-black-pack.png) -216px -0 transparent;
+                    background: url(../js/jquery/images/icons-36-white-pack.png) -216px -0 transparent;
                 }
             }
         }

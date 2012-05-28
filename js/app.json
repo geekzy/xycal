@@ -5,7 +5,7 @@
     /** JAVASCRIPTS **/
     "js": [
         /** jQuery core + patch */
-        {"path": "js/jquery/jquery-1.7.1.min.js"},
+        {"path": "js/jquery/jquery-1.7.2.min.js"},
 
         /** Plugins / Utility */
         {"path": "js/util/xydate.min.js"},

@@ -2,19 +2,22 @@
 @import "compass/css3";
 
 /** all borders **/
-$border: 1px solid #A3A7AF;
+$border: 1px solid #a3a7af;
 
 /** header background color [title & days title] **/
 $head-bgcolor: #023254;
 
 /** normal day base background color **/
-$day-bgcolor: #999;
+$day-bgcolor: #d3d2d7;
+$day-text: #3f4e5e;
 
 /** today background color **/
-$today-bgcolor: #1980E5;
+$today-bgcolor: #1980e5;
+$today-text: #ddd;
 
 /** selected day background color **/
-$selected-bgcolor: #7188A8;
+$selected-bgcolor: #7188a8;
+$selected-text: #ddd;
 
 /** default shadow color for selected day and today **/
 $shadow-color: #244065;
@@ -70,7 +73,8 @@ $h-320: $w-320 / 7;
 
     tbody td {
         @extend th;        
-        @include contrasted($day-bgcolor);
+        @include contrasted($day-bgcolor, $day-text);
+        /* uncomment for gradient background
         @include background-image(
             linear-gradient(
                 $day-bgcolor, 
@@ -78,7 +82,7 @@ $h-320: $w-320 / 7;
                 darken($day-bgcolor, 10%) 60%, 
                 $day-bgcolor
             )
-        );
+        );*/
         height: $h-320;
         text-align: center;
         cursor: pointer;
@@ -95,7 +99,7 @@ $h-320: $w-320 / 7;
         }
 
         &.ui-xycal-today {            
-            @include contrasted($today-bgcolor, #ddd);            
+            @include contrasted($today-bgcolor, $today-text);            
             background-image: none;
             @include box-shadow(
                 rgba($shadow-color, 0.5) 0 0 3px 3px inset
@@ -105,7 +109,7 @@ $h-320: $w-320 / 7;
 
         &:active, &.ui-xycal-selected {
             @extend .ui-xycal-today;
-            @include contrasted($selected-bgcolor, #ddd);
+            @include contrasted($selected-bgcolor, $selected-text);
             background-image: none;
         }
 
@@ -127,6 +131,10 @@ $h-320: $w-320 / 7;
         }
         &:first-child th {
             border-top: $border;
+        }
+        &.ui-xycal-nav th {}
+        &.ui-xycal-days th {
+            padding-bottom: 5px;
         }
     }
 }

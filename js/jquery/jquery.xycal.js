@@ -43,6 +43,7 @@
  * - [14/05/12] Fix DOM Event bug when switching to other screen, replace .live with .click and reinitialize after change month
  *              Add reload functionality, Use new templating engine, rewrite all templates into new format
  * - [15/05/12] Revert templates, to use the old templating engine.
+ * - [29/05/12] Add class to header row to style it easily
  */
 (function ($) {
     $.fn.xycal = function(options, params) {
@@ -273,14 +274,14 @@
                     start = xycal.settings.weekstart,
                     // Local Templates
                     _calTitle = [
-                        '<tr>',
+                        '<tr class="ui-xycal-nav">',
                             '<th class="ui-xycal-shift"><span class="left"></span></th>',
                             '<th colspan="5" class="ui-xycal-title">#{title}</th>',
                             '<th class="ui-xycal-shift"><span class="right"></span></th>',
                         '</tr>'
                     ].join(''),
                     _dayHead = '<th>#{d}</th>',
-                    _daysHead = '<tr>#{days}</tr>';
+                    _daysHead = '<tr class="ui-xycal-days">#{days}</tr>';
 
                 calTitle = $.tmpl(_calTitle, {
                     title: $.tmpl(xycal.messages.calTitle, {m: month, y: year})

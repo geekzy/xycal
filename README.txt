@@ -41,3 +41,6 @@ Changes:
              Add public methods to get/set the selected date and navigate to today's date.
 - [14/05/12] Fix DOM Event bug when switching to other screen, replace .live with .click and reinitialize after change month
 - [24/05/12] Fix Style for EduConnect
+- [11/06/12] Fix calculating first day of the month index day index must be within 0 and 6
+             Fix populating next month, created new function to get next numeric value of month
+             Cleanup code base on jsLint (www.jslint.com)

@@ -26,7 +26,7 @@ XY.Base.Main = function() {
                         '</div>',
                     '</a>',
                 '</li>'].join(''),
-            div: false,
+            div: false,            
             callback: {
                 onLoaded: function() { XY.Base.App.notty('The XYCal is Loaded.'); },
                 onChangeDay: function(selected, evented) {

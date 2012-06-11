@@ -1,7 +1,7 @@
 /**
  * XYBASE Simple Calendar/Event Layout Component
  *
- * jquery.xycal.js v1.0.5
+ * jquery.xycal.js v1.0.6
  *
  * Developer: Imam Kurniawan <geekzy@gmail.com><imam@xybase.com>
  * Copyright (c) 2012 XYBASE <http://www.xybase.com>
@@ -44,21 +44,25 @@
  *              Add reload functionality, Use new templating engine, rewrite all templates into new format
  * - [15/05/12] Revert templates, to use the old templating engine.
  * - [29/05/12] Add class to header row to style it easily
+ * - [11/06/12] Fix calculating first day of the month index day index must be within 0 and 6
+ *              Fix populating next month, created new function to get next numeric value of month
+ *              Cleanup code base on jsLint (www.jslint.com)
  */
 (function ($) {
-    $.fn.xycal = function(options, params) {
-        if (this.length === 0) {return this;}
+    "use strict";
+    $.fn.xycal = function (options, params) {
+        if (this.length === 0) { return this; }
         // has been created before
         var cal = $.data(this[0], 'xycal');
         if (this.length === 1 && cal) {
-            if (typeof(options) === 'string' && cal[options]) {
+            if (typeof (options) === 'string' && cal[options]) {
                 cal[options].call(cal, params);
             }
             return cal;
         }
         // new instance
-        else {
-            return this.each(function() {
+        if (this.length !== 1 || !cal) {
+            return this.each(function () {
                 var el = $(this),
                     xycal = new $.xycal(el, options || {});
 
@@ -69,7 +73,7 @@
     };
 
     // xycal constructor | public interface: $.xycal
-    $.xycal = function(el, opts) {
+    $.xycal = function (el, opts) {
         var xycal = this;
         xycal.el = el;
         xycal.settings = $.extend(true, $.xycal.defaults, opts);
@@ -80,9 +84,9 @@
             el = el.find('table');
             el.css({width: '100%', 'border-collapse': 'collapse'});
         }
-        if (el.find('thead').length === 0) {el.append('<thead/>');}
-        if (el.find('tbody').length === 0) {el.append('<tbody/>');}
-        if (el.find('tfoot').length === 0) {el.append('<tfoot/>');}
+        if (el.find('thead').length === 0) { el.append('<thead/>'); }
+        if (el.find('tbody').length === 0) { el.append('<tbody/>'); }
+        if (el.find('tfoot').length === 0) { el.append('<tfoot/>'); }
         xycal._init();
     };
 
@@ -124,8 +128,9 @@
             }
         },
         messages: {
-            days: ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'],
-            months: ['January','February','March','April','May','June','July','August','September','October','November','December'],
+            days: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
+            months: ['January', 'February', 'March', 'April', 'May', 'June',
+                'July', 'August', 'September', 'October', 'November', 'December'],
             noEvents: 'No Events',
             calTitle: '#{m} #{y}'
         },
@@ -137,8 +142,8 @@
              *
              * @return day object of selected day
              */
-            getSelected: function() {
-                var xycal = this;
+            getSelected: function () {
+                var xycal = this,
                     selected = xycal.el.find('table td.ui-xycal-selected');
 
                 return new Date(xycal.y, xycal.m, selected.length > 0 ? xycal.d : 1);
@@ -149,7 +154,7 @@
              * @param date the Date object of the selected date
              * @return the selected date as Date Object
              */
-            setSelected: function(date) {
+            setSelected: function (date) {
                 if (!date instanceof Date) {
                     throw "Parameter of the selected date must be a Date Object";
                 }
@@ -185,7 +190,7 @@
             /**
              * Navigate to Today's date
              */
-            today: function() {
+            today: function () {
                 var xycal = this, year = xycal.today.getFullYear(),
                     month = xycal.today.getMonth();
 
@@ -201,7 +206,7 @@
             /**
              * Reload data
              */
-            reload: function() {
+            reload: function () {
                 var xycal = this,
                     y = xycal.y, m = xycal.m, d = xycal.d;
 
@@ -222,7 +227,7 @@
             /**
              * Initialize xycal object
              */
-            _init: function() {
+            _init: function () {
                 // Init Instance Vars
                 this.today = this.settings.date;
                 this.thead = this.el.find('thead');
@@ -265,7 +270,7 @@
              * @param m the numeric value of month
              * @param y the numeric value of year
              */
-            _populateHead: function(y, m) {
+            _populateHead: function (y, m) {
                 var xycal = this, calTitle, daysHead = '', days = [], i,
                     monthNames = xycal.messages.months,
                     dayNames = xycal.messages.days,
@@ -288,9 +293,10 @@
                 });
 
                 // shift days
-                for (i = start; i < dayNames.length; i++) { days.push(dayNames[i]); }
-                for (i = 0; i < start; i++) { days.push(dayNames[i]); }
-                $.each(days, function(i, d) {
+                for (i = start; i < dayNames.length; i += 1) { days.push(dayNames[i]); }
+                for (i = 0; i < start; i += 1) { days.push(dayNames[i]); }
+                $.each(days, function () {
+                    var d = this;
                     daysHead += $.tmpl(_dayHead, {d: d});
                 });
                 daysHead = $.tmpl(_daysHead, {days: daysHead});
@@ -303,11 +309,12 @@
             /**
              * Populate the days of the month and year
              */
-            _populateDays: function(y, m, d) {
+            _populateDays: function (y, m, d) {
                 var xycal = this, dCount = 0, i, ld, today, evented,
                     year = y !== undefined ? y : xycal.today.getFullYear(),
                     month = m !== undefined ? m : xycal.today.getMonth(),
                     lMonth = xycal._getLastMonth(month),
+                    nMonth = xycal._getNextMonth(month),
                     days = xycal._getDaysOfMonth(month, year),
                     daysRow = '', weekRow = '', clazz = [],
                     mark = xycal.settings.eventMark,
@@ -325,7 +332,7 @@
                     _eventMark = '<span>#{mark}</span>';
 
                 // populate last months padding
-                for (i = 1; i <= fDay; i++) {
+                for (i = 1; i <= fDay; i += 1) {
                     // break if fDay is sunday
                     if (fDay > 6) { break; }
                     clazz = []; ld = lastDays - (fDay - i);
@@ -335,11 +342,11 @@
                     if (evented) { clazz.push('ui-xycal-evented'); }
 
                     daysRow += $.tmpl(_dayCell, {d: ld, clazz: xycal._getClazz(clazz)});
-                    dCount++;
+                    dCount += 1;
                 }
 
                 // populate this month
-                for (i = 1; i <= days; i++) {
+                for (i = 1; i <= days; i += 1) {
                     clazz = [];
                     today = xycal._dayToday(year, month, i);
                     evented = xycal._dayEvented(year, month, i);
@@ -356,24 +363,24 @@
                     if (d && d === i) { clazz.push('ui-xycal-selected'); }
 
                     daysRow += $.tmpl(_dayCell, {d: i, clazz: this._getClazz(clazz)});
-                    dCount++;
+                    dCount += 1;
                 }
 
                 // populate next months padding
-                for (i = 1; i <= lDay; i++) {
+                for (i = 1; i <= lDay; i += 1) {
                     clazz = [];
                     if (dCount < 7) {
-                        evented = xycal._dayEvented(year, lMonth, i);
+                        evented = xycal._dayEvented(year, nMonth, i);
                         clazz.push('ui-xycal-others');
                         if (evented) { clazz.push('ui-xycal-evented'); }
                         daysRow += $.tmpl(_dayCell, {d: i, clazz: xycal._getClazz(clazz)});
-                        dCount++;
+                        dCount += 1;
                     } else { break; }
                 }
 
-                if (dCount != 7) {
-                    for (i = 1; i <= 7 - dCount; i++) {
-                        daysRow += $.tmpl(_dayCell, {d: (lDay + i), clazz: xycal._getClazz(clazz)});
+                if (dCount !== 7) {
+                    for (i = 1; i <= 7 - dCount; i += 1) {
+                        daysRow += $.tmpl(_dayCell, {d: (lDay + i), clazz: xycal._getClazz(clazz)});                        
                     }
                 }
 
@@ -388,13 +395,12 @@
             /**
              * Initialize DOM Events
              */
-            _initDOMEvents: function() {
-                // TODO implement event handlers and binding for cells and navigation
+            _initDOMEvents: function () {
                 var navMonth, nextMonth, prevMonth, selectDay, populate,
                     mnav = $('.ui-xycal-shift'), xycal = this,
                     day = $('.ui-xycal tbody td:not(.ui-xycal-others)');
 
-                populate = function(y, m, d) {
+                populate = function (y, m, d) {
                     xycal.m = m;
                     xycal.y = y;
                     xycal.d = d;
@@ -402,7 +408,7 @@
                     xycal._populateDays(y, m, d);
                 };
 
-                navMonth = function() {
+                navMonth = function () {
                     var el = $(this), y = xycal.y,
                         rnav = el.is('th') ? el.find('.right').length > 0 : el.is('.ui-xycal-shift .right').length > 0,
                         lnav = el.is('th') ? el.find('.left').length > 0 : el.is('.ui-xycal-shift .left').length > 0;
@@ -419,7 +425,7 @@
                     xycal._initDOMEvents();
                 };
 
-                nextMonth = function() {
+                nextMonth = function () {
                     var m = xycal._getNextMonth(xycal.m),
                         y = m === 0 ? (xycal.y + 1) : xycal.y;
 
@@ -427,7 +433,7 @@
                     populate(y, m);
                 };
 
-                prevMonth = function() {
+                prevMonth = function () {
                     var m = xycal._getLastMonth(xycal.m),
                         y = m === 11 ? (xycal.y - 1) : xycal.y;
 
@@ -435,7 +441,7 @@
                     populate(y, m);
                 };
 
-                selectDay = function() {
+                selectDay = function () {
                     var dCell = $(this), events = [],
                         y = xycal.y, m = xycal.m, d = /\d+/.exec(dCell.text()).join(''),
                         today = dCell.is('.ui-xycal-today'),
@@ -464,26 +470,26 @@
             /**
              * Initialize Day Events
              */
-            _initDayEvents: function() {
+            _initDayEvents: function () {
                 var parse, prepare, xycal = this,
                     settings = xycal.settings,
                     events = settings.events,
                     eventList = xycal.el.find('ul:not(.ui-xycal-evlist)');
 
                 xycal.events = [];
-                parse = function(ds) {
+                parse = function (ds) {
                     var df = settings.dateFormat,
                         tf = settings.timeFormat,
                         dtf = $.tmpl(settings.format, {df: df, tf: tf}),
                         milis = Date.parseDateFormat(ds, dtf);
 
                     if (milis > 0) { return new Date(milis); }
-                    else { throw "Incorrect event date format - default date format is dd/MM/yyyy and time format is HH:mm"; }
+                    if (milis <= 0) { throw "Incorrect event date format - default date format is dd/MM/yyyy and time format is HH:mm"; }
                 };
 
-                prepare = function() {
-                    $.each(events, function(i, evt) {
-                        var d, dt = evt.date || false, tm = evt.time || '00:00';
+                prepare = function () {
+                    $.each(events, function () {
+                        var d, evt = this, dt = evt.date || false, tm = evt.time || '00:00';
                         if (!dt) { throw "Please specify date in event configuration"; }
 
                         d = parse($.tmpl(settings.format, {df: dt, tf: tm}));
@@ -495,7 +501,7 @@
                 if (eventList && eventList.length > 0) {
                     // if it's selector or HTML Element then make it jQuery object
                     if (!eventList instanceof jQuery) { eventList = $(eventList); }
-                    eventList.find('li[data]').each(function() {
+                    eventList.find('li[data]').each(function () {
                         var li = $(this), json = li.attr('data'), data = $.parseJSON(json),
                             strDt = data.date || '',
                             strTm = data.time || '00:00',
@@ -517,7 +523,7 @@
             /**
              * Initialize Events for today
              */
-            _initTodayEvents: function(date) {
+            _initTodayEvents: function (date) {
                 if (date && !date instanceof Date) {
                     throw "Parameter of the selected date must be a Date Object";
                 }
@@ -534,7 +540,7 @@
              * Load events of selected day on a listview below the calendar
              * @param evts the events of the selected day
              */
-            _loadEventListView: function(evts) {
+            _loadEventListView: function (evts) {
                 var xycal = this, settings = xycal.settings,
                     eul = xycal.el.find('ul.ui-xycal-evlist'),
                     ul = $(settings.ul).addClass('ui-xycal-evlist'),
@@ -545,8 +551,8 @@
 
                 ul = xycal.el.find('ul.ui-xycal-evlist');
                 ul.hide();
-                $.each(evts, function(i, e) {
-                    var content;
+                $.each(evts, function () {
+                    var content, e = this;
 
                     // insert divider first if exist
                     if (div) {
@@ -574,10 +580,10 @@
              * @param d the numeric day of the month
              * @return the array of events of the day
              */
-            _getDayEvents: function(y, m, d) {
+            _getDayEvents: function (y, m, d) {
                 var xycal = this, dt = new Date(y, m, d),
-                    evts = $.map(this.events, function(evt) {
-                        var dd = evt._date;;
+                    evts = $.map(this.events, function (evt) {
+                        var dd = evt._date;
                         if (dd && dd instanceof Date
                             && xycal._compareDate(dd, dt)) { return evt; }
                     });
@@ -589,7 +595,7 @@
              * @param m the numeric value of the month
              * @return the total days of the month
              */
-            _getDaysOfMonth: function(m, y) {
+            _getDaysOfMonth: function (m, y) {
                 var xycal = this, year = y !== undefined ? y : this.today.getFullYear(),
                     month = m !== undefined ? m : xycal.today.getMonth(),
                     totalDays = xycal.settings.totalDays,
@@ -604,12 +610,14 @@
             * @param y the numeric value of year
             * @return the numeric value of the first day
             */
-            _getFirstDayOfMonth: function(m, y) {
+            _getFirstDayOfMonth: function (m, y) {
                 var xycal = this, month = m !== undefined ? m : xycal.today.getMonth(),
                     year = y !== undefined ? y : this.today.getFullYear(),
-                    start = xycal.settings.weekstart;
-
-                return new Date(year, month, 1).getDay() - start;
+                    first, start = xycal.settings.weekstart;
+                
+                first = new Date(year, month, 1).getDay() - start;                
+                
+                return first < 0 ? 6 : first > 6 ? 0 : first;
             },
             /**
              * Get the previous numeric value of month of the given param
@@ -617,7 +625,7 @@
              * @param m the numeric of month
              * @return the last numeric value of month
              */
-            _getLastMonth: function(m) {
+            _getLastMonth: function (m) {
                 var xycal = this, month = m !== undefined ? m : xycal.today.getMonth();
                 return (month - 1) < 0 ? 11 : (month - 1);
             },
@@ -627,7 +635,7 @@
              * @param m the numeric of month
              * @return the next numeric value of month
              */
-            _getNextMonth: function(m) {
+            _getNextMonth: function (m) {
                 var xycal = this, month = m !== undefined ? m : xycal.today.getMonth();
                 return (month + 1) > 11 ? 0 : (month + 1);
             },
@@ -639,10 +647,10 @@
              * @param d the numeric day of the month
              * @return true - the date is today; false - not today
              */
-            _dayToday: function(y, m, d) {
-                var xycal = this, d = new Date(y, m, d);
+            _dayToday: function (y, m, d) {
+                var xycal = this, dt = new Date(y, m, d);
 
-                return xycal._compareDate(d, xycal.today);
+                return xycal._compareDate(dt, xycal.today);
             },
             /**
              * Check if the date has any events
@@ -652,11 +660,10 @@
              * @param d the numeric day of the month
              * @return true - the date has event(s); false - no event(s)
              */
-            _dayEvented: function(y, m, d) {
-                // TODO implement this function to check if the date has any events.
+            _dayEvented: function (y, m, d) {
                 var xycal = this, isEvented = false;
-                $.each(this.events, function(i, evt) {
-                    var dt = evt._date, dd = new Date(y, m, d);
+                $.each(this.events, function () {
+                    var evt = this, dt = evt._date, dd = new Date(y, m, d);
 
                     isEvented = xycal._compareDate(dd, dt);
                     return !isEvented;
@@ -669,7 +676,7 @@
              * @param clazz the Array of classes
              * @return the string representation of the classes
              */
-            _getClazz: function(clazz) {
+            _getClazz: function (clazz) {
                 return clazz.length > 0 ? clazz.length > 1 ? clazz.join(' ') : clazz[0] : '';
             },
             /**
@@ -679,7 +686,7 @@
              * @param d2 second date object
              * @return true - Equal; false - Not Equal
              */
-            _compareDate: function(d1, d2) {
+            _compareDate: function (d1, d2) {
                 var d1_y = d1.getFullYear(), d1_m = d1.getMonth(), d1_d = d1.getDate(),
                     d2_y = d2.getFullYear(), d2_m = d2.getMonth(), d2_d = d2.getDate();
 
@@ -687,4 +694,4 @@
             }
         }
     });
-})(jQuery);
+}(jQuery));

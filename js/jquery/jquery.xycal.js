@@ -1,7 +1,7 @@
 /**
  * XYBASE Simple Calendar/Event Layout Component
  *
- * jquery.xycal.js v1.0.6
+ * jquery.xycal.js v1.0.7
  *
  * Developer: Imam Kurniawan <geekzy@gmail.com><imam@xybase.com>
  * Copyright (c) 2012 XYBASE <http://www.xybase.com>
@@ -47,6 +47,7 @@
  * - [11/06/12] Fix calculating first day of the month index day index must be within 0 and 6
  *              Fix populating next month, created new function to get next numeric value of month
  *              Cleanup code base on jsLint (www.jslint.com)
+ * - [14/06/12] Fix bug to preserving default options.
  */
 (function ($) {
     "use strict";
@@ -76,7 +77,7 @@
     $.xycal = function (el, opts) {
         var xycal = this;
         xycal.el = el;
-        xycal.settings = $.extend(true, $.xycal.defaults, opts);
+        xycal.settings = $.extend(true, {}, $.xycal.defaults, opts);
         xycal.messages = $.xycal.messages;
 
         if (!el.is('table')) {
